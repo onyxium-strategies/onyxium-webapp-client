@@ -1,4 +1,6 @@
 import React from 'react';
+import styled from 'react-emotion';
+import { Reboot } from 'material-ui';
 import { blue } from 'material-ui/colors';
 import { createMuiTheme, MuiThemeProvider } from 'material-ui/styles';
 
@@ -15,10 +17,19 @@ const theme = createMuiTheme({
 	}
 });
 
+const AppContainer = styled('div')`
+	min-height: 100vh;
+	display: flex;
+	flex-direction: column;
+`;
+
 const App = () => (
 	<MuiThemeProvider theme={theme}>
-		<AppHeader />
-		<AppBody />
+		<Reboot />
+		<AppContainer>
+			<AppHeader />
+			<AppBody />
+		</AppContainer>
 	</MuiThemeProvider>
 );
 
