@@ -1,5 +1,5 @@
 import React from 'react';
-import { css } from 'emotion';
+import { css } from 'react-emotion';
 import { AppBar, Toolbar, Typography } from 'material-ui';
 
 const rootClassNames = css({ position: 'absolute' });

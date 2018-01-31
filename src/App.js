@@ -8,7 +8,7 @@ import { blue } from 'material-ui/colors';
 import { createGenerateClassName, createMuiTheme, jssPreset, MuiThemeProvider } from 'material-ui/styles';
 
 import Dashboard from './routes/dashboard/Dashboard';
-import CreateWorkflow from './routes/create-workflow/CreateWorkflow';
+import Strategies from './routes/strategies/Strategies';
 
 import AppHeader from './AppHeader';
 import AppSidebar from './AppSidebar';
@@ -41,7 +41,7 @@ const AppMainContainer = styled('div')`
 
 const routes = [
 	{ path: '/dashboard', component: Dashboard, exact: true, label: 'Dashboard', icon: 'dashboard' },
-	{ path: '/create-workflow', component: CreateWorkflow, exact: true, label: 'Create workflow', icon: 'call_split' }
+	{ path: '/strategies', component: Strategies, exact: true, label: 'Strategies', icon: 'call_split' }
 ];
 
 const App = () => (

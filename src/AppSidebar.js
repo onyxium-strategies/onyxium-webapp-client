@@ -1,7 +1,6 @@
 import React from 'react';
-import styled from 'react-emotion';
+import styled, { css } from 'react-emotion';
 import { Link } from 'react-router-dom';
-import { css } from 'emotion';
 import { Divider, Drawer, Icon, List, ListItem, ListItemIcon, ListItemText } from 'material-ui';
 import { withTheme } from 'material-ui/styles';
 
