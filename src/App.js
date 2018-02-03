@@ -7,8 +7,9 @@ import { Reboot } from 'material-ui';
 import { blue } from 'material-ui/colors';
 import { createGenerateClassName, createMuiTheme, jssPreset, MuiThemeProvider } from 'material-ui/styles';
 
-import Dashboard from './routes/dashboard/Dashboard';
-import Strategies from './routes/strategies/Strategies';
+import Dashboard from './containers/dashboard/Dashboard';
+import CreateStrategy from './containers/strategy/CreateStrategy';
+import Strategies from './containers/strategies/Strategies';
 
 import AppHeader from './AppHeader';
 import AppSidebar from './AppSidebar';
@@ -41,7 +42,8 @@ const AppMainContainer = styled('div')`
 
 const routes = [
 	{ path: '/dashboard', component: Dashboard, exact: true, label: 'Dashboard', icon: 'dashboard' },
-	{ path: '/strategies', component: Strategies, exact: true, label: 'Strategies', icon: 'call_split' }
+	{ path: '/strategies', component: Strategies, exact: true, label: 'Strategies', icon: 'call_split' },
+	{ path: '/strategies/create', component: CreateStrategy, exact: true, showInSidebar: false }
 ];
 
 const App = () => (
@@ -51,7 +53,7 @@ const App = () => (
 				<Reboot />
 
 				<AppContainer>
-					<AppSidebar routes={routes} />
+					<AppSidebar routes={routes.filter(route => route.showInSidebar !== false)} />
 
 					<AppMainContainer>
 						<AppHeader />
