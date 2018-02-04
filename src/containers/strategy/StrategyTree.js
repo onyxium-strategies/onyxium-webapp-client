@@ -1,11 +1,22 @@
 import React, { Component } from 'react';
 
+import Tree from '../../components/tree/Tree';
+import TreeDragZoomArea from '../../components/tree/TreeDragZoomArea';
+
+import strategy from '../../test-data/strategy';
+
+import StrategyTreeNode from './StrategyTreeNode';
+
 class StrategyTree extends Component {
+	state = { strategy };
+
     render () {
         return (
-			<div style={{ flex: 1 }}>
-				Strategy tree
-			</div>
+			<TreeDragZoomArea>
+				<Tree>
+					<StrategyTreeNode node={this.state.strategy} />
+				</Tree>
+			</TreeDragZoomArea>
         );
     }
 }
