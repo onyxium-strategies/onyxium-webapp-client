@@ -5,7 +5,7 @@ import TreeDragZoomArea from '../../components/tree/TreeDragZoomArea';
 
 import strategy from '../../test-data/strategy';
 
-import StrategyTreeNode from './StrategyTreeNode';
+import StrategyTreeLevel from './StrategyTreeLevel';
 
 class StrategyTree extends Component {
 	state = { strategy };
@@ -14,7 +14,7 @@ class StrategyTree extends Component {
         return (
 			<TreeDragZoomArea>
 				<Tree>
-					<StrategyTreeNode node={this.state.strategy} />
+					<StrategyTreeLevel isRootLevel nodes={this.state.strategy} />
 				</Tree>
 			</TreeDragZoomArea>
         );
