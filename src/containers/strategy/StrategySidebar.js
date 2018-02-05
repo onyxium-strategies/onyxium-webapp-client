@@ -16,7 +16,7 @@ const drawerClassNames = css({
 class StrategySidebar extends Component {
     render () {
         return (
-			<Drawer anchor="right" classes={{ paper: drawerClassNames }} type="permanent">
+			<Drawer anchor="right" classes={{ paper: drawerClassNames }} variant="permanent">
 				Drawer
 			</Drawer>
         );

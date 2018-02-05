@@ -15,7 +15,7 @@ const drawerClassNames = css({
 const DrawerHeader = withTheme()(styled('div')(({ theme }) => theme.mixins.toolbar));
 
 const AppSidebar = ({ routes }) => (
-	<Drawer classes={{ paper: drawerClassNames }} type="permanent">
+	<Drawer classes={{ paper: drawerClassNames }} variant="permanent">
 		<DrawerHeader />
 
 		<Divider />

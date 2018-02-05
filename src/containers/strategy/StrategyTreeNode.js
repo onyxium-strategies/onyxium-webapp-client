@@ -13,7 +13,7 @@ class StrategyTreeNode extends Component {
 			<TreeNode>
 				<Card onMouseDown={this.handleMouseDown}>
 					<CardContent>
-						<Typography type="headline">Sell 0.003 BTC</Typography>
+						<Typography variant="headline">Sell 0.003 BTC</Typography>
 						<Typography>You Loyal</Typography>
 					</CardContent>
 					<CardActions>

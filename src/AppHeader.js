@@ -7,7 +7,7 @@ const rootClassNames = css({ position: 'absolute' });
 const AppHeader = () => (
 	<AppBar classes={{ root: rootClassNames }}>
 		<Toolbar>
-			<Typography type="title" color="inherit">
+			<Typography variant="title" color="inherit">
 				Coinflow
 			</Typography>
 		</Toolbar>

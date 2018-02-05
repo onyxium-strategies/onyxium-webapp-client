@@ -8,7 +8,7 @@ class Strategies extends Component {
 	render () {
 		return (
 			<AppBody spaceVerticalPadding="10px">
-				<Typography type="headline">Strategies</Typography>
+				<Typography variant="headline">Strategies</Typography>
 
 				<List component="nav">
 					<ListItem button>
@@ -22,7 +22,7 @@ class Strategies extends Component {
 					</ListItem>
 				</List>
 
-				<Button component={Link} to="/strategies/create" fab color="primary" aria-label="add">
+				<Button component={Link} to="/strategies/create" variant="fab" color="primary" aria-label="add">
 					<Icon>add_icon</Icon>
 				</Button>
 			</AppBody>

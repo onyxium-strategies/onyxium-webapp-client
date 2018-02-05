@@ -7,7 +7,7 @@ class Dashboard extends Component {
 	render () {
 		return (
 			<AppBody>
-				<Typography type="headline">Dashboard</Typography>
+				<Typography variant="headline">Dashboard</Typography>
 			</AppBody>
 		);
 	}

@@ -15,7 +15,7 @@ class StrategyTreeRootNode extends Component {
 				<TreeNode>
 					<Card onMouseDown={this.handleMouseDown}>
 						<CardContent>
-							<Typography type="headline">Start</Typography>
+							<Typography variant="headline">Start</Typography>
 						</CardContent>
 						<CardActions>
 							<Button size="small">
