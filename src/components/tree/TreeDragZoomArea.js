@@ -19,6 +19,8 @@ const DragZoomContainer = styled('div')`
 	transform-origin: 0 0;
 `;
 
+const ZOOM_FACTOR = 1.05;
+
 class StrategyTreeDragZoomArea extends Component {
 	outerContainerDomNode = null;
 	dragZoomContainerDomNode = null;
@@ -48,25 +50,27 @@ class StrategyTreeDragZoomArea extends Component {
 	}
 
 	handleMouseMove = event => {
-		if (this.isDragging) {
-			const clientX = event.clientX;
-			const clientY = event.clientY;
+		const clientX = event.clientX;
+		const clientY = event.clientY;
 
-			if (this.lastPositionX !== null && this.lastPositionY !== null) {
-				this.positionX += clientX - this.lastPositionX;
-				this.positionY += clientY - this.lastPositionY;
-				this.setZoomAndPan();
-			}
-
-			this.lastPositionX = clientX;
-			this.lastPositionY = clientY;
+		if (this.isDragging && this.lastPositionX !== null && this.lastPositionY !== null) {
+			this.positionX += clientX - this.lastPositionX;
+			this.positionY += clientY - this.lastPositionY;
+			this.setZoomAndPan();
 		}
+
+		this.lastPositionX = clientX;
+		this.lastPositionY = clientY;
 	};
 
 	handleWheel = event => {
-		var adjustZoom = event.nativeEvent.wheelDelta < 0 ? -0.1 : 0.1;
-		this.zoomFactor = Math.max(Math.min(this.zoomFactor + adjustZoom, 3), 0.2);
+		const adjustZoomClicks = event.nativeEvent.wheelDelta / 40;
+		const adjustZoomFactor = Math.pow(ZOOM_FACTOR, adjustZoomClicks);
+		const updatedZoom = this.zoomFactor * adjustZoomFactor;
+		this.zoomFactor = Math.max(Math.min(updatedZoom, 3), 0.2);
+
 		this.setZoomAndPan();
+		event.preventDefault();
 	};
 
 	outerContainerRef = domNode => this.outerContainerDomNode = domNode;
