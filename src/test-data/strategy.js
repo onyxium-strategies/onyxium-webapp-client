@@ -116,14 +116,25 @@ export default [
 				value: 10
 			}
 		],
-		then: {
-			type: 'order',
-			orderType: 'limit-buy',
-			orderValueType: 'absolute',
-			baseCurrency: 'ETH',
-			quoteCurrency: 'OMG',
-			quantity: 100,
-			value: 0.012
-		}
+		then: [
+			{
+				type: 'order',
+				orderType: 'limit-buy',
+				orderValueType: 'absolute',
+				baseCurrency: 'ETH',
+				quoteCurrency: 'OMG',
+				quantity: 100,
+				value: 0.012
+			},
+			{
+				type: 'order',
+				orderType: 'limit-buy',
+				orderValueType: 'absolute',
+				baseCurrency: 'ETH',
+				quoteCurrency: 'OMG',
+				quantity: 100,
+				value: 0.012
+			}
+		]
 	}
 ];

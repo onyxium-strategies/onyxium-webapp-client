@@ -3,13 +3,11 @@ import { Button, Card, CardActions, CardContent, Typography } from 'material-ui'
 
 import TreeNode from '../../components/tree/TreeNode';
 
-import StrategyTreeLevel from './StrategyTreeLevel';
-
 class StrategyTreeNode extends Component {
 	handleMouseDown = event => event.stopPropagation();
 
-    render () {
-        return (
+	render () {
+		return (
 			<TreeNode>
 				<Card onMouseDown={this.handleMouseDown}>
 					<CardContent>
@@ -22,11 +20,9 @@ class StrategyTreeNode extends Component {
 						</Button>
 					</CardActions>
 				</Card>
-
-				{this.props.node.then && <StrategyTreeLevel nodes={this.props.node.then} path={this.props.path} />}
 			</TreeNode>
-        );
-    }
+		);
+	}
 }
 
 export default StrategyTreeNode;
