@@ -3,7 +3,8 @@ import React, { Component } from 'react';
 import Tree from '../../components/tree/Tree';
 import TreeDragZoomArea from '../../components/tree/TreeDragZoomArea';
 
-import traverseAndImmutablyAddNode from '../../utils/tree-operations/traverseAndImmutablyAddNode';
+import traverseAndAddNode from '../../utils/tree-operations/traverseAndAddNode';
+import traverseAndRemoveNode from '../../utils/tree-operations/traverseAndRemoveNode';
 
 import StrategyTreeLevel from './StrategyTreeLevel';
 
@@ -11,7 +12,11 @@ class StrategyTree extends Component {
 	state = { strategy: [] };
 
 	handleAddNode = (path) => {
-		this.setState({ strategy: traverseAndImmutablyAddNode(this.state.strategy, path) });
+		this.setState({ strategy: traverseAndAddNode(this.state.strategy, path) });
+	};
+
+	handleRemoveNode = (path) => {
+		this.setState({ strategy: traverseAndRemoveNode(this.state.strategy, path) });
 	};
 
     render () {
@@ -22,6 +27,7 @@ class StrategyTree extends Component {
 						isRootLevel
 						nodes={this.state.strategy}
 						onAddNode={this.handleAddNode}
+						onRemoveNode={this.handleRemoveNode}
 					/>
 				</Tree>
 			</TreeDragZoomArea>

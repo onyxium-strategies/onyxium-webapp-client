@@ -7,6 +7,7 @@ class StrategyTreeNode extends Component {
 	handleMouseDown = event => event.stopPropagation();
 
 	handleAddNodeClick = () => this.props.onAddNode(this.props.path);
+	handleRemoveNodeClick = () => this.props.onRemoveNode(this.props.path);
 
 	render () {
 		return (
@@ -19,6 +20,7 @@ class StrategyTreeNode extends Component {
 
 					<CardActions>
 						<Button onClick={this.handleAddNodeClick} size="small">Add</Button>
+						<Button onClick={this.handleRemoveNodeClick} size="small">Remove</Button>
 					</CardActions>
 				</Card>
 			</TreeNode>

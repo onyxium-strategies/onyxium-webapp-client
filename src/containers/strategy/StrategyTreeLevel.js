@@ -8,19 +8,17 @@ import StrategyTreeRootNode from './StrategyTreeRootNode';
 
 class StrategyTreeLevel extends Component {
 	renderBranch = (node, index) => {
-		const path = [...this.props.path, index];
+		const props = {
+			onAddNode: this.props.onAddNode,
+			onRemoveNode: this.props.onRemoveNode,
+			path: [...this.props.path, index]
+		};
 
 		return (
 			<TreeBranch key={index}>
-				<StrategyTreeNode node={node} onAddNode={this.props.onAddNode} path={path} />
+				<StrategyTreeNode {...props} node={node} />
 
-				{node.then && (
-					<StrategyTreeLevel
-						nodes={node.then}
-						onAddNode={this.props.onAddNode}
-						path={path}
-					/>
-				)}
+				{node.then && <StrategyTreeLevel {...props} nodes={node.then} />}
 			</TreeBranch>
 		);
 	};
@@ -34,6 +32,7 @@ class StrategyTreeLevel extends Component {
 
 						<StrategyTreeLevel
 							onAddNode={this.props.onAddNode}
+							onRemoveNode={this.props.onRemoveNode}
 							nodes={this.props.nodes}
 							path={[]}
 						/>
