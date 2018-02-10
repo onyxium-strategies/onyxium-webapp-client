@@ -6,6 +6,8 @@ import TreeNode from '../../components/tree/TreeNode';
 class StrategyTreeNode extends Component {
 	handleMouseDown = event => event.stopPropagation();
 
+	handleAddNodeClick = () => this.props.onAddNode(this.props.path);
+
 	render () {
 		return (
 			<TreeNode>
@@ -14,10 +16,9 @@ class StrategyTreeNode extends Component {
 						<Typography variant="headline">Sell 0.003 BTC</Typography>
 						<Typography>You Loyal</Typography>
 					</CardContent>
+
 					<CardActions>
-						<Button size="small">
-							Add
-						</Button>
+						<Button onClick={this.handleAddNodeClick} size="small">Add</Button>
 					</CardActions>
 				</Card>
 			</TreeNode>
