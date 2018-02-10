@@ -10,7 +10,7 @@ class StrategyTreeRootNode extends Component {
 
     render () {
         return (
-			<TreeNode>
+			<TreeNode isDisabled={this.props.selectedCardPath !== null}>
 				<Card onMouseDown={this.handleMouseDown}>
 					<CardContent>
 						<Typography variant="headline">Start</Typography>

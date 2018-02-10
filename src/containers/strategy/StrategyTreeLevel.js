@@ -11,7 +11,9 @@ class StrategyTreeLevel extends Component {
 		const props = {
 			onAddNode: this.props.onAddNode,
 			onRemoveNode: this.props.onRemoveNode,
-			path: [...this.props.path, index]
+			onSelectCard: this.props.onSelectCard,
+			path: [...this.props.path, index],
+			selectedCardPath: this.props.selectedCardPath
 		};
 
 		return (
@@ -28,13 +30,18 @@ class StrategyTreeLevel extends Component {
 			return (
 				<TreeLevel>
 					<TreeBranch>
-						<StrategyTreeRootNode onAddNode={this.props.onAddNode} />
+						<StrategyTreeRootNode
+							onAddNode={this.props.onAddNode}
+							selectedCardPath={this.props.selectedCardPath}
+						/>
 
 						<StrategyTreeLevel
 							onAddNode={this.props.onAddNode}
 							onRemoveNode={this.props.onRemoveNode}
+							onSelectCard={this.props.onSelectCard}
 							nodes={this.props.nodes}
 							path={[]}
+							selectedCardPath={this.props.selectedCardPath}
 						/>
 					</TreeBranch>
 				</TreeLevel>

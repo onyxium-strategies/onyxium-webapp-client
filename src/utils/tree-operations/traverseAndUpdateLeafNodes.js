@@ -2,10 +2,10 @@
  * Traverse into the given path and immutably update all nodes in the given path.
  * When the end of the path is reached, a callback is called allowing you to update the remaining nodes.
  *
- * @param nodes {[]} The nodes to traverse.
- * @param path {[]} The path to traverse into, array index based.
- * @param updateLeafNodes {function} Callback function called with the leaf nodes.
- * @returns {[]} The immutably updated tree with the added condition type node.
+ * @param nodes {[]} The nodes to traverse
+ * @param path {[]} The path to traverse into, array index based
+ * @param updateLeafNodes {function} Callback function called with the leaf nodes
+ * @returns {[]} The immutably updated tree with the added condition type node
  */
 export default function traverseAndUpdateLeafNodes (nodes, path, updateLeafNodes) {
 	if (path.length === 0) {

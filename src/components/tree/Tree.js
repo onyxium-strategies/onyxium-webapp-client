@@ -3,7 +3,7 @@ import styled from 'react-emotion';
 let Tree = styled('div')`
 	align-items: center;
 	display: flex;
-	flex: none;
+	flex: 1;
 	flex-direction: column;
 	padding: 1rem;
 	user-select: none;

@@ -3,16 +3,34 @@ import { Button, Card, CardActions, CardContent, Typography } from 'material-ui'
 
 import TreeNode from '../../components/tree/TreeNode';
 
+import areArraysShallowlyEqual from '../../utils/compare/areArraysShallowlyEqual';
+
 class StrategyTreeNode extends Component {
 	handleMouseDown = event => event.stopPropagation();
 
-	handleAddNodeClick = () => this.props.onAddNode(this.props.path);
-	handleRemoveNodeClick = () => this.props.onRemoveNode(this.props.path);
+	handleAddNodeClick = event => {
+		event.stopPropagation();
+		this.props.onAddNode(this.props.path);
+	};
+
+	handleRemoveNodeClick = event => {
+		event.stopPropagation();
+		this.props.onRemoveNode(this.props.path);
+	};
+
+	handleSelectCard = event => {
+		event.stopPropagation();
+		this.props.onSelectCard(this.props.path);
+	};
 
 	render () {
+		const isSelected =
+			this.props.selectedCardPath !== null &&
+			areArraysShallowlyEqual(this.props.selectedCardPath, this.props.path);
+
 		return (
-			<TreeNode>
-				<Card onMouseDown={this.handleMouseDown}>
+			<TreeNode isDisabled={this.props.selectedCardPath !== null && !isSelected} isSelected={isSelected}>
+				<Card onClick={this.handleSelectCard} onMouseDown={this.handleMouseDown}>
 					<CardContent>
 						<Typography variant="headline">Sell 0.003 BTC</Typography>
 						<Typography>You Loyal</Typography>

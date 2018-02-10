@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import styled from 'react-emotion';
 
+import clearSelection from '../../utils/selection/clearSelection';
+
 const OuterContainer = styled('div')`
 	align-items: center;
 	display: flex;
@@ -16,7 +18,6 @@ const DragZoomContainer = styled('div')`
 	flex: 1;
 	flex-direction: column;
 	flex-wrap: nowrap;
-	transform-origin: 0 0;
 `;
 
 const ZOOM_FACTOR = 1.05;
@@ -25,6 +26,7 @@ class StrategyTreeDragZoomArea extends Component {
 	outerContainerDomNode = null;
 	dragZoomContainerDomNode = null;
 
+	isMouseDown = false;
 	isDragging = false;
 
 	lastPositionX = null;
@@ -34,11 +36,25 @@ class StrategyTreeDragZoomArea extends Component {
 
 	zoomFactor = 1;
 
-	startDragging = () => this.isDragging = true;
 	stopDragging = () => {
 		this.isDragging = false;
+		this.isMouseDown = false;
 		this.lastPositionX = null;
 		this.lastPositionY = null;
+	};
+
+	handleMouseDown = () => {
+		// Clear selection otherwise you'll drag the selection around the page.
+		clearSelection();
+		this.isMouseDown = true;
+	};
+
+	handleMouseUp = () => {
+		if (!this.isDragging) {
+			this.props.onMouseUpWithoutDrag();
+		}
+
+		this.stopDragging();
 	};
 
 	// Set style property directly on the domNode, since React's setState is too slow for this amount of events.
@@ -50,6 +66,10 @@ class StrategyTreeDragZoomArea extends Component {
 	}
 
 	handleMouseMove = event => {
+		if (this.isMouseDown && !this.isDragging) {
+			this.isDragging = true;
+		}
+
 		const clientX = event.clientX;
 		const clientY = event.clientY;
 
@@ -79,8 +99,9 @@ class StrategyTreeDragZoomArea extends Component {
     render () {
         return (
         	<OuterContainer
-				onMouseDown={this.startDragging}
-				onMouseUp={this.stopDragging}
+				onClick={this.props.onClick}
+				onMouseDown={this.handleMouseDown}
+				onMouseUp={this.handleMouseUp}
 				onMouseLeave={this.stopDragging}
 				onMouseMove={this.handleMouseMove}
 				onWheel={this.handleWheel}

@@ -9,25 +9,29 @@ import traverseAndRemoveNode from '../../utils/tree-operations/traverseAndRemove
 import StrategyTreeLevel from './StrategyTreeLevel';
 
 class StrategyTree extends Component {
-	state = { strategy: [] };
-
-	handleAddNode = (path) => {
-		this.setState({ strategy: traverseAndAddNode(this.state.strategy, path) });
+	state = {
+		selectedCardPath: null,
+		strategy: []
 	};
 
-	handleRemoveNode = (path) => {
-		this.setState({ strategy: traverseAndRemoveNode(this.state.strategy, path) });
-	};
+	handleAddNode = (path) => this.setState({ strategy: traverseAndAddNode(this.state.strategy, path) });
+
+	handleRemoveNode = (path) => this.setState({ strategy: traverseAndRemoveNode(this.state.strategy, path) });
+
+	handleSelectCard = (selectedCardPath) => this.setState({ selectedCardPath });
+	handleClearSelectedCard = () => this.setState({ selectedCardPath: null });
 
     render () {
         return (
-			<TreeDragZoomArea>
+			<TreeDragZoomArea onMouseUpWithoutDrag={this.handleClearSelectedCard}>
 				<Tree>
 					<StrategyTreeLevel
 						isRootLevel
 						nodes={this.state.strategy}
 						onAddNode={this.handleAddNode}
 						onRemoveNode={this.handleRemoveNode}
+						onSelectCard={this.handleSelectCard}
+						selectedCardPath={this.state.selectedCardPath}
 					/>
 				</Tree>
 			</TreeDragZoomArea>

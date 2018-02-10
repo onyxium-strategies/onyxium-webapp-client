@@ -29,7 +29,7 @@ const theme = createMuiTheme({
 });
 
 const AppContainer = styled('div')`
-	min-height: 100vh;
+	height: 100vh;
 	display: flex;
 `;
 
