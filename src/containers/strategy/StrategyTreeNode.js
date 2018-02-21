@@ -7,6 +7,7 @@ import areArraysShallowlyEqual from '../../utils/compare/areArraysShallowlyEqual
 
 class StrategyTreeNode extends Component {
 	handleMouseDown = event => event.stopPropagation();
+	handleMouseUp = event => event.stopPropagation();
 
 	handleAddNodeClick = event => {
 		event.stopPropagation();
@@ -18,7 +19,7 @@ class StrategyTreeNode extends Component {
 		this.props.onRemoveNode(this.props.path);
 	};
 
-	handleSelectCard = event => {
+	handleClick = event => {
 		event.stopPropagation();
 		this.props.onSelectCard(this.props.path);
 	};
@@ -29,8 +30,15 @@ class StrategyTreeNode extends Component {
 			areArraysShallowlyEqual(this.props.selectedCardPath, this.props.path);
 
 		return (
-			<TreeNode isDisabled={this.props.selectedCardPath !== null && !isSelected} isSelected={isSelected}>
-				<Card onClick={this.handleSelectCard} onMouseDown={this.handleMouseDown}>
+			<TreeNode
+				isDisabled={this.props.selectedCardPath !== null && !isSelected}
+				isSelected={isSelected}
+			>
+				<Card
+					onClick={this.handleClick}
+					onMouseDown={this.handleMouseDown}
+					onMouseUp={this.handleMouseUp}
+				>
 					<CardContent>
 						<Typography variant="headline">Sell 0.003 BTC</Typography>
 						<Typography>You Loyal</Typography>

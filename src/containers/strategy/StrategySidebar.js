@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { css } from 'react-emotion';
 import { Drawer } from 'material-ui';
 
+import StrategyForm from './StrategyForm';
+
 const sidebarWidth = 360;
 
 const drawerClassNames = css({
@@ -14,13 +16,20 @@ const drawerClassNames = css({
 });
 
 class StrategySidebar extends Component {
-    render () {
-        return (
+	render () {
+		if (!this.props.selectedCardPath) {
+			return null;
+		}
+
+		return (
 			<Drawer anchor="right" classes={{ paper: drawerClassNames }} variant="permanent">
-				Drawer
+				<StrategyForm
+					selectedCardPath={this.props.selectedCardPath}
+					strategy={this.props.strategy}
+				/>
 			</Drawer>
-        );
-    }
+		);
+	}
 }
 
 export default StrategySidebar;
