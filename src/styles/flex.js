@@ -1,5 +1,11 @@
 import { css } from 'react-emotion';
 
-const flex = ({ flex = '0 1 auto' }) => css`flex: ${flex}; }`;
+const flex = ({ flex = null }) => {
+	if (flex === null) {
+		return null;
+	}
+
+	return css`flex: ${flex}; }`;
+};
 
 export default flex;

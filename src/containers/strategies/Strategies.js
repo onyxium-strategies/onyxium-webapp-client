@@ -7,7 +7,7 @@ import AppBody from '../../components/app/AppBody';
 class Strategies extends Component {
 	render () {
 		return (
-			<AppBody spaceVerticalPadding="10px">
+			<AppBody spaceVertical="10px">
 				<Typography variant="headline">Strategies</Typography>
 
 				<List component="nav">

@@ -21,7 +21,7 @@ let AppBody = styled('div')`
 AppBody.defaultProps = {
 	flexDirection: 'column',
 	padding: '2rem',
-	spaceVerticalPadding: 0
+	spaceVertical: 0
 };
 
 AppBody = withTheme()(AppBody);
