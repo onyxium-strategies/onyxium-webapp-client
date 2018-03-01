@@ -28,19 +28,15 @@ function determineUpdatedValue (name, event, condition) {
 }
 
 class StrategyForm extends Component {
-	getSelectedNode () {
-		return traverseAndGetNode(this.props.strategy, this.props.selectedCardPath);
-	}
-
 	state = {
 		activeTabIndex: 0,
 		conditions: [defaultCondition],
-		selectedNode: this.getSelectedNode(),
+		selectedNode: traverseAndGetNode(this.props.strategy, this.props.selectedCardPath)
 	};
 
 	componentWillReceiveProps (nextProps) {
-		if (areArraysShallowlyEqual(this.props.selectedCardPath, nextProps.selectedCardPath)) {
-			this.setState({ selectedNode: this.getSelectedNode() });
+		if (!areArraysShallowlyEqual(this.props.selectedCardPath, nextProps.selectedCardPath)) {
+			this.setState({ selectedNode: traverseAndGetNode(nextProps.strategy, nextProps.selectedCardPath) });
 		}
 	}
 

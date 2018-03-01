@@ -10,5 +10,5 @@ export default function traverseAndGetNode (nodes, path) {
 		return nodes;
 	}
 
-	return traverseAndGetNode(nodes[path[0]], path.slice(1));
+	return traverseAndGetNode(nodes[path[0]].then, path.slice(1));
 }
