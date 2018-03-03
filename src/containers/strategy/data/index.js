@@ -18,6 +18,11 @@ export const modifierByTimeframeUnit = {
 	'd': 1000 * 60 * 60 * 24
 };
 
+export const orderTypes = [
+	{ label: 'Limit buy', value: 'limit-buy' },
+	{ label: 'Limit sell', value: 'limit-sell' }
+];
+
 export const timeframeUnits = [
 	{ label: 'Minutes', value: 'm' },
 	{ label: 'Hours', value: 'h' },

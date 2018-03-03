@@ -5,17 +5,12 @@ import Flex from '../../components/flex/Flex';
 import areArraysShallowlyEqual from '../../utils/compare/areArraysShallowlyEqual';
 import traverseAndGetNode from '../../utils/tree-operations/traverseAndGetNode';
 
-import { modifierByTimeframeUnit } from './data';
-import StrategyFormConditions from './StrategyFormConditions';
+import defaultAction from './utils/defaultAction';
+import defaultCondition from './utils/defaultCondition';
 
-const defaultCondition = {
-	baseCurrency: null,
-	conditionType: null,
-	quoteCurrency: null,
-	timeframeInMS: modifierByTimeframeUnit['h'],
-	timeframeUnit: 'h',
-	value: null
-};
+import { modifierByTimeframeUnit } from './data';
+import StrategyFormAction from './StrategyFormAction';
+import StrategyFormConditions from './StrategyFormConditions';
 
 function determineUpdatedValue (name, event, condition) {
 	switch (name) {
@@ -29,6 +24,7 @@ function determineUpdatedValue (name, event, condition) {
 
 class StrategyForm extends Component {
 	state = {
+		action: defaultAction,
 		activeTabIndex: 0,
 		conditions: [defaultCondition],
 		selectedNode: traverseAndGetNode(this.props.strategy, this.props.selectedCardPath)
@@ -70,6 +66,10 @@ class StrategyForm extends Component {
 		});
 	};
 
+	handleActionsFormChange = (name, event) => {
+		this.setState({ action: { ...this.state.action, [name]: event.target.value } });
+	};
+
 	render () {
 		return (
 			<Flex flex="1" flexDirection="column" spaceVertical="1rem">
@@ -94,9 +94,10 @@ class StrategyForm extends Component {
 				)}
 
 				{this.state.activeTabIndex === 1 && (
-					<Flex flexDirection="column">
-						Actions
-					</Flex>
+					<StrategyFormAction
+						action={this.state.action}
+						onChange={this.handleActionsFormChange}
+					/>
 				)}
 			</Flex>
 		);

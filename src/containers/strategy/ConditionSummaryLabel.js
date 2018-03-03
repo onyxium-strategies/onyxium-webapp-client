@@ -13,25 +13,25 @@ function determineConditionSummaryContent (condition) {
 	switch (conditionType) {
 		case 'absolute-increase':
 			return (
-				`If ${baseCurrency}/${quoteCurrency} increases with ` +
+				`If ${baseCurrency}/${quoteCurrency} value increases with ` +
 				`${value} within ${timeframeInUnit} ${timeframeUnitLabel}`
 			);
 
 		case 'absolute-decrease':
 			return (
-				`If ${baseCurrency}/${quoteCurrency} decreases with ` +
+				`If ${baseCurrency}/${quoteCurrency} value decreases with ` +
 				`${value} within ${timeframeInUnit} ${timeframeUnitLabel}`
 			);
 
 		case 'percentage-increase':
 			return (
-				`If ${baseCurrency}/${quoteCurrency} increases with ` +
+				`If ${baseCurrency}/${quoteCurrency} value increases with ` +
 				`${value}% within ${timeframeInUnit} ${timeframeUnitLabel}`
 			);
 
 		case 'percentage-decrease':
 			return (
-				`If ${baseCurrency}/${quoteCurrency} decreases with ` +
+				`If ${baseCurrency}/${quoteCurrency} value decreases with ` +
 				`${value}% within ${timeframeInUnit} ${timeframeUnitLabel}`
 			);
 

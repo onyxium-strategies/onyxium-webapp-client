@@ -13,16 +13,10 @@ import {
 import Flex from '../../components/flex/Flex';
 import SelectField from '../../components/form/SelectField';
 
+import filterOutValueFromItems from './utils/filterOutValueFromItems';
+
 import ConditionSummaryLabel from './ConditionSummaryLabel';
 import { conditionTypes, currencies, modifierByTimeframeUnit, timeframeUnits } from './data';
-
-function filterOutValueFromItems (items, value) {
-	if (!value) {
-		return items;
-	}
-
-	return items.filter((item) => item.value !== value);
-}
 
 const StrategyFormConditionFields = ({ condition, onChange }) => (
 	<Flex flexDirection="column" maxWidth="100%" spaceVertical="1rem">
