@@ -13,6 +13,7 @@ import {
 import Flex from '../../components/flex/Flex';
 import SelectField from '../../components/form/SelectField';
 
+import ConditionSummaryLabel from './ConditionSummaryLabel';
 import { conditionTypes, currencies, modifierByTimeframeUnit, timeframeUnits } from './data';
 
 function filterOutValueFromItems (items, value) {
@@ -21,41 +22,6 @@ function filterOutValueFromItems (items, value) {
 	}
 
 	return items.filter((item) => item.value !== value);
-}
-
-function isConditionValid (condition) {
-	const { baseCurrency, conditionType, quoteCurrency, value } = condition;
-	return baseCurrency !== null && conditionType !== null && quoteCurrency !== null && value !== null;
-}
-
-function renderConditionSummaryLabel (condition) {
-	const { baseCurrency, conditionType, quoteCurrency, timeframeInMS, timeframeUnit, value } = condition;
-
-	if (!isConditionValid(condition)) {
-		return <Typography color="textSecondary">No condition configured yet</Typography>;
-	}
-
-	const timeframeInUnit = timeframeInMS / modifierByTimeframeUnit[timeframeUnit];
-	const timeframeUnitLabel = timeframeUnits.find(unit => unit.value === timeframeUnit).label;
-
-	switch (conditionType) {
-		case 'absolute-increase':
-			return (
-				<Typography color="textSecondary">
-					If {baseCurrency}/{quoteCurrency} absolutely increases with {value}
-					within {timeframeInUnit} {timeframeUnitLabel}
-				</Typography>
-			);
-
-		case 'absolute-decrease':
-			return null;
-
-		case 'percentage-increase':
-			return null;
-
-		case 'percentage-decrease':
-			return null;
-	}
 }
 
 const StrategyFormConditionFields = ({ condition, onChange }) => (
@@ -126,7 +92,7 @@ const StrategyFormConditions = ({ conditions, onChange, onConditionAdd, onCondit
 					<ExpansionPanelSummary expandIcon={<Icon>expand_more</Icon>}>
 						<Flex flexDirection="column">
 							<Typography>Condition {index+1}</Typography>
-							{renderConditionSummaryLabel(condition)}
+							<ConditionSummaryLabel condition={condition} />
 						</Flex>
 					</ExpansionPanelSummary>
 
