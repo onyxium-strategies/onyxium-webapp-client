@@ -8,7 +8,6 @@ const sidebarWidth = 360;
 
 const drawerClassNames = css({
 	flex: 'none',
-	padding: '1rem',
 	position: 'relative',
 	height: '100%',
 	width: sidebarWidth,

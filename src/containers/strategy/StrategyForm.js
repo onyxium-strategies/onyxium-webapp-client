@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Tab, Tabs } from 'material-ui';
+import { Button, Divider, Tab, Tabs } from 'material-ui';
 
 import Flex from '../../components/flex/Flex';
 import areArraysShallowlyEqual from '../../utils/compare/areArraysShallowlyEqual';
@@ -72,7 +72,7 @@ class StrategyForm extends Component {
 
 	render () {
 		return (
-			<Flex flex="1" flexDirection="column" spaceVertical="1rem">
+			<Flex flex="1" flexDirection="column">
 				<Tabs
 					value={this.state.activeTabIndex}
 					onChange={this.handleTabChange}
@@ -99,6 +99,20 @@ class StrategyForm extends Component {
 						onChange={this.handleActionsFormChange}
 					/>
 				)}
+
+				<Flex flex="none" flexDirection="column">
+					<Divider />
+
+					<Flex justifyContent="space-between" padding="1rem">
+						<Button variant="raised">
+							Clear
+						</Button>
+
+						<Button variant="raised" color="primary">
+							Apply
+						</Button>
+					</Flex>
+				</Flex>
 			</Flex>
 		);
 	}

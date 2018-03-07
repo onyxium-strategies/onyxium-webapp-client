@@ -10,7 +10,7 @@ import ActionSummaryLabel from './ActionSummaryLabel';
 import { currencies, orderTypes } from './data';
 
 const StrategyFormActionFields = ({ action, onChange }) => (
-	<Flex flexDirection="column" maxWidth="100%" spaceVertical="1rem">
+	<Flex flex="1" flexDirection="column" maxWidth="100%" padding="1rem" spaceVertical="1rem">
 		<ActionSummaryLabel action={action} />
 
 		<SelectField

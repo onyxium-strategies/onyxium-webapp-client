@@ -1,6 +1,7 @@
 import React from 'react';
 import {
 	Button,
+	Divider,
 	ExpansionPanel,
 	ExpansionPanelActions,
 	ExpansionPanelDetails,
@@ -80,7 +81,18 @@ const StrategyFormConditionFields = ({ condition, onChange }) => (
 
 const StrategyFormConditions = ({ conditions, onChange, onConditionAdd, onConditionRemove }) => (
 	<Flex flex="1" flexDirection="column">
-		<Flex flex="1" flexDirection="column" spaceVertical="1rem">
+		<Flex flex="none" flexDirection="column">
+			<Flex padding="1rem">
+				<Button color="secondary" onClick={onConditionAdd} variant="raised" fullWidth>
+					<Icon>add_icon</Icon>
+					Add condition
+				</Button>
+			</Flex>
+
+			<Divider />
+		</Flex>
+
+		<Flex flex="1" flexDirection="column" overflowY="auto" padding="1rem" spaceVertical="1rem">
 			{conditions.map((condition, index) => (
 				<ExpansionPanel key={index}>
 					<ExpansionPanelSummary expandIcon={<Icon>expand_more</Icon>}>
@@ -108,12 +120,6 @@ const StrategyFormConditions = ({ conditions, onChange, onConditionAdd, onCondit
 					</ExpansionPanelActions>
 				</ExpansionPanel>
 			))}
-		</Flex>
-
-		<Flex flex="none">
-			<Button aria-label="add" color="primary" onClick={onConditionAdd} variant="fab">
-				<Icon>add_icon</Icon>
-			</Button>
 		</Flex>
 	</Flex>
 );

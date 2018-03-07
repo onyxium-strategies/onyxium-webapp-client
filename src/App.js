@@ -1,7 +1,7 @@
 import React from 'react';
 import JssProvider from 'react-jss/lib/JssProvider';
 import { create } from 'jss';
-import styled from 'react-emotion';
+import styled, { injectGlobal } from 'react-emotion';
 import { BrowserRouter as Router, Redirect, Route, Switch } from 'react-router-dom';
 import { Reboot } from 'material-ui';
 import { blue } from 'material-ui/colors';
@@ -27,6 +27,15 @@ const theme = createMuiTheme({
 		}
 	}
 });
+
+// Stupid material icons overflow their content (specifying the icon name) by default,
+// prevent this behavior and make sure they always have a fixed width based on the font-size.
+injectGlobal(`
+	.material-icons { 
+		overflow: hidden;
+		width: 1em; 
+	};
+`);
 
 const AppContainer = styled('div')`
 	height: 100vh;

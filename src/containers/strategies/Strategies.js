@@ -22,7 +22,7 @@ class Strategies extends Component {
 					</ListItem>
 				</List>
 
-				<Button component={Link} to="/strategies/create" variant="fab" color="primary" aria-label="add">
+				<Button component={Link} to="/strategies/create" variant="fab" color="primary">
 					<Icon>add_icon</Icon>
 				</Button>
 			</AppBody>
