@@ -41,8 +41,15 @@ class CreateStrategy extends Component {
 	handleClearSelectedCard = () => this.setState({ selectedCardPath: null });
 
 	handleUpdateNode = (conditions, action) => {
-		console.log('conditions', conditions);
-		console.log('action', action);
+		const strategy = traverseAndUpdateNode(this.state.strategy, this.state.selectedCardPath, (node) => {
+			return {
+				...node,
+				conditions,
+				action
+			};
+		});
+
+		this.setState({ selectedCardPath: null, strategy });
 	};
 
 	render () {
