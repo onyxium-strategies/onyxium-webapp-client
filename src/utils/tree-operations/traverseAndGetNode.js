@@ -6,8 +6,8 @@
  * @returns {Object} The node that corresponds to the given path
  */
 export default function traverseAndGetNode (nodes, path) {
-	if (path.length === 0) {
-		return nodes;
+	if (path.length === 1) {
+		return nodes[path[0]];
 	}
 
 	return traverseAndGetNode(nodes[path[0]].then, path.slice(1));

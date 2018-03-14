@@ -70,6 +70,15 @@ class StrategyForm extends Component {
 		this.setState({ action: { ...this.state.action, [name]: event.target.value } });
 	};
 
+	handleClearButtonClick = () => {
+		this.setState({ action: defaultAction, conditions: [defaultCondition] });
+	};
+
+	handleApplyButtonClick = () => {
+		// Add validate stuff
+		this.props.onSubmit(this.state.conditions, this.state.action);
+	};
+
 	render () {
 		return (
 			<Flex flex="1" flexDirection="column">
@@ -104,11 +113,15 @@ class StrategyForm extends Component {
 					<Divider />
 
 					<Flex justifyContent="space-between" padding="1rem">
-						<Button variant="raised">
+						<Button onClick={this.handleClearButtonClick} variant="raised">
 							Clear
 						</Button>
 
-						<Button variant="raised" color="primary">
+						<Button
+							color="primary"
+							onClick={this.handleApplyButtonClick}
+							variant="raised"
+						>
 							Apply
 						</Button>
 					</Flex>

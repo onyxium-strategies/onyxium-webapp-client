@@ -23,6 +23,7 @@ class StrategySidebar extends Component {
 		return (
 			<Drawer anchor="right" classes={{ paper: drawerClassNames }} variant="permanent">
 				<StrategyForm
+					onSubmit={this.props.onUpdateNode}
 					selectedCardPath={this.props.selectedCardPath}
 					strategy={this.props.strategy}
 				/>

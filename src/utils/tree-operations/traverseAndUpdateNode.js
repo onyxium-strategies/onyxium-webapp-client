@@ -4,23 +4,20 @@
  *
  * @param nodes {[]} The nodes to traverse
  * @param path {[]} The path to traverse into, array index based
- * @param updateLeafNodes {function} Callback function called with the leaf nodes
+ * @param updateNode {function} Callback function called with the leaf node
  * @returns {[]} The immutably updated tree with the added condition type node
  */
-export default function traverseAndUpdateLeafNodes (nodes, path, updateLeafNodes) {
-	if (path.length === 0) {
-		return updateLeafNodes(nodes);
-	}
-
+export default function traverseAndUpdateNode (nodes, path, updateNode) {
 	const indexToRecurseIn = path[0];
 	const node = nodes[indexToRecurseIn];
 
+	const updatedNode = path.length <= 1
+		? updateNode(node)
+		: { ...node, then: traverseAndUpdateNode(node.then, path.slice(1), updateNode) };
+
 	return [
 		...nodes.slice(0, indexToRecurseIn),
-		{
-			...node,
-			then: traverseAndUpdateLeafNodes(node.then || [], path.slice(1), updateLeafNodes)
-		},
+		updatedNode,
 		...nodes.slice(indexToRecurseIn + 1)
 	];
 }

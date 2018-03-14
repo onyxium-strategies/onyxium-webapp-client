@@ -5,8 +5,8 @@ import AppBody from '../../components/app/AppBody';
 import StrategySidebar from './StrategySidebar';
 import StrategyTree from './StrategyTree';
 
-import traverseAndAddNode from '../../utils/tree-operations/traverseAndAddNode';
 import traverseAndRemoveNode from '../../utils/tree-operations/traverseAndRemoveNode';
+import traverseAndUpdateNode from '../../utils/tree-operations/traverseAndUpdateNode';
 
 class CreateStrategy extends Component {
 	state = {
@@ -15,21 +15,35 @@ class CreateStrategy extends Component {
 	};
 
 	handleAddNode = (path) => {
-		this.setState({
-			selectedCardPath: null,
-			strategy: traverseAndAddNode(this.state.strategy, path)
+		const strategy = traverseAndUpdateNode(this.state.strategy, path, (node) => {
+			if (!node) {
+				return { type: 'condition' };
+			}
+
+			return {
+				...node,
+				then: [
+					...node.then || [],
+					{ type: 'condition' }
+				]
+			};
 		});
+
+		this.setState({ selectedCardPath: null, strategy });
 	};
 
 	handleRemoveNode = (path) => {
-		this.setState({
-			selectedCardPath: null,
-			strategy: traverseAndRemoveNode(this.state.strategy, path)
-		});
+		const strategy = traverseAndRemoveNode(this.state.strategy, path);
+		this.setState({ selectedCardPath: null, strategy });
 	};
 
 	handleSelectCard = (selectedCardPath) => this.setState({ selectedCardPath });
 	handleClearSelectedCard = () => this.setState({ selectedCardPath: null });
+
+	handleUpdateNode = (conditions, action) => {
+		console.log('conditions', conditions);
+		console.log('action', action);
+	};
 
 	render () {
 		return (
@@ -44,6 +58,7 @@ class CreateStrategy extends Component {
 				/>
 
 				<StrategySidebar
+					onUpdateNode={this.handleUpdateNode}
 					selectedCardPath={this.state.selectedCardPath}
 					strategy={this.state.strategy}
 				/>

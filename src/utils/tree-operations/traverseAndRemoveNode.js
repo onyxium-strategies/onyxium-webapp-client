@@ -1,4 +1,4 @@
-import traverseAndUpdateLeafNodes from './traverseAndUpdateLeafNodes';
+import traverseAndUpdateNode from './traverseAndUpdateNode';
 
 /**
  * Traverse into the given path and immutably update all nodes it comes along.
@@ -10,16 +10,21 @@ import traverseAndUpdateLeafNodes from './traverseAndUpdateLeafNodes';
  */
 export default function traverseAndRemoveNode (nodes, path) {
 	const indexToRemove = path[path.length - 1];
+
+	if (path.length === 1) {
+		return [
+			...nodes.slice(0, indexToRemove),
+			...nodes.slice(indexToRemove + 1)
+		];
+	}
+
 	const traversalPath = path.slice(0, path.length - 1);
 
-	return traverseAndUpdateLeafNodes(
-		nodes,
-		traversalPath,
-		(nodes) => {
-			return [
-				...nodes.slice(0, indexToRemove),
-				...nodes.slice(indexToRemove + 1)
-			];
-		}
-	);
+	return traverseAndUpdateNode(nodes, traversalPath, (node) => ({
+		...node,
+		then: [
+			...node.then.slice(0, indexToRemove),
+			...node.then.slice(indexToRemove + 1)
+		]
+	}));
 }
