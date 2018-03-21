@@ -9,7 +9,9 @@ import { createGenerateClassName, createMuiTheme, jssPreset, MuiThemeProvider } 
 
 import Dashboard from './containers/dashboard/Dashboard';
 import CreateStrategy from './containers/strategy/CreateStrategy';
+import Settings from './containers/settings/Settings';
 import Strategies from './containers/strategies/Strategies';
+
 
 import AppHeader from './AppHeader';
 import AppSidebar from './AppSidebar';
@@ -53,7 +55,8 @@ const AppMainContainer = styled('div')`
 const routes = [
 	{ path: '/dashboard', component: Dashboard, exact: true, label: 'Dashboard', icon: 'dashboard' },
 	{ path: '/strategies', component: Strategies, exact: true, label: 'Strategies', icon: 'call_split' },
-	{ path: '/strategies/create', component: CreateStrategy, exact: true, showInSidebar: false }
+	{ path: '/strategies/create', component: CreateStrategy, exact: true, showInSidebar: false },
+	{ path: '/settings', component: Settings, exact: true, label: 'Settings', icon: 'settings' }
 ];
 
 const App = () => (

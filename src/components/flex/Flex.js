@@ -6,6 +6,7 @@ import {
 	flex,
 	flexDirection,
 	justifyContent,
+	margin,
 	maxWidth,
 	overflowY,
 	padding,
@@ -21,6 +22,7 @@ let Flex = styled('div')`
 	${justifyContent};
 	${maxWidth};
 	${overflowY};
+	${margin};
 	${padding};
 	${spaceHorizontal};
 	${spaceVertical};
