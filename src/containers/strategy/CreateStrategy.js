@@ -15,11 +15,12 @@ class CreateStrategy extends Component {
 	};
 
 	handleAddNode = (path) => {
-		const strategy = traverseAndUpdateNode(this.state.strategy, path, (node) => {
-			if (!node) {
-				return { type: 'condition' };
-			}
+		if (path.length === 0) {
+			this.setState({ strategy: [...this.state.strategy, { type: 'condition' }] });
+			return;
+		}
 
+		const strategy = traverseAndUpdateNode(this.state.strategy, path, (node) => {
 			return {
 				...node,
 				then: [
@@ -38,7 +39,11 @@ class CreateStrategy extends Component {
 	};
 
 	handleSelectCard = (selectedCardPath) => this.setState({ selectedCardPath });
-	handleClearSelectedCard = () => this.setState({ selectedCardPath: null });
+	handleClearSelectedCard = () => {
+		if (this.state.selectedCardPath !== null) {
+			this.setState({ selectedCardPath: null });
+		}
+	};
 
 	handleUpdateNode = (conditions, action) => {
 		const strategy = traverseAndUpdateNode(this.state.strategy, this.state.selectedCardPath, (node) => {
