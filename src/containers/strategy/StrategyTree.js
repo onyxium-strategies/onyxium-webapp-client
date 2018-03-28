@@ -8,7 +8,7 @@ import StrategyTreeLevel from './StrategyTreeLevel';
 class StrategyTree extends Component {
 	render () {
         return (
-			<TreeDragZoomArea onMouseUpWithoutDrag={this.props.onClearSelectedCard}>
+			<TreeDragZoomArea>
 				<Tree>
 					<StrategyTreeLevel
 						isRootLevel

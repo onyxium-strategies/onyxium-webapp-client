@@ -1,4 +1,6 @@
 export const conditionTypes = [
+	{ label: 'Absolute above value', value: 'absolute-above' },
+	{ label: 'Absolute below value', value: 'absolute-below' },
 	{ label: 'Absolute increase within timeframe', value: 'absolute-increase' },
 	{ label: 'Absolute decrease within timeframe', value: 'absolute-decrease' },
 	{ label: 'Percentage increase within timeframe', value: 'percentage-increase' },
@@ -10,6 +12,11 @@ export const currencies = [
 	{ label: 'Ethereum (ETH)', value: 'ETH' },
 	{ label: 'NEO (NEO)', value: 'NEO' },
 	{ label: 'OmiseGO (OMG)', value: 'OMG' }
+];
+
+export const metrics = [
+	{ label: 'Price', value: 'price' },
+	{ label: 'Volume', value: 'volume' }
 ];
 
 export const modifierByTimeframeUnit = {

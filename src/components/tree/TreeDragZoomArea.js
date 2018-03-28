@@ -50,10 +50,6 @@ class StrategyTreeDragZoomArea extends Component {
 	};
 
 	handleMouseUp = () => {
-		if (!this.isDragging) {
-			this.props.onMouseUpWithoutDrag();
-		}
-
 		this.stopDragging();
 	};
 

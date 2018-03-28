@@ -7,10 +7,14 @@ import traverseAndGetNode from '../../utils/tree-operations/traverseAndGetNode';
 
 import defaultAction from './utils/defaultAction';
 import defaultCondition from './utils/defaultCondition';
+import validateAction from './utils/validateAction';
+import validateConditions from './utils/validateConditions';
 
-import { modifierByTimeframeUnit } from './data';
+import { currencies, modifierByTimeframeUnit } from './data';
 import StrategyFormAction from './StrategyFormAction';
 import StrategyFormConditions from './StrategyFormConditions';
+
+const allowedCurrencyValues = currencies.map(currency => currency.value);
 
 function determineUpdatedValue (name, event, condition) {
 	switch (name) {
@@ -22,17 +26,26 @@ function determineUpdatedValue (name, event, condition) {
 	}
 }
 
+function determineActionsAndConditions ({ strategy, selectedCardPath }) {
+	const selectedNode = traverseAndGetNode(strategy, selectedCardPath);
+
+	return {
+		action: selectedNode.action || defaultAction,
+		conditions: selectedNode.conditions || [defaultCondition]
+	};
+}
+
 class StrategyForm extends Component {
 	state = {
-		action: defaultAction,
+		actionValidation: null,
 		activeTabIndex: 0,
-		conditions: [defaultCondition],
-		selectedNode: traverseAndGetNode(this.props.strategy, this.props.selectedCardPath)
+		conditionsValidation: [],
+		...determineActionsAndConditions(this.props)
 	};
 
 	componentWillReceiveProps (nextProps) {
 		if (!areArraysShallowlyEqual(this.props.selectedCardPath, nextProps.selectedCardPath)) {
-			this.setState({ selectedNode: traverseAndGetNode(nextProps.strategy, nextProps.selectedCardPath) });
+			this.setState(determineActionsAndConditions(nextProps));
 		}
 	}
 
@@ -70,12 +83,23 @@ class StrategyForm extends Component {
 		this.setState({ action: { ...this.state.action, [name]: event.target.value } });
 	};
 
-	handleClearButtonClick = () => {
-		this.setState({ action: defaultAction, conditions: [defaultCondition] });
+	handleCancelButtonClick = () => {
+		// TODO: show confirm message if form is dirty
+		this.props.onCancel();
 	};
 
 	handleApplyButtonClick = () => {
-		// Add validate stuff
+		const conditionsValidation = validateConditions(this.state.conditions, allowedCurrencyValues);
+		const actionValidation = validateAction(this.state.action, allowedCurrencyValues);
+
+		if (
+			conditionsValidation.some((validation) => validation !== null) ||
+			actionValidation !== null
+		) {
+			this.setState({ conditionsValidation, actionValidation });
+			return;
+		}
+
 		this.props.onSubmit(this.state.conditions, this.state.action);
 	};
 
@@ -96,6 +120,7 @@ class StrategyForm extends Component {
 				{this.state.activeTabIndex === 0 && (
 					<StrategyFormConditions
 						conditions={this.state.conditions}
+						conditionsValidation={this.state.conditionsValidation}
 						onChange={this.handleConditionsFormChange}
 						onConditionAdd={this.handleConditionAdd}
 						onConditionRemove={this.handleConditionRemove}
@@ -105,6 +130,7 @@ class StrategyForm extends Component {
 				{this.state.activeTabIndex === 1 && (
 					<StrategyFormAction
 						action={this.state.action}
+						actionValidation={this.state.actionValidation}
 						onChange={this.handleActionsFormChange}
 					/>
 				)}
@@ -113,9 +139,7 @@ class StrategyForm extends Component {
 					<Divider />
 
 					<Flex justifyContent="space-between" padding="1rem">
-						<Button onClick={this.handleClearButtonClick} variant="raised">
-							Clear
-						</Button>
+						<Button onClick={this.handleCancelButtonClick} variant="raised">Cancel</Button>
 
 						<Button
 							color="primary"

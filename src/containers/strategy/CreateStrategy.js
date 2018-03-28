@@ -39,7 +39,8 @@ class CreateStrategy extends Component {
 	};
 
 	handleSelectCard = (selectedCardPath) => this.setState({ selectedCardPath });
-	handleClearSelectedCard = () => {
+
+	handleCancelForm = () => {
 		if (this.state.selectedCardPath !== null) {
 			this.setState({ selectedCardPath: null });
 		}
@@ -62,7 +63,6 @@ class CreateStrategy extends Component {
 			<AppBody flexDirection="row" padding="0">
 				<StrategyTree
 					onAddNode={this.handleAddNode}
-					onClearSelectedCard={this.handleClearSelectedCard}
 					onRemoveNode={this.handleRemoveNode}
 					onSelectCard={this.handleSelectCard}
 					selectedCardPath={this.state.selectedCardPath}
@@ -70,6 +70,7 @@ class CreateStrategy extends Component {
 				/>
 
 				<StrategySidebar
+					onCancelForm={this.handleCancelForm}
 					onUpdateNode={this.handleUpdateNode}
 					selectedCardPath={this.state.selectedCardPath}
 					strategy={this.state.strategy}
