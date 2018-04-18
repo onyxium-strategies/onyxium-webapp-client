@@ -2,8 +2,11 @@ import React, { Component } from 'react';
 import { Button, Card, CardActions, CardContent, Typography } from 'material-ui';
 
 import TreeNode from '../../components/tree/TreeNode';
+import Flex from '../../components/flex/Flex';
 
 import areArraysShallowlyEqual from '../../utils/compare/areArraysShallowlyEqual';
+
+import determineActionSummaryLabel from './utils/determineActionSummaryLabel';
 
 class StrategyTreeNode extends Component {
 	handleMouseDown = event => event.stopPropagation();
@@ -25,9 +28,12 @@ class StrategyTreeNode extends Component {
 	};
 
 	render () {
+		const { node, path, selectedCardPath } = this.props;
 		const isSelected =
 			this.props.selectedCardPath !== null &&
-			areArraysShallowlyEqual(this.props.selectedCardPath, this.props.path);
+			areArraysShallowlyEqual(selectedCardPath, path);
+
+		const actionSummaryLabel = determineActionSummaryLabel(node.action);
 
 		return (
 			<TreeNode
@@ -35,18 +41,39 @@ class StrategyTreeNode extends Component {
 				isSelected={isSelected}
 			>
 				<Card
-					onClick={this.handleClick}
+					onClick={!isSelected ? this.handleClick : null}
 					onMouseDown={this.handleMouseDown}
 					onMouseUp={this.handleMouseUp}
 				>
 					<CardContent>
-						<Typography variant="headline">Sell 0.003 BTC</Typography>
-						<Typography>You Loyal</Typography>
+						<Flex flexDirection="column" spaceVertical=".5rem">
+							{node.conditions && (
+								<Typography color="textSecondary" variant="subheading">
+									If {node.conditions.length} conditions match:
+								</Typography>
+							)}
+
+							<Typography
+								color={actionSummaryLabel ? 'default' : 'textSecondary'}
+								variant="title"
+							>
+								{actionSummaryLabel || '(Not configured yet)'}
+							</Typography>
+						</Flex>
 					</CardContent>
 
 					<CardActions>
-						<Button onClick={this.handleAddNodeClick} size="small">Add</Button>
-						<Button onClick={this.handleRemoveNodeClick} size="small">Remove</Button>
+						<Button
+							disabled={!node.action || !node.conditions}
+							onClick={this.handleAddNodeClick}
+							size="small"
+						>
+							Add
+						</Button>
+
+						<Button onClick={this.handleRemoveNodeClick} size="small">
+							Remove
+						</Button>
 					</CardActions>
 				</Card>
 			</TreeNode>

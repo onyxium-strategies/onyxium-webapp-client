@@ -13,11 +13,11 @@ class StrategyTreeRootNode extends Component {
 			<TreeNode isDisabled={this.props.selectedCardPath !== null}>
 				<Card onMouseDown={this.handleMouseDown}>
 					<CardContent>
-						<Typography variant="headline">Start</Typography>
+						<Typography variant="title">Start</Typography>
 					</CardContent>
 
 					<CardActions>
-						<Button onClick={this.handleAddNodeClick} size="small">Add</Button>
+						<Button onClick={this.handleAddNodeClick}>Add</Button>
 					</CardActions>
 				</Card>
 			</TreeNode>
