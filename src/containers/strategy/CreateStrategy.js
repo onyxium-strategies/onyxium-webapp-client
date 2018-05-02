@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Button } from 'material-ui';
 
 import AppBody from '../../components/app/AppBody';
 
@@ -58,6 +59,19 @@ class CreateStrategy extends Component {
 		this.setState({ selectedCardPath: null, strategy });
 	};
 
+	handleSubmitButtonClick = () => {
+		const data = {
+			method: 'POST',
+			headers: {
+				'Accept': 'application/json',
+				'Content-Type': 'application/json'
+			},
+			body: JSON.stringify(this.state.strategy)
+		};
+
+		fetch('/api/work', data);
+	};
+
 	render () {
 		return (
 			<AppBody flexDirection="row" padding="0">
@@ -75,6 +89,16 @@ class CreateStrategy extends Component {
 					selectedCardPath={this.state.selectedCardPath}
 					strategy={this.state.strategy}
 				/>
+
+				<div style={{ position: 'fixed', bottom: 0, left: 0, zIndex: 99999 }}>
+					<Button
+						color="primary"
+						onClick={this.handleSubmitButtonClick}
+						variant="raised"
+					>
+						Submit dat shit!
+					</Button>
+				</div>
 			</AppBody>
 		);
 	}

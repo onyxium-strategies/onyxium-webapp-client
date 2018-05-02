@@ -9,11 +9,11 @@ import {
 	FormControl,
 	FormHelperText,
 	Icon,
-	TextField,
 	Typography
 } from 'material-ui';
 
 import Flex from '../../components/flex/Flex';
+import NumberInput from '../../components/form/NumberInput';
 import SelectField from '../../components/form/SelectField';
 
 import filterOutValueFromItems from './utils/filterOutValueFromItems';
@@ -75,12 +75,10 @@ const StrategyFormConditionFields = ({ condition, onChange, validation }) => (
 		</FormControl>
 
 		<FormControl error={validation && !!validation.value} fullWidth>
-			<TextField
-				fullWidth
+			<NumberInput
 				label="Value"
 				onChange={onChange('value')}
-				type="number"
-				value={condition.value !== null ? condition.value : ''}
+				value={condition.value}
 			/>
 
 			{validation && validation.value && <FormHelperText>{validation.value}</FormHelperText>}
@@ -89,11 +87,9 @@ const StrategyFormConditionFields = ({ condition, onChange, validation }) => (
 		<Flex flex="none" spaceHorizontal="1rem">
 			<Flex flex="1">
 				<FormControl error={validation && !!validation.timeframeInMS} fullWidth>
-					<TextField
-						fullWidth
+					<NumberInput
 						label="Timeframe"
 						onChange={onChange('timeframeInMS')}
-						type="number"
 						value={condition.timeframeInMS / modifierByTimeframeUnit[condition.timeframeUnit]}
 					/>
 
@@ -146,7 +142,7 @@ const StrategyFormConditions = ({
 						<StrategyFormConditionFields
 							condition={condition}
 							validation={conditionsValidation[index]}
-							onChange={(name) => (event) => onChange(index, name, event)}
+							onChange={(name) => (value) => onChange(index, name, value)}
 						/>
 					</ExpansionPanelDetails>
 

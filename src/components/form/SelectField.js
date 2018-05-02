@@ -11,7 +11,7 @@ const SelectField = ({ flex, items, label, onChange, value }) => (
 		select
 		label={label}
 		value={value === null ? '' : value}
-		onChange={onChange}
+		onChange={event => onChange(event.target.value)}
 	>
 		{items.map((item) => (
 			<MenuItem key={item.value} value={item.value}>

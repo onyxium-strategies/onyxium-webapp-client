@@ -15,7 +15,7 @@ export const currencies = [
 ];
 
 export const metrics = [
-	{ label: 'Price', value: 'price' },
+	{ label: 'Price', value: 'price-last' },
 	{ label: 'Volume', value: 'volume' }
 ];
 

@@ -1,9 +1,8 @@
 export default {
 	baseCurrency: null,
 	orderType: null,
+	orderValueType: 'absolute',
 	quantity: null,
 	quoteCurrency: null,
-	// TODO: is type necessary?
-	type: 'order',
 	value: null
 };

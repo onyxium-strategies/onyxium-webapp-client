@@ -16,13 +16,13 @@ import StrategyFormConditions from './StrategyFormConditions';
 
 const allowedCurrencyValues = currencies.map(currency => currency.value);
 
-function determineUpdatedValue (name, event, condition) {
+function determineUpdatedValue (name, value, condition) {
 	switch (name) {
 		case 'timeframeInMS':
-			return event.target.value * modifierByTimeframeUnit[condition.timeframeUnit];
+			return value * modifierByTimeframeUnit[condition.timeframeUnit];
 
 		default:
-			return event.target.value;
+			return value;
 	}
 }
 
@@ -51,14 +51,14 @@ class StrategyForm extends Component {
 
 	handleTabChange = (_event, activeTabIndex) => this.setState({ activeTabIndex });
 
-	handleConditionsFormChange = (conditionIndex, name, event) => {
+	handleConditionsFormChange = (conditionIndex, name, value) => {
 		const { conditions } = this.state;
-		const value = determineUpdatedValue(name, event, conditions[conditionIndex]);
+		const updatedValue = determineUpdatedValue(name, value, conditions[conditionIndex]);
 		const updatedConditions = [
 			...conditions.slice(0, conditionIndex),
 			{
 				...conditions[conditionIndex],
-				[name]: value
+				[name]: updatedValue
 			},
 			...conditions.slice(conditionIndex + 1)
 		];
@@ -79,8 +79,8 @@ class StrategyForm extends Component {
 		});
 	};
 
-	handleActionsFormChange = (name, event) => {
-		this.setState({ action: { ...this.state.action, [name]: event.target.value } });
+	handleActionsFormChange = (name, value) => {
+		this.setState({ action: { ...this.state.action, [name]: value } });
 	};
 
 	handleCancelButtonClick = () => {

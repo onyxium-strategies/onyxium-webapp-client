@@ -1,7 +1,8 @@
 import React from 'react';
-import { FormControl, FormHelperText, TextField, Typography } from 'material-ui';
+import { FormControl, FormHelperText, Typography } from 'material-ui';
 
 import Flex from '../../components/flex/Flex';
+import NumberInput from '../../components/form/NumberInput';
 import SelectField from '../../components/form/SelectField';
 
 import filterOutValueFromItems from './utils/filterOutValueFromItems';
@@ -53,23 +54,20 @@ const StrategyFormActionFields = ({ action, onChange, validation }) => (
 		</Flex>
 
 		<FormControl error={validation && !!validation.quantity} fullWidth>
-			<TextField
-				fullWidth
+			<NumberInput
 				label="Quantity"
 				onChange={onChange('quantity')}
-				type="number"
-				value={action.quantity !== null ? action.quantity : ''}
+				value={action.quantity}
 			/>
+
 			{validation && validation.quantity && <FormHelperText>{validation.quantity}</FormHelperText>}
 		</FormControl>
 
 		<FormControl error={validation && !!validation.value} fullWidth>
-			<TextField
-				fullWidth
+			<NumberInput
 				label="Value"
 				onChange={onChange('value')}
-				type="number"
-				value={action.value !== null ? action.value : ''}
+				value={action.value}
 			/>
 
 			{validation && validation.value && <FormHelperText>{validation.value}</FormHelperText>}

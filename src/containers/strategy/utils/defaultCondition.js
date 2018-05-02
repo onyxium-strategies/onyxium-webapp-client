@@ -2,7 +2,7 @@ import { modifierByTimeframeUnit } from '../data';
 
 export default {
 	baseCurrency: null,
-	baseMetric: 'price',
+	baseMetric: 'price-last',
 	conditionType: null,
 	quoteCurrency: null,
 	timeframeInMS: modifierByTimeframeUnit['h'],
