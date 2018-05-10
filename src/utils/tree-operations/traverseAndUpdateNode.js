@@ -7,17 +7,14 @@
  * @param updateNode {function} Callback function called with the leaf node
  * @returns {[]} The immutably updated tree with the added condition type node
  */
-export default function traverseAndUpdateNode (nodes, path, updateNode) {
+export default function traverseAndUpdateNode(nodes, path, updateNode) {
 	const indexToRecurseIn = path[0];
 	const node = nodes[indexToRecurseIn];
 
-	const updatedNode = path.length <= 1
-		? updateNode(node)
-		: { ...node, then: traverseAndUpdateNode(node.then, path.slice(1), updateNode) };
+	const updatedNode =
+		path.length <= 1
+			? updateNode(node)
+			: { ...node, then: traverseAndUpdateNode(node.then, path.slice(1), updateNode) };
 
-	return [
-		...nodes.slice(0, indexToRecurseIn),
-		updatedNode,
-		...nodes.slice(indexToRecurseIn + 1)
-	];
+	return [...nodes.slice(0, indexToRecurseIn), updatedNode, ...nodes.slice(indexToRecurseIn + 1)];
 }

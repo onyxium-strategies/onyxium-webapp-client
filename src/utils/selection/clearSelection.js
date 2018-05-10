@@ -1,7 +1,7 @@
 /**
  * Clears all text selection, browsers have different API's for this shit so test them all and run accordingly.
  */
-export default function clearSelection () {
+export default function clearSelection() {
 	if (window.getSelection) {
 		if (window.getSelection().empty) {
 			window.getSelection().empty();

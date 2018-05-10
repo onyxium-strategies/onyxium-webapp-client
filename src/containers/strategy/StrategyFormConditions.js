@@ -19,7 +19,13 @@ import SelectField from '../../components/form/SelectField';
 import filterOutValueFromItems from './utils/filterOutValueFromItems';
 
 import ConditionSummaryLabel from './ConditionSummaryLabel';
-import { conditionTypes, currencies, metrics, modifierByTimeframeUnit, timeframeUnits } from './data';
+import {
+	conditionTypes,
+	currencies,
+	metrics,
+	modifierByTimeframeUnit,
+	timeframeUnits
+} from './data';
 
 const StrategyFormConditionFields = ({ condition, onChange, validation }) => (
 	<Flex flexDirection="column" maxWidth="100%" spaceVertical="1rem">
@@ -31,7 +37,10 @@ const StrategyFormConditionFields = ({ condition, onChange, validation }) => (
 				value={condition.conditionType}
 			/>
 
-			{validation && validation.conditionType && <FormHelperText>{validation.conditionType}</FormHelperText>}
+			{validation &&
+				validation.conditionType && (
+					<FormHelperText>{validation.conditionType}</FormHelperText>
+				)}
 		</FormControl>
 
 		<Flex alignItems="flex-end" flex="none" spaceHorizontal="1rem">
@@ -44,7 +53,10 @@ const StrategyFormConditionFields = ({ condition, onChange, validation }) => (
 					value={condition.baseCurrency}
 				/>
 
-				{validation && validation.baseCurrency && <FormHelperText>{validation.baseCurrency}</FormHelperText>}
+				{validation &&
+					validation.baseCurrency && (
+						<FormHelperText>{validation.baseCurrency}</FormHelperText>
+					)}
 			</FormControl>
 
 			<Typography variant="title">/</Typography>
@@ -58,7 +70,10 @@ const StrategyFormConditionFields = ({ condition, onChange, validation }) => (
 					value={condition.quoteCurrency}
 				/>
 
-				{validation && validation.quoteCurrency && <FormHelperText>{validation.quoteCurrency}</FormHelperText>}
+				{validation &&
+					validation.quoteCurrency && (
+						<FormHelperText>{validation.quoteCurrency}</FormHelperText>
+					)}
 			</FormControl>
 		</Flex>
 
@@ -71,15 +86,12 @@ const StrategyFormConditionFields = ({ condition, onChange, validation }) => (
 				value={condition.baseMetric}
 			/>
 
-			{validation && validation.baseMetric && <FormHelperText>{validation.baseMetric}</FormHelperText>}
+			{validation &&
+				validation.baseMetric && <FormHelperText>{validation.baseMetric}</FormHelperText>}
 		</FormControl>
 
 		<FormControl error={validation && !!validation.value} fullWidth>
-			<NumberInput
-				label="Value"
-				onChange={onChange('value')}
-				value={condition.value}
-			/>
+			<NumberInput label="Value" onChange={onChange('value')} value={condition.value} />
 
 			{validation && validation.value && <FormHelperText>{validation.value}</FormHelperText>}
 		</FormControl>
@@ -90,10 +102,16 @@ const StrategyFormConditionFields = ({ condition, onChange, validation }) => (
 					<NumberInput
 						label="Timeframe"
 						onChange={onChange('timeframeInMS')}
-						value={condition.timeframeInMS / modifierByTimeframeUnit[condition.timeframeUnit]}
+						value={
+							condition.timeframeInMS /
+							modifierByTimeframeUnit[condition.timeframeUnit]
+						}
 					/>
 
-					{validation && validation.timeframeInMS && <FormHelperText>{validation.timeframeInMS}</FormHelperText>}
+					{validation &&
+						validation.timeframeInMS && (
+							<FormHelperText>{validation.timeframeInMS}</FormHelperText>
+						)}
 				</FormControl>
 			</Flex>
 
@@ -133,7 +151,7 @@ const StrategyFormConditions = ({
 				<ExpansionPanel key={index}>
 					<ExpansionPanelSummary expandIcon={<Icon>expand_more</Icon>}>
 						<Flex flexDirection="column">
-							<Typography>Condition {index+1}</Typography>
+							<Typography>Condition {index + 1}</Typography>
 							<ConditionSummaryLabel condition={condition} />
 						</Flex>
 					</ExpansionPanelSummary>
@@ -142,7 +160,7 @@ const StrategyFormConditions = ({
 						<StrategyFormConditionFields
 							condition={condition}
 							validation={conditionsValidation[index]}
-							onChange={(name) => (value) => onChange(index, name, value)}
+							onChange={name => value => onChange(index, name, value)}
 						/>
 					</ExpansionPanelDetails>
 

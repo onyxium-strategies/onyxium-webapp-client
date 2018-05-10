@@ -13,7 +13,7 @@ const SelectField = ({ flex, items, label, onChange, value }) => (
 		value={value === null ? '' : value}
 		onChange={event => onChange(event.target.value)}
 	>
-		{items.map((item) => (
+		{items.map(item => (
 			<MenuItem key={item.value} value={item.value}>
 				{item.label}
 			</MenuItem>
@@ -28,16 +28,16 @@ SelectField.defaultProps = {
 };
 
 SelectField.propTypes = {
-	flex: PropTypes.oneOfType([ PropTypes.number, PropTypes.string ]),
+	flex: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
 	items: PropTypes.arrayOf(
 		PropTypes.shape({
 			label: PropTypes.string,
-			value: PropTypes.oneOfType([ PropTypes.number, PropTypes.string ])
+			value: PropTypes.oneOfType([PropTypes.number, PropTypes.string])
 		})
 	).isRequired,
 	label: PropTypes.string,
 	onChange: PropTypes.func.isRequired,
-	value: PropTypes.oneOfType([ PropTypes.number, PropTypes.string ])
+	value: PropTypes.oneOfType([PropTypes.number, PropTypes.string])
 };
 
 export default SelectField;

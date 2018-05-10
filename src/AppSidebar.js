@@ -21,7 +21,7 @@ const AppSidebar = ({ routes }) => (
 		<Divider />
 
 		<List>
-			{routes.map((route) => (
+			{routes.map(route => (
 				<ListItem button component={Link} key={route.path} to={route.path}>
 					<ListItemIcon>
 						<Icon>{route.icon}</Icon>

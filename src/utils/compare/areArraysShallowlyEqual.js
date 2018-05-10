@@ -7,7 +7,7 @@
  * @param arrayB Array to compare against arrayA
  * @returns {boolean} Whether or not the arrays are shallowly equal
  */
-export default function areArraysShallowlyEqual (arrayA, arrayB) {
+export default function areArraysShallowlyEqual(arrayA, arrayB) {
 	if (arrayA.length !== arrayB.length) {
 		return false;
 	}

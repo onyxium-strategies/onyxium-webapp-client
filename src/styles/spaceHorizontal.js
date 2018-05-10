@@ -5,7 +5,11 @@ const spaceHorizontal = ({ spaceHorizontal = null }) => {
 		return null;
 	}
 
-	return css`> *:not(:last-child) { margin-right: ${spaceHorizontal}; }`;
+	return css`
+		> *:not(:last-child) {
+			margin-right: ${spaceHorizontal};
+		}
+	`;
 };
 
 export default spaceHorizontal;

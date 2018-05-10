@@ -15,31 +15,28 @@ class CreateStrategy extends Component {
 		strategy: []
 	};
 
-	handleAddNode = (path) => {
+	handleAddNode = path => {
 		if (path.length === 0) {
 			this.setState({ strategy: [...this.state.strategy, { type: 'condition' }] });
 			return;
 		}
 
-		const strategy = traverseAndUpdateNode(this.state.strategy, path, (node) => {
+		const strategy = traverseAndUpdateNode(this.state.strategy, path, node => {
 			return {
 				...node,
-				then: [
-					...node.then || [],
-					{ type: 'condition' }
-				]
+				then: [...(node.then || []), { type: 'condition' }]
 			};
 		});
 
 		this.setState({ selectedCardPath: null, strategy });
 	};
 
-	handleRemoveNode = (path) => {
+	handleRemoveNode = path => {
 		const strategy = traverseAndRemoveNode(this.state.strategy, path);
 		this.setState({ selectedCardPath: null, strategy });
 	};
 
-	handleSelectCard = (selectedCardPath) => this.setState({ selectedCardPath });
+	handleSelectCard = selectedCardPath => this.setState({ selectedCardPath });
 
 	handleCancelForm = () => {
 		if (this.state.selectedCardPath !== null) {
@@ -48,13 +45,17 @@ class CreateStrategy extends Component {
 	};
 
 	handleUpdateNode = (conditions, action) => {
-		const strategy = traverseAndUpdateNode(this.state.strategy, this.state.selectedCardPath, (node) => {
-			return {
-				...node,
-				conditions,
-				action
-			};
-		});
+		const strategy = traverseAndUpdateNode(
+			this.state.strategy,
+			this.state.selectedCardPath,
+			node => {
+				return {
+					...node,
+					conditions,
+					action
+				};
+			}
+		);
 
 		this.setState({ selectedCardPath: null, strategy });
 	};
@@ -63,7 +64,7 @@ class CreateStrategy extends Component {
 		const data = {
 			method: 'POST',
 			headers: {
-				'Accept': 'application/json',
+				Accept: 'application/json',
 				'Content-Type': 'application/json'
 			},
 			body: JSON.stringify(this.state.strategy)
@@ -72,7 +73,7 @@ class CreateStrategy extends Component {
 		fetch('/api/work', data);
 	};
 
-	render () {
+	render() {
 		return (
 			<AppBody flexDirection="row" padding="0">
 				<StrategyTree
@@ -91,11 +92,7 @@ class CreateStrategy extends Component {
 				/>
 
 				<div style={{ position: 'fixed', bottom: 0, left: 0, zIndex: 99999 }}>
-					<Button
-						color="primary"
-						onClick={this.handleSubmitButtonClick}
-						variant="raised"
-					>
+					<Button color="primary" onClick={this.handleSubmitButtonClick} variant="raised">
 						Submit dat shit!
 					</Button>
 				</div>

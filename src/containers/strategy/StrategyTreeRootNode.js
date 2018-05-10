@@ -8,8 +8,8 @@ class StrategyTreeRootNode extends Component {
 
 	handleAddNodeClick = () => this.props.onAddNode([]);
 
-    render () {
-        return (
+	render() {
+		return (
 			<TreeNode isDisabled={this.props.selectedCardPath !== null}>
 				<Card onMouseDown={this.handleMouseDown}>
 					<CardContent>
@@ -21,8 +21,8 @@ class StrategyTreeRootNode extends Component {
 					</CardActions>
 				</Card>
 			</TreeNode>
-        );
-    }
+		);
+	}
 }
 
 export default StrategyTreeRootNode;

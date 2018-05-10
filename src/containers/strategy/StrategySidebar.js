@@ -15,7 +15,7 @@ const drawerClassNames = css({
 });
 
 class StrategySidebar extends Component {
-	render () {
+	render() {
 		if (!this.props.selectedCardPath) {
 			return null;
 		}

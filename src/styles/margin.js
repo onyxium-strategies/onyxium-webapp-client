@@ -14,7 +14,9 @@ const margin = ({ margin = null }) => {
 		});
 	}
 
-	return css`margin: ${margin}`;
+	return css`
+		margin: ${margin};
+	`;
 };
 
 export default margin;

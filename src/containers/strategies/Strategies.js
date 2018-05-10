@@ -5,7 +5,7 @@ import { Button, Icon, List, ListItem, ListItemText, Typography } from 'material
 import AppBody from '../../components/app/AppBody';
 
 class Strategies extends Component {
-	render () {
+	render() {
 		return (
 			<AppBody spaceVertical="10px">
 				<Typography variant="headline">Strategies</Typography>

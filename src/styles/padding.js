@@ -14,7 +14,9 @@ const padding = ({ padding = null }) => {
 		});
 	}
 
-	return css`padding: ${padding}`;
+	return css`
+		padding: ${padding};
+	`;
 };
 
 export default padding;

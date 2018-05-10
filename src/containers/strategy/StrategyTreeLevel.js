@@ -25,7 +25,7 @@ class StrategyTreeLevel extends Component {
 		);
 	};
 
-	render () {
+	render() {
 		if (this.props.isRootLevel) {
 			return (
 				<TreeLevel>
@@ -52,9 +52,7 @@ class StrategyTreeLevel extends Component {
 			? this.props.nodes.map(this.renderBranch)
 			: this.renderBranch(this.props.nodes, 0);
 
-		return (
-			<TreeLevel>{children}</TreeLevel>
-		);
+		return <TreeLevel>{children}</TreeLevel>;
 	}
 }
 

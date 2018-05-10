@@ -12,7 +12,7 @@ let AppBody = styled('div')`
 	display: flex;
 	flex: 1;
 	margin-top: 56px;
-	
+
 	${({ theme }) => theme.breakpoints.up('sm')} {
 		margin-top: 64px;
 	}

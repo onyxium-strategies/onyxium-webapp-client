@@ -9,11 +9,7 @@ const ActionSummaryLabel = ({ action }) => {
 		return <Typography color="textSecondary">No action configured yet</Typography>;
 	}
 
-	return (
-		<Typography color="textSecondary">
-			{determineActionSummaryLabel(action)}
-		</Typography>
-	);
+	return <Typography color="textSecondary">{determineActionSummaryLabel(action)}</Typography>;
 };
 
 export default ActionSummaryLabel;

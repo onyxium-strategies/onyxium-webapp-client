@@ -22,7 +22,8 @@ const StrategyFormActionFields = ({ action, onChange, validation }) => (
 				value={action.orderType}
 			/>
 
-			{validation && validation.orderType && <FormHelperText>{validation.orderType}</FormHelperText>}
+			{validation &&
+				validation.orderType && <FormHelperText>{validation.orderType}</FormHelperText>}
 		</FormControl>
 
 		<Flex alignItems="flex-end" flex="none" spaceHorizontal="1rem">
@@ -35,7 +36,10 @@ const StrategyFormActionFields = ({ action, onChange, validation }) => (
 					value={action.baseCurrency}
 				/>
 
-				{validation && validation.baseCurrency && <FormHelperText>{validation.baseCurrency}</FormHelperText>}
+				{validation &&
+					validation.baseCurrency && (
+						<FormHelperText>{validation.baseCurrency}</FormHelperText>
+					)}
 			</FormControl>
 
 			<Typography variant="title">/</Typography>
@@ -49,26 +53,22 @@ const StrategyFormActionFields = ({ action, onChange, validation }) => (
 					value={action.quoteCurrency}
 				/>
 
-				{validation && validation.quoteCurrency && <FormHelperText>{validation.quoteCurrency}</FormHelperText>}
+				{validation &&
+					validation.quoteCurrency && (
+						<FormHelperText>{validation.quoteCurrency}</FormHelperText>
+					)}
 			</FormControl>
 		</Flex>
 
 		<FormControl error={validation && !!validation.quantity} fullWidth>
-			<NumberInput
-				label="Quantity"
-				onChange={onChange('quantity')}
-				value={action.quantity}
-			/>
+			<NumberInput label="Quantity" onChange={onChange('quantity')} value={action.quantity} />
 
-			{validation && validation.quantity && <FormHelperText>{validation.quantity}</FormHelperText>}
+			{validation &&
+				validation.quantity && <FormHelperText>{validation.quantity}</FormHelperText>}
 		</FormControl>
 
 		<FormControl error={validation && !!validation.value} fullWidth>
-			<NumberInput
-				label="Value"
-				onChange={onChange('value')}
-				value={action.value}
-			/>
+			<NumberInput label="Value" onChange={onChange('value')} value={action.value} />
 
 			{validation && validation.value && <FormHelperText>{validation.value}</FormHelperText>}
 		</FormControl>
@@ -78,7 +78,7 @@ const StrategyFormActionFields = ({ action, onChange, validation }) => (
 const StrategyFormAction = ({ action, actionValidation, onChange }) => (
 	<StrategyFormActionFields
 		action={action}
-		onChange={(name) => (event) => onChange(name, event)}
+		onChange={name => event => onChange(name, event)}
 		validation={actionValidation}
 	/>
 );

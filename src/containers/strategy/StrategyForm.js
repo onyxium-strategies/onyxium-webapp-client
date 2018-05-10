@@ -16,7 +16,7 @@ import StrategyFormConditions from './StrategyFormConditions';
 
 const allowedCurrencyValues = currencies.map(currency => currency.value);
 
-function determineUpdatedValue (name, value, condition) {
+function determineUpdatedValue(name, value, condition) {
 	switch (name) {
 		case 'timeframeInMS':
 			return value * modifierByTimeframeUnit[condition.timeframeUnit];
@@ -26,7 +26,7 @@ function determineUpdatedValue (name, value, condition) {
 	}
 }
 
-function determineActionsAndConditions ({ strategy, selectedCardPath }) {
+function determineActionsAndConditions({ strategy, selectedCardPath }) {
 	const selectedNode = traverseAndGetNode(strategy, selectedCardPath);
 
 	return {
@@ -43,7 +43,7 @@ class StrategyForm extends Component {
 		...determineActionsAndConditions(this.props)
 	};
 
-	componentWillReceiveProps (nextProps) {
+	componentWillReceiveProps(nextProps) {
 		if (!areArraysShallowlyEqual(this.props.selectedCardPath, nextProps.selectedCardPath)) {
 			this.setState(determineActionsAndConditions(nextProps));
 		}
@@ -89,11 +89,14 @@ class StrategyForm extends Component {
 	};
 
 	handleApplyButtonClick = () => {
-		const conditionsValidation = validateConditions(this.state.conditions, allowedCurrencyValues);
+		const conditionsValidation = validateConditions(
+			this.state.conditions,
+			allowedCurrencyValues
+		);
 		const actionValidation = validateAction(this.state.action, allowedCurrencyValues);
 
 		if (
-			conditionsValidation.some((validation) => validation !== null) ||
+			conditionsValidation.some(validation => validation !== null) ||
 			actionValidation !== null
 		) {
 			this.setState({ conditionsValidation, actionValidation });
@@ -103,7 +106,7 @@ class StrategyForm extends Component {
 		this.props.onSubmit(this.state.conditions, this.state.action);
 	};
 
-	render () {
+	render() {
 		return (
 			<Flex flex="1" flexDirection="column">
 				<Tabs
@@ -139,7 +142,9 @@ class StrategyForm extends Component {
 					<Divider />
 
 					<Flex justifyContent="space-between" padding="1rem">
-						<Button onClick={this.handleCancelButtonClick} variant="raised">Cancel</Button>
+						<Button onClick={this.handleCancelButtonClick} variant="raised">
+							Cancel
+						</Button>
 
 						<Button
 							color="primary"

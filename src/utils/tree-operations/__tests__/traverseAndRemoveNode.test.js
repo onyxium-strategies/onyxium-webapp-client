@@ -9,9 +9,7 @@ const testStrategy = [
 			{ id: '2.2' },
 			{
 				id: '2.3',
-				then: [
-					{ id: '2.3.1' }
-				]
+				then: [{ id: '2.3.1' }]
 			}
 		]
 	}
@@ -24,10 +22,7 @@ test('traverseAndRemoveNode() removes the node at the given path', () => {
 		{ id: '1' },
 		{
 			id: '2',
-			then: [
-				{ id: '2.1' },
-				{ id: '2.2' }
-			]
+			then: [{ id: '2.1' }, { id: '2.2' }]
 		}
 	]);
 });

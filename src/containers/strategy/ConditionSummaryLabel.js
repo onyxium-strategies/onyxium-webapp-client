@@ -4,11 +4,20 @@ import { Typography } from 'material-ui';
 import { modifierByTimeframeUnit, timeframeUnits } from './data';
 import isConditionValid from './utils/isConditionValid';
 
-function determineConditionSummaryContent (condition) {
-	const { baseCurrency, conditionType, quoteCurrency, timeframeInMS, timeframeUnit, value } = condition;
+function determineConditionSummaryContent(condition) {
+	const {
+		baseCurrency,
+		conditionType,
+		quoteCurrency,
+		timeframeInMS,
+		timeframeUnit,
+		value
+	} = condition;
 
 	const timeframeInUnit = timeframeInMS / modifierByTimeframeUnit[timeframeUnit];
-	const timeframeUnitLabel = timeframeUnits.find(unit => unit.value === timeframeUnit).label.toLowerCase();
+	const timeframeUnitLabel = timeframeUnits
+		.find(unit => unit.value === timeframeUnit)
+		.label.toLowerCase();
 
 	switch (conditionType) {
 		case 'absolute-increase':
@@ -46,10 +55,8 @@ const ConditionSummaryLabel = ({ condition }) => {
 	}
 
 	return (
-		<Typography color="textSecondary">
-			{determineConditionSummaryContent(condition)}
-		</Typography>
+		<Typography color="textSecondary">{determineConditionSummaryContent(condition)}</Typography>
 	);
-}
+};
 
 export default ConditionSummaryLabel;

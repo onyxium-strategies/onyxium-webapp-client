@@ -13,11 +13,11 @@ class TextFields extends React.Component {
 
 	handleChange = name => event => {
 		this.setState({
-			[name]: event.target.value,
+			[name]: event.target.value
 		});
 	};
 
-	render () {
+	render() {
 		return (
 			<AppBody>
 				<Typography variant="headline">Dashboard</Typography>

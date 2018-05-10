@@ -1,4 +1,4 @@
-export default function determineActionSummaryLabel (action) {
+export default function determineActionSummaryLabel(action) {
 	if (!action) {
 		return null;
 	}
@@ -7,14 +7,10 @@ export default function determineActionSummaryLabel (action) {
 
 	switch (orderType) {
 		case 'limit-buy':
-			return (
-				`Set a "limit buy" order for ${quantity} ${quoteCurrency} at ${value} ${baseCurrency}/${quoteCurrency}`
-			);
+			return `Set a "limit buy" order for ${quantity} ${quoteCurrency} at ${value} ${baseCurrency}/${quoteCurrency}`;
 
 		case 'limit-sell':
-			return (
-				`Set a "limit sell" order for ${quantity} ${quoteCurrency} at ${value} ${baseCurrency}/${quoteCurrency}`
-			);
+			return `Set a "limit sell" order for ${quantity} ${quoteCurrency} at ${value} ${baseCurrency}/${quoteCurrency}`;
 
 		default:
 			return null;

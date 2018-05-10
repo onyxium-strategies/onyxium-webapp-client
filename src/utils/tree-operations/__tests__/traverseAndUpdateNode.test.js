@@ -9,17 +9,15 @@ const testStrategy = [
 			{ id: '2.2' },
 			{
 				id: '2.3',
-				then: [
-					{ id: '2.3.1' }
-				]
+				then: [{ id: '2.3.1' }]
 			}
 		]
 	}
 ];
 
 test('traverseAndUpdateNode() updates a single object property', () => {
-	const updatedStrategy = traverseAndUpdateNode(testStrategy, [1, 1], (node) => {
-		return { ...node, id: '2.x' }
+	const updatedStrategy = traverseAndUpdateNode(testStrategy, [1, 1], node => {
+		return { ...node, id: '2.x' };
 	});
 
 	expect(updatedStrategy).toEqual([
@@ -31,9 +29,7 @@ test('traverseAndUpdateNode() updates a single object property', () => {
 				{ id: '2.x' },
 				{
 					id: '2.3',
-					then: [
-						{ id: '2.3.1' }
-					]
+					then: [{ id: '2.3.1' }]
 				}
 			]
 		}
@@ -41,7 +37,7 @@ test('traverseAndUpdateNode() updates a single object property', () => {
 });
 
 test('traverseAndUpdateNode() adds a single object property', () => {
-	const updatedStrategy = traverseAndUpdateNode(testStrategy, [1, 1], (node) => {
+	const updatedStrategy = traverseAndUpdateNode(testStrategy, [1, 1], node => {
 		return { ...node, test: true };
 	});
 
@@ -54,9 +50,7 @@ test('traverseAndUpdateNode() adds a single object property', () => {
 				{ id: '2.2', test: true },
 				{
 					id: '2.3',
-					then: [
-						{ id: '2.3.1' }
-					]
+					then: [{ id: '2.3.1' }]
 				}
 			]
 		}
@@ -64,7 +58,7 @@ test('traverseAndUpdateNode() adds a single object property', () => {
 });
 
 test('traverseAndUpdateNode removes a single object property', () => {
-	const updatedStrategy = traverseAndUpdateNode(testStrategy, [1, 2], (node) => {
+	const updatedStrategy = traverseAndUpdateNode(testStrategy, [1, 2], node => {
 		const updatedNode = { ...node };
 		delete updatedNode.then;
 		return updatedNode;
@@ -74,11 +68,7 @@ test('traverseAndUpdateNode removes a single object property', () => {
 		{ id: '1' },
 		{
 			id: '2',
-			then: [
-				{ id: '2.1' },
-				{ id: '2.2' },
-				{ id: '2.3' }
-			]
+			then: [{ id: '2.1' }, { id: '2.2' }, { id: '2.3' }]
 		}
 	]);
 });

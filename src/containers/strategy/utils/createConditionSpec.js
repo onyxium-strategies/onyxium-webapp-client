@@ -3,7 +3,7 @@ import { conditionTypes, metrics, modifierByTimeframeUnit } from '../data';
 const allowedConditionTypeValues = conditionTypes.map(conditionType => conditionType.value);
 const allowedMetricValues = metrics.map(metric => metric.value);
 
-export default function createConditionSpec (allowedCurrencyValues, conditionType = null) {
+export default function createConditionSpec(allowedCurrencyValues, conditionType = null) {
 	const baseSpec = {
 		baseCurrency: {
 			type: 'oneOf',

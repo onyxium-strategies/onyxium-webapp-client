@@ -89,12 +89,12 @@ class StrategyTreeDragZoomArea extends Component {
 		event.preventDefault();
 	};
 
-	outerContainerRef = domNode => this.outerContainerDomNode = domNode;
-	dragZoomContainerRef = domNode => this.dragZoomContainerDomNode = domNode;
+	outerContainerRef = domNode => (this.outerContainerDomNode = domNode);
+	dragZoomContainerRef = domNode => (this.dragZoomContainerDomNode = domNode);
 
-    render () {
-        return (
-        	<OuterContainer
+	render() {
+		return (
+			<OuterContainer
 				onClick={this.props.onClick}
 				onMouseDown={this.handleMouseDown}
 				onMouseUp={this.handleMouseUp}
@@ -107,10 +107,10 @@ class StrategyTreeDragZoomArea extends Component {
 					{this.props.children}
 				</DragZoomContainer>
 			</OuterContainer>
-        );
-    }
+		);
+	}
 
-    componentDidMount() {
+	componentDidMount() {
 		const offsetWidth = this.outerContainerDomNode.offsetWidth;
 		const scrollWidth = this.outerContainerDomNode.scrollWidth;
 		const offsetHeight = this.outerContainerDomNode.offsetHeight;
@@ -120,7 +120,8 @@ class StrategyTreeDragZoomArea extends Component {
 		const heightZoomFactor = offsetHeight / scrollHeight;
 
 		if (widthZoomFactor < 1 || heightZoomFactor < 1) {
-			this.zoomFactor = widthZoomFactor < heightZoomFactor ? widthZoomFactor : heightZoomFactor;
+			this.zoomFactor =
+				widthZoomFactor < heightZoomFactor ? widthZoomFactor : heightZoomFactor;
 			this.setZoomAndPan();
 		}
 	}

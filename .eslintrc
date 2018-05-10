@@ -1,0 +1,12 @@
+{
+	"extends": ["prettier", "prettier/react"],
+	"plugins": ["react", "prettier"],
+	"parser": "babel-eslint",
+	"rules": {
+		"valid-jsdoc": "off",
+		"prettier/prettier": [
+			"error",
+			{ "printWidth": 100, "singleQuote": true, "tabWidth": 4, "useTabs": true }
+		]
+	}
+}

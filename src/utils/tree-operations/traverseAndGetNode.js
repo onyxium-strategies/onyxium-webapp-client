@@ -5,7 +5,7 @@
  * @param path {[]} The path to traverse into, array index based
  * @returns {Object} The node that corresponds to the given path
  */
-export default function traverseAndGetNode (nodes, path) {
+export default function traverseAndGetNode(nodes, path) {
 	if (path.length === 1) {
 		return nodes[path[0]];
 	}

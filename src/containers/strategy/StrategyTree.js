@@ -6,8 +6,8 @@ import TreeDragZoomArea from '../../components/tree/TreeDragZoomArea';
 import StrategyTreeLevel from './StrategyTreeLevel';
 
 class StrategyTree extends Component {
-	render () {
-        return (
+	render() {
+		return (
 			<TreeDragZoomArea>
 				<Tree>
 					<StrategyTreeLevel
@@ -20,8 +20,8 @@ class StrategyTree extends Component {
 					/>
 				</Tree>
 			</TreeDragZoomArea>
-        );
-    }
+		);
+	}
 }
 
 export default StrategyTree;

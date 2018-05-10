@@ -9,9 +9,7 @@ const testStrategy = [
 			{ id: '2.2' },
 			{
 				id: '2.3',
-				then: [
-					{ id: '2.3.1' }
-				]
+				then: [{ id: '2.3.1' }]
 			}
 		]
 	}
@@ -22,8 +20,6 @@ test('traverseAndGetNode() returns the node at the given path', () => {
 
 	expect(updatedStrategy).toEqual({
 		id: '2.3',
-		then: [
-			{ id: '2.3.1' }
-		]
+		then: [{ id: '2.3.1' }]
 	});
 });

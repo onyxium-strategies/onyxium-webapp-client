@@ -5,7 +5,11 @@ const spaceVertical = ({ spaceVertical = null }) => {
 		return null;
 	}
 
-	return css`> *:not(:last-child) { margin-bottom: ${spaceVertical}; }`;
+	return css`
+		> *:not(:last-child) {
+			margin-bottom: ${spaceVertical};
+		}
+	`;
 };
 
 export default spaceVertical;

@@ -20,9 +20,9 @@ export const metrics = [
 ];
 
 export const modifierByTimeframeUnit = {
-	'm': 1000 * 60,
-	'h': 1000 * 60 * 60,
-	'd': 1000 * 60 * 60 * 24
+	m: 1000 * 60,
+	h: 1000 * 60 * 60,
+	d: 1000 * 60 * 60 * 24
 };
 
 export const orderTypes = [

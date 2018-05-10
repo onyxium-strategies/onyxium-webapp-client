@@ -4,7 +4,7 @@ import { Typography } from 'material-ui';
 import AppBody from '../../components/app/AppBody';
 
 class Dashboard extends Component {
-	render () {
+	render() {
 		return (
 			<AppBody>
 				<Typography variant="headline">Dashboard</Typography>
