@@ -1,12 +1,37 @@
 {
-	"extends": ["prettier", "prettier/react"],
-	"plugins": ["react", "prettier"],
+	"extends": ["eslint:recommended",  "plugin:react/recommended", "prettier", "prettier/react"],
+	"plugins": ["react", "prettier", "jest"],
 	"parser": "babel-eslint",
+	"env": {
+		"amd": true,
+		"browser": true,
+		"es6": true,
+		"jest": true,
+		"node": true
+	},
 	"rules": {
-		"valid-jsdoc": "off",
 		"prettier/prettier": [
 			"error",
 			{ "printWidth": 100, "singleQuote": true, "tabWidth": 4, "useTabs": true }
-		]
+		],
+		"react/prop-types": "off",
+
+		"no-console": "off",
+		"no-unused-expressions": "warn",
+		"no-unused-vars": ["error", {
+			"args": "all",
+			"argsIgnorePattern": "^_",
+			"caughtErrors": "all",
+			"caughtErrorsIgnorePattern": "^_",
+			"vars": "all",
+			"varsIgnorePattern": "^_"
+		}],
+		"radix": ["error", "always"],
+		"curly": ["warn", "all"],
+		"eol-last": "warn",
+		"no-mixed-spaces-and-tabs": "warn",
+		"object-curly-spacing": ["warn", "always"],
+		"quotes": ["warn", "single", { "allowTemplateLiterals": true }],
+		"semi-spacing": ["warn", { "before": false, "after": true }]
 	}
 }
