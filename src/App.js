@@ -13,7 +13,7 @@ import {
 } from 'material-ui/styles';
 
 import Dashboard from './containers/dashboard/Dashboard';
-import CreateStrategy from './containers/strategy/CreateStrategy';
+import CreateStrategy from './containers/strategies/CreateStrategy';
 import Settings from './containers/settings/Settings';
 import Strategies from './containers/strategies/Strategies';
 
@@ -37,9 +37,9 @@ const theme = createMuiTheme({
 // Stupid material icons overflow their content (specifying the icon name) by default,
 // prevent this behavior and make sure they always have a fixed width based on the font-size.
 injectGlobal(`
-	.material-icons { 
+	.material-icons {
 		overflow: hidden;
-		width: 1em; 
+		width: 1em;
 	};
 `);
 

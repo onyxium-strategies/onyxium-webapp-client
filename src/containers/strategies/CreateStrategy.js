@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { Button } from 'material-ui';
+import { Link } from 'react-router-dom';
+import { Button, Icon } from 'material-ui';
 
 import AppBody from '../../components/app/AppBody';
 
@@ -61,21 +62,40 @@ class CreateStrategy extends Component {
 	};
 
 	handleSubmitButtonClick = () => {
-		const data = {
-			method: 'POST',
-			headers: {
-				Accept: 'application/json',
-				'Content-Type': 'application/json'
-			},
-			body: JSON.stringify(this.state.strategy)
-		};
+		// TODO: turn this stuff back on, currently we've disabled this for demo purposes
+		// const data = {
+		// 	method: 'POST',
+		// 	headers: {
+		// 		Accept: 'application/json',
+		// 		'Content-Type': 'application/json'
+		// 	},
+		// 	body: JSON.stringify(this.state.strategy)
+		// };
 
-		fetch('/api/work', data);
+		// fetch('/api/work', data);
+
+		console.log('aardappel');
 	};
 
 	render() {
 		return (
 			<AppBody flexDirection="row" padding="0">
+				<div style={{ position: 'absolute', top: '1rem', left: '1rem', zIndex: 1 }}>
+					<Button component={Link} to="/strategies" variant="raised" size="small">
+						<Icon>chevron_left</Icon>
+					</Button>
+
+					<Button
+						color="primary"
+						onClick={this.handleSubmitButtonClick}
+						variant="raised"
+						size="small"
+					>
+						<Icon>send</Icon>
+						Submit strategy
+					</Button>
+				</div>
+
 				<StrategyTree
 					onAddNode={this.handleAddNode}
 					onRemoveNode={this.handleRemoveNode}
@@ -84,18 +104,14 @@ class CreateStrategy extends Component {
 					strategy={this.state.strategy}
 				/>
 
-				<StrategySidebar
-					onCancelForm={this.handleCancelForm}
-					onUpdateNode={this.handleUpdateNode}
-					selectedCardPath={this.state.selectedCardPath}
-					strategy={this.state.strategy}
-				/>
-
-				<div style={{ position: 'fixed', bottom: 0, left: 0, zIndex: 99999 }}>
-					<Button color="primary" onClick={this.handleSubmitButtonClick} variant="raised">
-						Submit dat shit!
-					</Button>
-				</div>
+				{this.state.selectedCardPath && (
+					<StrategySidebar
+						onCancelForm={this.handleCancelForm}
+						onUpdateNode={this.handleUpdateNode}
+						selectedCardPath={this.state.selectedCardPath}
+						strategy={this.state.strategy}
+					/>
+				)}
 			</AppBody>
 		);
 	}
