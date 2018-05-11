@@ -2,6 +2,7 @@ import React from 'react';
 import { injectGlobal } from 'react-emotion';
 import JssProvider from 'react-jss/lib/JssProvider';
 import { create } from 'jss';
+import { Reboot } from 'material-ui';
 import { blue } from 'material-ui/colors';
 import {
 	createGenerateClassName,
@@ -35,7 +36,10 @@ injectGlobal(`
 
 const AppThemeProvider = ({ children }) => (
 	<JssProvider jss={jss}>
-		<MuiThemeProvider theme={theme}>{children}</MuiThemeProvider>
+		<MuiThemeProvider theme={theme}>
+			<Reboot />
+			{children}
+		</MuiThemeProvider>
 	</JssProvider>
 );
 

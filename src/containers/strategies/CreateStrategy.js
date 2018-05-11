@@ -1,14 +1,20 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { Link, withRouter } from 'react-router-dom';
 import { Button, Icon } from 'material-ui';
+
+import { strategyAdd } from '../../actions';
 
 import { AppBody, Flex } from '../../components';
 
 import StrategySidebar from './StrategySidebar';
+import StrategySubmitPopover from './StrategySubmitPopover';
 import StrategyTree from './StrategyTree';
 
 import traverseAndRemoveNode from '../../utils/tree-operations/traverseAndRemoveNode';
 import traverseAndUpdateNode from '../../utils/tree-operations/traverseAndUpdateNode';
+
+const mapDispatchToProps = { strategyAdd };
 
 class CreateStrategy extends Component {
 	state = {
@@ -61,7 +67,7 @@ class CreateStrategy extends Component {
 		this.setState({ selectedCardPath: null, strategy });
 	};
 
-	handleSubmitButtonClick = () => {
+	handleStrategySubmit = strategyName => {
 		// TODO: turn this stuff back on, currently we've disabled this for demo purposes
 		// const data = {
 		// 	method: 'POST',
@@ -71,10 +77,10 @@ class CreateStrategy extends Component {
 		// 	},
 		// 	body: JSON.stringify(this.state.strategy)
 		// };
-
 		// fetch('/api/work', data);
 
-		console.log('aardappel');
+		this.props.strategyAdd(strategyName, this.state.strategy);
+		this.props.history.push('/strategies');
 	};
 
 	render() {
@@ -88,15 +94,7 @@ class CreateStrategy extends Component {
 						<Icon>chevron_left</Icon>
 					</Button>
 
-					<Button
-						color="primary"
-						onClick={this.handleSubmitButtonClick}
-						variant="raised"
-						size="small"
-					>
-						<Icon>send</Icon>
-						Submit strategy
-					</Button>
+					<StrategySubmitPopover onSubmit={this.handleStrategySubmit} />
 				</Flex>
 
 				<StrategyTree
@@ -119,5 +117,8 @@ class CreateStrategy extends Component {
 		);
 	}
 }
+
+CreateStrategy = withRouter(CreateStrategy);
+CreateStrategy = connect(null, mapDispatchToProps)(CreateStrategy);
 
 export default CreateStrategy;
