@@ -1,4 +1,6 @@
 export { default as AppBody } from './app/AppBody';
+export { default as AppContainer } from './app/AppContainer';
+export { default as AppMainContainer } from './app/AppMainContainer';
 
 export { default as Block } from './block/Block';
 

@@ -1,108 +1,28 @@
 import React from 'react';
-import JssProvider from 'react-jss/lib/JssProvider';
-import { create } from 'jss';
-import styled, { injectGlobal } from 'react-emotion';
-import { BrowserRouter as Router, Redirect, Route, Switch } from 'react-router-dom';
+import { BrowserRouter as Router } from 'react-router-dom';
 import { Reboot } from 'material-ui';
-import { blue } from 'material-ui/colors';
-import {
-	createGenerateClassName,
-	createMuiTheme,
-	jssPreset,
-	MuiThemeProvider
-} from 'material-ui/styles';
 
-import Dashboard from './containers/dashboard/Dashboard';
-import CreateStrategy from './containers/strategies/CreateStrategy';
-import Settings from './containers/settings/Settings';
-import Strategies from './containers/strategies/Strategies';
+import { AppContainer, AppMainContainer } from './components';
 
 import AppHeader from './AppHeader';
+import AppRoutes, { routes } from './AppRoutes';
 import AppSidebar from './AppSidebar';
-
-const jss = create(jssPreset());
-jss.options.insertionPoint = 'insertion-point-jss';
-jss.options.createGenerateClassName = createGenerateClassName;
-
-const theme = createMuiTheme({
-	palette: {
-		primary: {
-			light: blue[300],
-			main: blue[500],
-			dark: blue[800]
-		}
-	}
-});
-
-// Stupid material icons overflow their content (specifying the icon name) by default,
-// prevent this behavior and make sure they always have a fixed width based on the font-size.
-injectGlobal(`
-	.material-icons {
-		overflow: hidden;
-		width: 1em;
-	};
-`);
-
-const AppContainer = styled('div')`
-	height: 100vh;
-	display: flex;
-`;
-
-const AppMainContainer = styled('div')`
-	display: flex;
-	flex: 1;
-	flex-direction: column;
-	overflow: hidden;
-	position: relative;
-`;
-
-const routes = [
-	{
-		path: '/dashboard',
-		component: Dashboard,
-		exact: true,
-		label: 'Dashboard',
-		icon: 'dashboard'
-	},
-	{
-		path: '/strategies',
-		component: Strategies,
-		exact: true,
-		label: 'Strategies',
-		icon: 'call_split'
-	},
-	{ path: '/strategies/create', component: CreateStrategy, exact: true, showInSidebar: false },
-	{ path: '/settings', component: Settings, exact: true, label: 'Settings', icon: 'settings' }
-];
+import AppThemeProvider from './AppThemeProvider';
 
 const App = () => (
 	<Router>
-		<JssProvider jss={jss}>
-			<MuiThemeProvider theme={theme}>
-				<Reboot />
+		<AppThemeProvider>
+			<Reboot />
 
-				<AppContainer>
-					<AppSidebar routes={routes.filter(route => route.showInSidebar !== false)} />
+			<AppContainer>
+				<AppSidebar routes={routes.filter(route => route.showInSidebar !== false)} />
 
-					<AppMainContainer>
-						<AppHeader />
-
-						<Switch>
-							{routes.map(route => (
-								<Route
-									key={route.path}
-									path={route.path}
-									exact={true}
-									component={route.component}
-								/>
-							))}
-
-							<Redirect to="/dashboard" />
-						</Switch>
-					</AppMainContainer>
-				</AppContainer>
-			</MuiThemeProvider>
-		</JssProvider>
+				<AppMainContainer>
+					<AppHeader />
+					<AppRoutes />
+				</AppMainContainer>
+			</AppContainer>
+		</AppThemeProvider>
 	</Router>
 );
 
