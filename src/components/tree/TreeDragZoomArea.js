@@ -18,6 +18,7 @@ const DragZoomContainer = styled('div')`
 	flex: 1;
 	flex-direction: column;
 	flex-wrap: nowrap;
+	justify-content: center;
 `;
 
 const ZOOM_FACTOR = 1.05;
@@ -56,8 +57,8 @@ class StrategyTreeDragZoomArea extends Component {
 	// Set style property directly on the domNode, since React's setState is too slow for this amount of events.
 	setZoomAndPan() {
 		this.dragZoomContainerDomNode.style.transform = `
-			translateX(${this.positionX}px) 
-			translateY(${this.positionY}px) 
+			translateX(${this.positionX}px)
+			translateY(${this.positionY}px)
 			scale(${this.zoomFactor})`;
 	}
 
