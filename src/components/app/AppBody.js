@@ -1,9 +1,7 @@
 import styled from 'react-emotion';
 import { withTheme } from 'material-ui/styles';
 
-import flexDirection from '../../styles/flexDirection';
-import padding from '../../styles/padding';
-import spaceVertical from '../../styles/spaceVertical';
+import { flexDirection, padding, spaceVertical } from '../../styles';
 
 let AppBody = styled('div')`
 	${flexDirection};

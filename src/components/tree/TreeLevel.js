@@ -1,6 +1,6 @@
 import styled from 'react-emotion';
 
-import spaceHorizontal from '../../styles/spaceHorizontal';
+import { spaceHorizontal } from '../../styles';
 
 let TreeLevel = styled('div')`
 	${() => spaceHorizontal({ spaceHorizontal: '4rem' })} display: flex;
