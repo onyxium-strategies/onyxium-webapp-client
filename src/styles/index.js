@@ -1,9 +1,17 @@
-import { createStyle } from './utils';
+import createStyle from './utils/createStyle';
 
 export const alignItems = createStyle({
 	prop: 'alignItems',
 	cssProperty: 'alignItems'
 });
+
+export const applyCss = ({ applyCss = null }) => {
+	if (applyCss === null) {
+		return null;
+	}
+
+	return applyCss;
+};
 
 export const flex = createStyle({
 	prop: 'flex',

@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { Button, Icon } from 'material-ui';
 
 import AppBody from '../../components/app/AppBody';
+import Flex from '../../components/flex/Flex';
 
 import StrategySidebar from './StrategySidebar';
 import StrategyTree from './StrategyTree';
@@ -80,7 +81,10 @@ class CreateStrategy extends Component {
 	render() {
 		return (
 			<AppBody flexDirection="row" padding="0">
-				<div style={{ position: 'absolute', top: '1rem', left: '1rem', zIndex: 1 }}>
+				<Flex
+					applyCss={{ position: 'absolute', top: '1rem', left: '1rem', zIndex: 1 }}
+					spaceHorizontal="1rem"
+				>
 					<Button component={Link} to="/strategies" variant="raised" size="small">
 						<Icon>chevron_left</Icon>
 					</Button>
@@ -94,7 +98,7 @@ class CreateStrategy extends Component {
 						<Icon>send</Icon>
 						Submit strategy
 					</Button>
-				</div>
+				</Flex>
 
 				<StrategyTree
 					onAddNode={this.handleAddNode}

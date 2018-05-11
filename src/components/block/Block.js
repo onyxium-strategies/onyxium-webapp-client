@@ -2,14 +2,10 @@ import styled from 'react-emotion';
 import { withTheme } from 'material-ui/styles';
 
 import {
-	alignItems,
 	applyCss,
 	flex,
-	flexDirection,
-	justifyContent,
 	margin,
 	maxWidth,
-	overflowY,
 	padding,
 	spaceHorizontal,
 	spaceVertical,
@@ -17,19 +13,15 @@ import {
 } from '../../styles';
 
 let Flex = styled('div')`
-	${alignItems};
 	${applyCss};
 	${flex};
-	${flexDirection};
-	${justifyContent};
 	${maxWidth};
-	${overflowY};
 	${margin};
 	${padding};
 	${spaceHorizontal};
 	${spaceVertical};
 	${width};
-	display: flex;
+	display: block;
 	min-height: 0;
 	min-width: 0;
 `;
