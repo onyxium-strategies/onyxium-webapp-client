@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { Button, Divider, Tab, Tabs } from 'material-ui';
 
-import Flex from '../../components/flex/Flex';
+import { Flex } from '../../components';
+
 import areArraysShallowlyEqual from '../../utils/compare/areArraysShallowlyEqual';
 import traverseAndGetNode from '../../utils/tree-operations/traverseAndGetNode';
 

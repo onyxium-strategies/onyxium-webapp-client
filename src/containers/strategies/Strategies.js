@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { Button, Icon, List, ListItem, ListItemText, Typography } from 'material-ui';
 
-import AppBody from '../../components/app/AppBody';
+import { AppBody } from '../../components';
 
 class Strategies extends Component {
 	render() {

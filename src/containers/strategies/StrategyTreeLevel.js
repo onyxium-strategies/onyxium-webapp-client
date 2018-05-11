@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 
-import TreeBranch from '../../components/tree/TreeBranch';
-import TreeLevel from '../../components/tree/TreeLevel';
+import { TreeBranch, TreeLevel } from '../../components';
 
 import StrategyTreeNode from './StrategyTreeNode';
 import StrategyTreeRootNode from './StrategyTreeRootNode';

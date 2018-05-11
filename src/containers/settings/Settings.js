@@ -2,8 +2,7 @@ import React from 'react';
 import TextField from 'material-ui/TextField';
 import { Button, Typography } from 'material-ui';
 
-import AppBody from '../../components/app/AppBody';
-import Flex from '../../components/flex/Flex';
+import { AppBody, Flex } from '../../components';
 
 class TextFields extends React.Component {
 	state = {

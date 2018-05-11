@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 
-import Tree from '../../components/tree/Tree';
-import TreeDragZoomArea from '../../components/tree/TreeDragZoomArea';
+import { Tree, TreeDragZoomArea } from '../../components';
 
 import StrategyTreeLevel from './StrategyTreeLevel';
 

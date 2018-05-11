@@ -2,8 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { Button, Icon } from 'material-ui';
 
-import AppBody from '../../components/app/AppBody';
-import Flex from '../../components/flex/Flex';
+import { AppBody, Flex } from '../../components';
 
 import StrategySidebar from './StrategySidebar';
 import StrategyTree from './StrategyTree';

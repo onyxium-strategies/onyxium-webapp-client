@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Button, Card, CardActions, CardContent, Typography } from 'material-ui';
 
-import TreeNode from '../../components/tree/TreeNode';
+import { TreeNode } from '../../components';
 
 class StrategyTreeRootNode extends Component {
 	handleMouseDown = event => event.stopPropagation();

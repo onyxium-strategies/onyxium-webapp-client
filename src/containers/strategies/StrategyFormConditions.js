@@ -12,9 +12,7 @@ import {
 	Typography
 } from 'material-ui';
 
-import Flex from '../../components/flex/Flex';
-import NumberInput from '../../components/form/NumberInput';
-import SelectField from '../../components/form/SelectField';
+import { Flex, NumberInput, SelectField } from '../../components';
 
 import filterOutValueFromItems from './utils/filterOutValueFromItems';
 

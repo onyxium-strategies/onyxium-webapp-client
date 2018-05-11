@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Typography } from 'material-ui';
 
-import AppBody from '../../components/app/AppBody';
+import { AppBody } from '../../components';
 
 class Dashboard extends Component {
 	render() {
