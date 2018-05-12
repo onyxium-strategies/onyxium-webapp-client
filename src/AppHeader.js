@@ -15,6 +15,10 @@ let AppHeader = ({ location }) => {
 		})
 	);
 
+	if (!matchingPath) {
+		return null;
+	}
+
 	return (
 		<AppBar classes={{ root: rootClassNames }}>
 			<Toolbar>
