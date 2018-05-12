@@ -1,4 +1,4 @@
-# Coinflow webapp
+# Onyxium webapp
 
 * Make sure you have the LTS of [Node.JS installed](https://nodejs.org/en/)
 
