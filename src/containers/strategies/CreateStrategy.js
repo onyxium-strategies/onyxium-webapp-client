@@ -26,7 +26,7 @@ class CreateStrategy extends Component {
 	handleAddNode = path => {
 		if (path.length === 0) {
 			this.setState({
-				selectedCardPath: [0],
+				selectedCardPath: [this.state.strategy.length],
 				strategy: [...this.state.strategy, null]
 			});
 			return;
@@ -41,6 +41,8 @@ class CreateStrategy extends Component {
 			};
 		});
 
+		console.log('leafIndex', leafIndex);
+
 		this.setState({ selectedCardPath: path.concat(leafIndex), strategy });
 	};
 
@@ -49,24 +51,27 @@ class CreateStrategy extends Component {
 		this.setState({ selectedCardPath: null, strategy });
 	};
 
-	handleSelectCard = selectedCardPath => this.setState({ selectedCardPath });
+	removeInvalidSelectedCardPath() {
+		if (
+			this.state.selectedCardPath &&
+			traverseAndGetNode(this.state.strategy, this.state.selectedCardPath) === null
+		) {
+			const strategy = traverseAndRemoveNode(
+				this.state.strategy,
+				this.state.selectedCardPath
+			);
+			this.setState({ strategy });
+		}
+	}
+
+	handleSelectCard = selectedCardPath => {
+		this.removeInvalidSelectedCardPath();
+		this.setState({ selectedCardPath });
+	};
 
 	handleCancelForm = () => {
-		if (this.state.selectedCardPath !== null) {
-			const node = traverseAndGetNode(this.state.strategy, this.state.selectedCardPath);
-
-			// If node is null, it's not configured correctly: remove node
-			if (node === null) {
-				const strategy = traverseAndRemoveNode(
-					this.state.strategy,
-					this.state.selectedCardPath
-				);
-				this.setState({ selectedCardPath: null, strategy });
-				return;
-			}
-
-			this.setState({ selectedCardPath: null });
-		}
+		this.removeInvalidSelectedCardPath();
+		this.setState({ selectedCardPath: null });
 	};
 
 	handleUpdateNode = (conditions, action) => {
