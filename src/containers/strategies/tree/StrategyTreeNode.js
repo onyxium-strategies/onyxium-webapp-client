@@ -33,6 +33,8 @@ class StrategyTreeNode extends Component {
 
 		const actionSummaryLabel = node && determineActionSummaryLabel(node.action);
 
+		const conditionCount = node && node.conditions.length;
+
 		return (
 			<TreeNode
 				isDisabled={this.props.selectedCardPath !== null && !isSelected}
@@ -48,7 +50,10 @@ class StrategyTreeNode extends Component {
 							{node &&
 								node.conditions && (
 									<Typography color="textSecondary" variant="subheading">
-										If {node.conditions.length} conditions match:
+										If {conditionCount}
+										{conditionCount > 1
+											? ' conditions match'
+											: ' condition matches'}:
 									</Typography>
 								)}
 

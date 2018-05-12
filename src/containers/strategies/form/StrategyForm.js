@@ -28,13 +28,47 @@ function determineUpdatedValue(name, value, condition) {
 	}
 }
 
+function determinePragmaticTimeframeUnit(timeframeInMS) {
+	if (timeframeInMS < modifierByTimeframeUnit['h']) {
+		return 'm';
+	}
+
+	if (timeframeInMS < modifierByTimeframeUnit['d']) {
+		return 'h';
+	}
+
+	return 'd';
+}
+
+function toUsableCondition(condition) {
+	const updatedCondition = { ...condition };
+
+	if (!updatedCondition.timeframeUnit) {
+		if (!updatedCondition.timeframeInMS) {
+			updatedCondition['timeframeUnit'] = defaultCondition.timeframeUnit;
+		} else {
+			updatedCondition['timeframeUnit'] = determinePragmaticTimeframeUnit(
+				updatedCondition.timeframeInMS
+			);
+		}
+	}
+
+	return updatedCondition;
+}
+
 function determineActionsAndConditions({ strategy, selectedCardPath }) {
 	const selectedNode = traverseAndGetNode(strategy, selectedCardPath);
 
+	if (!selectedNode) {
+		return {
+			action: defaultAction,
+			conditions: [defaultCondition]
+		};
+	}
+
 	return {
-		action: selectedNode && selectedNode.action ? selectedNode.action : defaultAction,
-		conditions:
-			selectedNode && selectedNode.conditions ? selectedNode.conditions : [defaultCondition]
+		action: selectedNode.action,
+		conditions: selectedNode.conditions.map(toUsableCondition)
 	};
 }
 

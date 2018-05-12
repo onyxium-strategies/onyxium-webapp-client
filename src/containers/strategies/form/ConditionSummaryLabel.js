@@ -4,6 +4,15 @@ import { Typography } from 'material-ui';
 import { modifierByTimeframeUnit, timeframeUnits } from '../data';
 import isConditionValid from '../utils/isConditionValid';
 
+function getTimeframeData(timeframeInMS, timeframeUnit) {
+	const timeframeInUnit = timeframeInMS / modifierByTimeframeUnit[timeframeUnit];
+	const timeframeUnitLabel = timeframeUnits
+		.find(unit => unit.value === timeframeUnit)
+		.label.toLowerCase();
+
+	return { timeframeInUnit, timeframeUnitLabel };
+}
+
 function determineConditionSummaryContent(condition) {
 	const {
 		baseCurrency,
@@ -14,38 +23,50 @@ function determineConditionSummaryContent(condition) {
 		value
 	} = condition;
 
-	const timeframeInUnit = timeframeInMS / modifierByTimeframeUnit[timeframeUnit];
-	const timeframeUnitLabel = timeframeUnits
-		.find(unit => unit.value === timeframeUnit)
-		.label.toLowerCase();
-
 	switch (conditionType) {
-		case 'absolute-increase':
+		case 'absolute-above': {
+			return `If ${baseCurrency}/${quoteCurrency} value is above ${value}`;
+		}
+
+		case 'absolute-below': {
+			return `If ${baseCurrency}/${quoteCurrency} value is below ${value}`;
+		}
+
+		case 'absolute-increase': {
+			const td = getTimeframeData(timeframeInMS, timeframeUnit);
 			return (
 				`If ${baseCurrency}/${quoteCurrency} value increases with ` +
-				`${value} within ${timeframeInUnit} ${timeframeUnitLabel}`
+				`${value} within ${td.timeframeInUnit} ${td.timeframeUnitLabel}`
 			);
+		}
 
-		case 'absolute-decrease':
+		case 'absolute-decrease': {
+			const td = getTimeframeData(timeframeInMS, timeframeUnit);
 			return (
 				`If ${baseCurrency}/${quoteCurrency} value decreases with ` +
-				`${value} within ${timeframeInUnit} ${timeframeUnitLabel}`
+				`${value} within ${td.timeframeInUnit} ${td.timeframeUnitLabel}`
 			);
+		}
 
-		case 'percentage-increase':
+		case 'percentage-increase': {
+			const td = getTimeframeData(timeframeInMS, timeframeUnit);
 			return (
 				`If ${baseCurrency}/${quoteCurrency} value increases with ` +
-				`${value}% within ${timeframeInUnit} ${timeframeUnitLabel}`
+				`${value}% within ${td.timeframeInUnit} ${td.timeframeUnitLabel}`
 			);
+		}
 
-		case 'percentage-decrease':
+		case 'percentage-decrease': {
+			const td = getTimeframeData(timeframeInMS, timeframeUnit);
 			return (
 				`If ${baseCurrency}/${quoteCurrency} value decreases with ` +
-				`${value}% within ${timeframeInUnit} ${timeframeUnitLabel}`
+				`${value}% within ${td.timeframeInUnit} ${td.timeframeUnitLabel}`
 			);
+		}
 
-		default:
+		default: {
 			return null;
+		}
 	}
 }
 

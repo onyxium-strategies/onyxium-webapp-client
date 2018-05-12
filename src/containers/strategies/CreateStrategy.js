@@ -41,8 +41,6 @@ class CreateStrategy extends Component {
 			};
 		});
 
-		console.log('leafIndex', leafIndex);
-
 		this.setState({ selectedCardPath: path.concat(leafIndex), strategy });
 	};
 
