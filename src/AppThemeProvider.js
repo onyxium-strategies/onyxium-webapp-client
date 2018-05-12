@@ -4,16 +4,10 @@ import JssProvider from 'react-jss/lib/JssProvider';
 import { create } from 'jss';
 import { Reboot } from 'material-ui';
 import { blue } from 'material-ui/colors';
-import {
-	createGenerateClassName,
-	createMuiTheme,
-	jssPreset,
-	MuiThemeProvider
-} from 'material-ui/styles';
+import { createMuiTheme, jssPreset, MuiThemeProvider } from 'material-ui/styles';
 
 const jss = create(jssPreset());
-jss.options.insertionPoint = 'insertion-point-jss';
-jss.options.createGenerateClassName = createGenerateClassName;
+jss.setup({ insertionPoint: document.querySelector('head > meta[name="insertion-point-jss"]') });
 
 const theme = createMuiTheme({
 	palette: {
