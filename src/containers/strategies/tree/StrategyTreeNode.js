@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import { Button, Card, CardActions, CardContent, Typography } from 'material-ui';
 
-import { TreeNode, Flex } from '../../components';
+import { TreeNode, Flex } from '../../../components';
 
-import areArraysShallowlyEqual from '../../utils/compare/areArraysShallowlyEqual';
+import areArraysShallowlyEqual from '../../../utils/compare/areArraysShallowlyEqual';
 
-import determineActionSummaryLabel from './utils/determineActionSummaryLabel';
+import determineActionSummaryLabel from '../utils/determineActionSummaryLabel';
 
 class StrategyTreeNode extends Component {
 	handleMouseDown = event => event.stopPropagation();

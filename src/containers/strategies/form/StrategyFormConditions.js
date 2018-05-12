@@ -12,18 +12,18 @@ import {
 	Typography
 } from 'material-ui';
 
-import { Flex, NumberInput, SelectField } from '../../components';
+import { Flex, NumberInput, SelectField } from '../../../components';
 
-import filterOutValueFromItems from './utils/filterOutValueFromItems';
-
-import ConditionSummaryLabel from './ConditionSummaryLabel';
 import {
 	conditionTypes,
 	currencies,
 	metrics,
 	modifierByTimeframeUnit,
 	timeframeUnits
-} from './data';
+} from '../data';
+import filterOutValueFromItems from '../utils/filterOutValueFromItems';
+
+import ConditionSummaryLabel from './ConditionSummaryLabel';
 
 const StrategyFormConditionFields = ({ condition, onChange, validation }) => (
 	<Flex flexDirection="column" maxWidth="100%" spaceVertical="1rem">

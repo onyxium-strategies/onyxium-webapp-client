@@ -1,12 +1,13 @@
 import React from 'react';
 import { FormControl, FormHelperText, Typography } from 'material-ui';
 
-import { Flex, NumberInput, SelectField } from '../../components';
+import { Flex, NumberInput, SelectField } from '../../../components';
 
-import filterOutValueFromItems from './utils/filterOutValueFromItems';
+import { currencies, orderTypes } from '../data';
+
+import filterOutValueFromItems from '../utils/filterOutValueFromItems';
 
 import ActionSummaryLabel from './ActionSummaryLabel';
-import { currencies, orderTypes } from './data';
 
 const StrategyFormActionFields = ({ action, onChange, validation }) => (
 	<Flex flex="1" flexDirection="column" maxWidth="100%" padding="1rem" spaceVertical="1rem">

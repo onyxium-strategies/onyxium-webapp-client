@@ -3,9 +3,12 @@ import React from 'react';
 import { Redirect, Route, Switch } from 'react-router-dom';
 
 import Dashboard from './containers/dashboard/Dashboard';
+
 import CreateStrategy from './containers/strategies/CreateStrategy';
-import Settings from './containers/settings/Settings';
 import Strategies from './containers/strategies/Strategies';
+import ViewStrategy from './containers/strategies/ViewStrategy';
+
+import Settings from './containers/settings/Settings';
 
 export const routes = [
 	{
@@ -23,6 +26,7 @@ export const routes = [
 		icon: 'call_split'
 	},
 	{ path: '/strategies/create', component: CreateStrategy, exact: true, showInSidebar: false },
+	{ path: '/strategies/:id', component: ViewStrategy, exact: true, showInSidebar: false },
 	{ path: '/settings', component: Settings, exact: true, label: 'Settings', icon: 'settings' }
 ];
 

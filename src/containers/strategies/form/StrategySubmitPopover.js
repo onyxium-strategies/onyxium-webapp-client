@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Button, Icon, Popover } from 'material-ui';
 
-import { Flex, TextInput } from '../../components';
+import { Flex, TextInput } from '../../../components';
 
 class StrategySubmitPopover extends Component {
 	state = {

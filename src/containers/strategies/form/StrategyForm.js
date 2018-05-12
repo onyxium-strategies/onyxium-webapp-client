@@ -1,17 +1,18 @@
 import React, { Component } from 'react';
 import { Button, Divider, Tab, Tabs } from 'material-ui';
 
-import { Flex } from '../../components';
+import { Flex } from '../../../components';
 
-import areArraysShallowlyEqual from '../../utils/compare/areArraysShallowlyEqual';
-import traverseAndGetNode from '../../utils/tree-operations/traverseAndGetNode';
+import { currencies, modifierByTimeframeUnit } from '../data';
 
-import defaultAction from './utils/defaultAction';
-import defaultCondition from './utils/defaultCondition';
-import validateAction from './utils/validateAction';
-import validateConditions from './utils/validateConditions';
+import areArraysShallowlyEqual from '../../../utils/compare/areArraysShallowlyEqual';
+import traverseAndGetNode from '../../../utils/tree-operations/traverseAndGetNode';
 
-import { currencies, modifierByTimeframeUnit } from './data';
+import defaultAction from '../utils/defaultAction';
+import defaultCondition from '../utils/defaultCondition';
+import validateAction from '../utils/validateAction';
+import validateConditions from '../utils/validateConditions';
+
 import StrategyFormAction from './StrategyFormAction';
 import StrategyFormConditions from './StrategyFormConditions';
 

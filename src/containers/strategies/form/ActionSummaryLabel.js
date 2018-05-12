@@ -1,8 +1,8 @@
 import React from 'react';
 import { Typography } from 'material-ui';
 
-import determineActionSummaryLabel from './utils/determineActionSummaryLabel';
-import isActionValid from './utils/isActionValid';
+import determineActionSummaryLabel from '../utils/determineActionSummaryLabel';
+import isActionValid from '../utils/isActionValid';
 
 const ActionSummaryLabel = ({ action }) => {
 	if (!isActionValid(action)) {

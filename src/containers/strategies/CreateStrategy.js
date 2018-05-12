@@ -7,9 +7,9 @@ import { strategyAdd } from '../../actions';
 
 import { AppBody, Flex } from '../../components';
 
-import StrategySidebar from './StrategySidebar';
-import StrategySubmitPopover from './StrategySubmitPopover';
-import StrategyTree from './StrategyTree';
+import StrategySidebar from './form/StrategySidebar';
+import StrategySubmitPopover from './form/StrategySubmitPopover';
+import StrategyTree from './tree/StrategyTree';
 
 import traverseAndRemoveNode from '../../utils/tree-operations/traverseAndRemoveNode';
 import traverseAndUpdateNode from '../../utils/tree-operations/traverseAndUpdateNode';

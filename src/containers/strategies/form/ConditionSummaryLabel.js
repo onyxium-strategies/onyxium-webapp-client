@@ -1,8 +1,8 @@
 import React from 'react';
 import { Typography } from 'material-ui';
 
-import { modifierByTimeframeUnit, timeframeUnits } from './data';
-import isConditionValid from './utils/isConditionValid';
+import { modifierByTimeframeUnit, timeframeUnits } from '../data';
+import isConditionValid from '../utils/isConditionValid';
 
 function determineConditionSummaryContent(condition) {
 	const {
