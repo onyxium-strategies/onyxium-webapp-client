@@ -13,6 +13,7 @@ import StrategyTree from './tree/StrategyTree';
 
 import traverseAndRemoveNode from '../../utils/tree-operations/traverseAndRemoveNode';
 import traverseAndUpdateNode from '../../utils/tree-operations/traverseAndUpdateNode';
+import traverseAndGetNode from '../../utils/tree-operations/traverseAndGetNode';
 
 const mapDispatchToProps = { strategyAdd };
 
@@ -24,18 +25,23 @@ class CreateStrategy extends Component {
 
 	handleAddNode = path => {
 		if (path.length === 0) {
-			this.setState({ strategy: [...this.state.strategy, { type: 'condition' }] });
+			this.setState({
+				selectedCardPath: [0],
+				strategy: [...this.state.strategy, null]
+			});
 			return;
 		}
 
+		let leafIndex = null;
 		const strategy = traverseAndUpdateNode(this.state.strategy, path, node => {
+			leafIndex = node && node.then ? node.then.length : 0;
 			return {
 				...node,
-				then: [...(node.then || []), { type: 'condition' }]
+				then: [...(node.then || []), null]
 			};
 		});
 
-		this.setState({ selectedCardPath: null, strategy });
+		this.setState({ selectedCardPath: path.concat(leafIndex), strategy });
 	};
 
 	handleRemoveNode = path => {
@@ -47,6 +53,18 @@ class CreateStrategy extends Component {
 
 	handleCancelForm = () => {
 		if (this.state.selectedCardPath !== null) {
+			const node = traverseAndGetNode(this.state.strategy, this.state.selectedCardPath);
+
+			// If node is null, it's not configured correctly: remove node
+			if (node === null) {
+				const strategy = traverseAndRemoveNode(
+					this.state.strategy,
+					this.state.selectedCardPath
+				);
+				this.setState({ selectedCardPath: null, strategy });
+				return;
+			}
+
 			this.setState({ selectedCardPath: null });
 		}
 	};
@@ -84,6 +102,7 @@ class CreateStrategy extends Component {
 	};
 
 	render() {
+		console.log('this.state.strategy', this.state.strategy);
 		return (
 			<AppBody flexDirection="row" padding="0">
 				<Flex
@@ -94,7 +113,12 @@ class CreateStrategy extends Component {
 						<Icon>chevron_left</Icon>
 					</Button>
 
-					<StrategySubmitPopover onSubmit={this.handleStrategySubmit} />
+					<StrategySubmitPopover
+						isDisabled={
+							!!this.state.selectedCardPath || this.state.strategy.length === 0
+						}
+						onSubmit={this.handleStrategySubmit}
+					/>
 				</Flex>
 
 				<StrategyTree

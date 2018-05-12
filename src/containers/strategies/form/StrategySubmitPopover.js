@@ -30,6 +30,7 @@ class StrategySubmitPopover extends Component {
 			<Button
 				key="button"
 				color="primary"
+				disabled={this.props.isDisabled}
 				onClick={this.handleSubmitButtonClick}
 				size="small"
 				variant="raised"

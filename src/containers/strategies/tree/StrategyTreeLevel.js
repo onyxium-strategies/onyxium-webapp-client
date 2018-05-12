@@ -19,7 +19,7 @@ class StrategyTreeLevel extends Component {
 			<TreeBranch key={index}>
 				<StrategyTreeNode {...props} node={node} />
 
-				{node.then && <StrategyTreeLevel {...props} nodes={node.then} />}
+				{node && node.then && <StrategyTreeLevel {...props} nodes={node.then} />}
 			</TreeBranch>
 		);
 	};

@@ -31,7 +31,7 @@ class StrategyTreeNode extends Component {
 		const isSelected =
 			this.props.selectedCardPath !== null && areArraysShallowlyEqual(selectedCardPath, path);
 
-		const actionSummaryLabel = determineActionSummaryLabel(node.action);
+		const actionSummaryLabel = node && determineActionSummaryLabel(node.action);
 
 		return (
 			<TreeNode
@@ -45,11 +45,12 @@ class StrategyTreeNode extends Component {
 				>
 					<CardContent>
 						<Flex flexDirection="column" spaceVertical=".5rem">
-							{node.conditions && (
-								<Typography color="textSecondary" variant="subheading">
-									If {node.conditions.length} conditions match:
-								</Typography>
-							)}
+							{node &&
+								node.conditions && (
+									<Typography color="textSecondary" variant="subheading">
+										If {node.conditions.length} conditions match:
+									</Typography>
+								)}
 
 							<Typography
 								color={actionSummaryLabel ? 'default' : 'textSecondary'}
@@ -62,14 +63,18 @@ class StrategyTreeNode extends Component {
 
 					<CardActions>
 						<Button
-							disabled={!node.action || !node.conditions}
+							disabled={!!selectedCardPath}
 							onClick={this.handleAddNodeClick}
 							size="small"
 						>
 							Add
 						</Button>
 
-						<Button onClick={this.handleRemoveNodeClick} size="small">
+						<Button
+							disabled={!!selectedCardPath}
+							onClick={this.handleRemoveNodeClick}
+							size="small"
+						>
 							Remove
 						</Button>
 					</CardActions>

@@ -32,8 +32,9 @@ function determineActionsAndConditions({ strategy, selectedCardPath }) {
 	const selectedNode = traverseAndGetNode(strategy, selectedCardPath);
 
 	return {
-		action: selectedNode.action || defaultAction,
-		conditions: selectedNode.conditions || [defaultCondition]
+		action: selectedNode && selectedNode.action ? selectedNode.action : defaultAction,
+		conditions:
+			selectedNode && selectedNode.conditions ? selectedNode.conditions : [defaultCondition]
 	};
 }
 
