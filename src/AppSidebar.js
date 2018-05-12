@@ -4,6 +4,8 @@ import { Link } from 'react-router-dom';
 import { Divider, Drawer, Icon, List, ListItem, ListItemIcon, ListItemText } from 'material-ui';
 import { withTheme } from 'material-ui/styles';
 
+import { Flex, OnyxiumLogo } from './components';
+
 const sidebarWidth = 240;
 
 const drawerClassNames = css({
@@ -12,11 +14,21 @@ const drawerClassNames = css({
 	width: sidebarWidth
 });
 
-const DrawerHeader = withTheme()(styled('div')(({ theme }) => theme.mixins.toolbar));
+const DrawerHeader = withTheme()(
+	styled('div')(({ theme }) => ({
+		...theme.mixins.toolbar,
+		display: 'flex',
+		flexDirection: 'column'
+	}))
+);
 
 const AppSidebar = ({ routes }) => (
 	<Drawer classes={{ paper: drawerClassNames }} variant="permanent">
-		<DrawerHeader />
+		<DrawerHeader>
+			<Flex alignItems="center" flex="1" padding="0 3rem 0 2rem">
+				<OnyxiumLogo />
+			</Flex>
+		</DrawerHeader>
 
 		<Divider />
 

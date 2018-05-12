@@ -102,7 +102,6 @@ class CreateStrategy extends Component {
 	};
 
 	render() {
-		console.log('this.state.strategy', this.state.strategy);
 		return (
 			<AppBody flexDirection="row" padding="0">
 				<Flex

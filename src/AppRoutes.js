@@ -25,8 +25,20 @@ export const routes = [
 		label: 'Strategies',
 		icon: 'call_split'
 	},
-	{ path: '/strategies/create', component: CreateStrategy, exact: true, showInSidebar: false },
-	{ path: '/strategies/:id', component: ViewStrategy, exact: true, showInSidebar: false },
+	{
+		path: '/strategies/create',
+		component: CreateStrategy,
+		exact: true,
+		label: 'Create strategy',
+		showInSidebar: false
+	},
+	{
+		path: '/strategies/:id',
+		component: ViewStrategy,
+		exact: true,
+		label: 'View strategy',
+		showInSidebar: false
+	},
 	{ path: '/settings', component: Settings, exact: true, label: 'Settings', icon: 'settings' }
 ];
 
