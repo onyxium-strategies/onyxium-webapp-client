@@ -15,12 +15,14 @@ import traverseAndRemoveNode from '../../utils/tree-operations/traverseAndRemove
 import traverseAndUpdateNode from '../../utils/tree-operations/traverseAndUpdateNode';
 import traverseAndGetNode from '../../utils/tree-operations/traverseAndGetNode';
 
+import testStrategy from '../../test-data/strategy.json';
+
 const mapDispatchToProps = { strategyAdd };
 
 class CreateStrategy extends Component {
 	state = {
 		selectedCardPath: null,
-		strategy: []
+		strategy: testStrategy
 	};
 
 	handleAddNode = path => {
