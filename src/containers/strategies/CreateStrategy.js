@@ -22,7 +22,8 @@ const mapDispatchToProps = { strategyAdd };
 class CreateStrategy extends Component {
 	state = {
 		selectedCardPath: null,
-		strategy: []
+		// TODO: this currently accepts strategy as a prop for the ViewStrategy route, remove when not needed anymore
+		strategy: this.props.strategy || []
 	};
 
 	handleAddNode = path => {
