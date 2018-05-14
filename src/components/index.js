@@ -12,6 +12,8 @@ export { default as TextInput } from './form/TextInput';
 
 export { default as OnyxiumLogo } from './logo/OnyxiumLogo';
 
+export { default as StateMessage } from './state-message/StateMessage';
+
 export { default as Tree } from './tree/Tree';
 export { default as TreeBranch } from './tree/TreeBranch';
 export { default as TreeDragZoomArea } from './tree/TreeDragZoomArea';

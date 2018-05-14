@@ -1,6 +1,6 @@
 import React from 'react';
 import TextField from 'material-ui/TextField';
-import { Button, Typography } from 'material-ui';
+import { Button } from 'material-ui';
 
 import { AppBody, Flex } from '../../components';
 
@@ -19,8 +19,6 @@ class TextFields extends React.Component {
 	render() {
 		return (
 			<AppBody>
-				<Typography variant="headline">Dashboard</Typography>
-
 				<Flex
 					alignItems="flex-start"
 					flexDirection="column"
