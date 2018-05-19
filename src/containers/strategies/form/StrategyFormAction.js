@@ -1,5 +1,13 @@
 import React from 'react';
-import { FormControl, FormHelperText, Typography } from 'material-ui';
+import {
+	FormControl,
+	FormControlLabel,
+	FormLabel,
+	FormHelperText,
+	Radio,
+	RadioGroup,
+	Typography
+} from 'material-ui';
 
 import { Flex, NumberInput, SelectField } from '../../../components';
 
@@ -14,15 +22,21 @@ const StrategyFormActionFields = ({ action, onChange, validation }) => (
 		<ActionSummaryLabel action={action} />
 
 		<FormControl error={validation && !!validation.orderType} fullWidth>
-			<SelectField
-				items={orderTypes}
-				label="Select order type"
-				onChange={onChange('orderType')}
-				value={action.orderType}
-			/>
+			<FormLabel component="legend">Select order type</FormLabel>
 
-			{validation &&
-				validation.orderType && <FormHelperText>{validation.orderType}</FormHelperText>}
+			<RadioGroup
+				value={action.orderType}
+				onChange={event => onChange('orderType')(event.target.value)}
+			>
+				{orderTypes.map(orderType => (
+					<FormControlLabel
+						key={orderType.value}
+						value={orderType.value}
+						control={<Radio />}
+						label={orderType.label}
+					/>
+				))}
+			</RadioGroup>
 		</FormControl>
 
 		<Flex alignItems="flex-end" flex="none" spaceHorizontal="1rem">

@@ -24,28 +24,12 @@ function determineConditionSummaryContent(condition) {
 	} = condition;
 
 	switch (conditionType) {
-		case 'absolute-above': {
-			return `If ${baseCurrency}/${quoteCurrency} value is above ${value}`;
+		case 'greater-than-or-equal-to': {
+			return `If ${baseCurrency}/${quoteCurrency} value is greater than ${value}`;
 		}
 
-		case 'absolute-below': {
-			return `If ${baseCurrency}/${quoteCurrency} value is below ${value}`;
-		}
-
-		case 'absolute-increase': {
-			const td = getTimeframeData(timeframeInMS, timeframeUnit);
-			return (
-				`If ${baseCurrency}/${quoteCurrency} value increases with ` +
-				`${value} within ${td.timeframeInUnit} ${td.timeframeUnitLabel}`
-			);
-		}
-
-		case 'absolute-decrease': {
-			const td = getTimeframeData(timeframeInMS, timeframeUnit);
-			return (
-				`If ${baseCurrency}/${quoteCurrency} value decreases with ` +
-				`${value} within ${td.timeframeInUnit} ${td.timeframeUnitLabel}`
-			);
+		case 'less-than-or-equal-to': {
+			return `If ${baseCurrency}/${quoteCurrency} value is less than ${value}`;
 		}
 
 		case 'percentage-increase': {

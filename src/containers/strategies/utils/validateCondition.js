@@ -1,14 +1,7 @@
-import { conditionTypes, metrics } from '../data';
+import { conditionTypes, conditionTypesWithTimeframe, metrics } from '../data';
 
 const allowedConditionTypeValues = conditionTypes.map(conditionType => conditionType.value);
 const allowedMetricValues = metrics.map(metric => metric.value);
-
-const conditionTypeValuesForTimeframeField = [
-	'absolute-increase',
-	'absolute-decrease',
-	'percentage-increase',
-	'percentage-decrease'
-];
 
 export default function validateCondition(condition, allowedCurrencyValues) {
 	const validationByFieldName = {};
@@ -46,7 +39,7 @@ export default function validateCondition(condition, allowedCurrencyValues) {
 	}
 
 	// Conditional timeframe field for these specific condition types.
-	if (conditionTypeValuesForTimeframeField.includes(condition.conditionType)) {
+	if (conditionTypesWithTimeframe.includes(condition.conditionType)) {
 		if (!condition.timeframeInMS && condition.value !== 0) {
 			validationByFieldName['timeframeInMS'] = 'Timeframe is required';
 		} else if (condition.timeframeInMS <= 0) {
