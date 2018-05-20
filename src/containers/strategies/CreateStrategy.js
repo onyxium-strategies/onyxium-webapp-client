@@ -52,26 +52,40 @@ class CreateStrategy extends Component {
 		this.setState({ selectedCardPath: null, strategy });
 	};
 
+	removeSelectedCardPath() {
+		const strategy = traverseAndRemoveNode(this.state.strategy, this.state.selectedCardPath);
+		this.setState({ strategy });
+	}
+
 	removeInvalidSelectedCardPath() {
-		if (
+		const strategy = traverseAndRemoveNode(this.state.strategy, this.state.selectedCardPath);
+		this.setState({ strategy });
+	}
+
+	isSelectedPathInvalid() {
+		return (
 			this.state.selectedCardPath &&
 			traverseAndGetNode(this.state.strategy, this.state.selectedCardPath) === null
-		) {
-			const strategy = traverseAndRemoveNode(
-				this.state.strategy,
-				this.state.selectedCardPath
-			);
-			this.setState({ strategy });
-		}
+		);
 	}
 
 	handleSelectCard = selectedCardPath => {
-		this.removeInvalidSelectedCardPath();
-		this.setState({ selectedCardPath });
+		if (!this.state.selectedCardPath) {
+			this.setState({ selectedCardPath });
+			return;
+		}
+
+		if (this.isSelectedPathInvalid()) {
+			this.removeInvalidSelectedCardPath();
+			this.setState({ selectedCardPath });
+		}
 	};
 
 	handleCancelForm = () => {
-		this.removeInvalidSelectedCardPath();
+		if (this.isSelectedPathInvalid()) {
+			this.removeInvalidSelectedCardPath();
+		}
+
 		this.setState({ selectedCardPath: null });
 	};
 
@@ -129,7 +143,12 @@ class CreateStrategy extends Component {
 						onSubmit={this.handleStrategySubmit}
 					/>
 
-					<Button onClick={this.onLoadTestStrategyClick} size="small" variant="raised">
+					<Button
+						disabled={!!this.state.selectedCardPath}
+						onClick={this.onLoadTestStrategyClick}
+						size="small"
+						variant="raised"
+					>
 						Load test strategy
 					</Button>
 				</Flex>

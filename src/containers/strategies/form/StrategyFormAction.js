@@ -10,7 +10,6 @@ import {
 } from 'material-ui';
 
 import { Flex, NumberInput, SelectField } from '../../../components';
-
 import { currencies, orderTypes } from '../data';
 
 import filterOutValueFromItems from '../utils/filterOutValueFromItems';
