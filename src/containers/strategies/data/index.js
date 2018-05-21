@@ -1,3 +1,19 @@
+export const defaultCondition = {
+	baseCurrency: null,
+	baseMetric: null,
+	conditionType: null,
+	quoteCurrency: null,
+	value: null
+};
+
+export const defaultAction = {
+	baseCurrency: null,
+	orderType: null,
+	quantity: null,
+	quoteCurrency: null,
+	value: null
+};
+
 export const conditionTypes = [
 	{ label: 'Greater than or equal to', value: 'greater-than-or-equal-to' },
 	{ label: 'Less than or equal to', value: 'less-than-or-equal-to' },

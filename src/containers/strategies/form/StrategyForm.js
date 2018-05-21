@@ -3,13 +3,10 @@ import { Button, Divider, Tab, Tabs } from 'material-ui';
 
 import { Flex } from '../../../components';
 
-import { currencies, modifierByTimeframeUnit } from '../data';
+import { currencies, defaultAction, defaultCondition, modifierByTimeframeUnit } from '../data';
 
-import areArraysShallowlyEqual from '../../../utils/compare/areArraysShallowlyEqual';
 import traverseAndGetNode from '../../../utils/tree-operations/traverseAndGetNode';
 
-import defaultAction from '../utils/defaultAction';
-import defaultCondition from '../utils/defaultCondition';
 import validateAction from '../utils/validateAction';
 import validateConditions from '../utils/validateConditions';
 
@@ -28,35 +25,7 @@ function determineUpdatedValue(name, value, condition) {
 	}
 }
 
-function determinePragmaticTimeframeUnit(timeframeInMS) {
-	if (timeframeInMS < modifierByTimeframeUnit['h']) {
-		return 'm';
-	}
-
-	if (timeframeInMS < modifierByTimeframeUnit['d']) {
-		return 'h';
-	}
-
-	return 'd';
-}
-
-function toUsableCondition(condition) {
-	const updatedCondition = { ...condition };
-
-	if (!updatedCondition.timeframeUnit) {
-		if (!updatedCondition.timeframeInMS) {
-			updatedCondition['timeframeUnit'] = defaultCondition.timeframeUnit;
-		} else {
-			updatedCondition['timeframeUnit'] = determinePragmaticTimeframeUnit(
-				updatedCondition.timeframeInMS
-			);
-		}
-	}
-
-	return updatedCondition;
-}
-
-function determineActionsAndConditions({ strategy, selectedCardPath }) {
+function determineInitialFormState({ strategy, selectedCardPath }) {
 	const selectedNode = traverseAndGetNode(strategy, selectedCardPath);
 
 	if (!selectedNode) {
@@ -68,7 +37,7 @@ function determineActionsAndConditions({ strategy, selectedCardPath }) {
 
 	return {
 		action: selectedNode.action,
-		conditions: selectedNode.conditions.map(toUsableCondition)
+		conditions: selectedNode.conditions
 	};
 }
 
@@ -77,14 +46,8 @@ class StrategyForm extends Component {
 		actionValidation: null,
 		activeTabIndex: 0,
 		conditionsValidation: [],
-		...determineActionsAndConditions(this.props)
+		...determineInitialFormState(this.props)
 	};
-
-	componentWillReceiveProps(nextProps) {
-		if (!areArraysShallowlyEqual(this.props.selectedCardPath, nextProps.selectedCardPath)) {
-			this.setState(determineActionsAndConditions(nextProps));
-		}
-	}
 
 	handleTabChange = (_event, activeTabIndex) => this.setState({ activeTabIndex });
 

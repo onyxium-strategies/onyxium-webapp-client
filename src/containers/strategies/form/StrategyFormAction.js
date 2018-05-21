@@ -43,7 +43,7 @@ const StrategyFormActionFields = ({ action, onChange, validation }) => (
 				<SelectField
 					flex={1}
 					items={filterOutValueFromItems(currencies, action.quoteCurrency)}
-					label="BASE"
+					label="Base"
 					onChange={onChange('baseCurrency')}
 					value={action.baseCurrency}
 				/>
@@ -60,7 +60,7 @@ const StrategyFormActionFields = ({ action, onChange, validation }) => (
 				<SelectField
 					flex={1}
 					items={filterOutValueFromItems(currencies, action.baseCurrency)}
-					label="QUOTE"
+					label="Quote"
 					onChange={onChange('quoteCurrency')}
 					value={action.quoteCurrency}
 				/>
