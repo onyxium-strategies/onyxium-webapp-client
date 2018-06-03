@@ -4,18 +4,14 @@ import { Link, withRouter } from 'react-router-dom';
 import { Button, Icon } from 'material-ui';
 
 import { strategyAdd } from '../../actions';
-
 import { AppBody, Flex } from '../../components';
+import { traverseAndRemoveNode, traverseAndUpdateNode, traverseAndGetNode } from '../../utils';
 
 import StrategySidebar from './form/StrategySidebar';
 import StrategySubmitPopover from './form/StrategySubmitPopover';
 import StrategyTree from './tree/StrategyTree';
 
 import testStrategy from '../../test-data/strategy.json';
-
-import traverseAndRemoveNode from '../../utils/tree-operations/traverseAndRemoveNode';
-import traverseAndUpdateNode from '../../utils/tree-operations/traverseAndUpdateNode';
-import traverseAndGetNode from '../../utils/tree-operations/traverseAndGetNode';
 
 const mapDispatchToProps = { strategyAdd };
 

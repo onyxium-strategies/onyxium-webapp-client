@@ -10,10 +10,65 @@ import {
 	Typography
 } from 'material-ui';
 
-import { Flex } from '../../../components';
+import { Flex, Form } from '../../../components';
 
-import ConditionSummaryLabel from './ConditionSummaryLabel';
-import StrategyFormCondition from './StrategyFormCondition';
+import { conditionSpecByConditionType } from './fields';
+
+const StrategyFormConditionForm = ({
+	condition,
+	conditionsValidation,
+	index,
+	isOnlyCondition,
+	onChange,
+	onConditionRemove
+}) => {
+	const formSpec = conditionSpecByConditionType[condition.conditionType];
+	const validationByName = conditionsValidation[index];
+
+	return (
+		<Form
+			schema={formSpec.schema}
+			onChange={({ valueByName, validationByName }) =>
+				onChange(index, valueByName, validationByName)
+			}
+			valueByName={condition}
+			validationByName={validationByName}
+		>
+			{({ fields, validation }) => {
+				const summaryLabel = formSpec.getSummaryLabel(fields);
+
+				return (
+					<ExpansionPanel>
+						<ExpansionPanelSummary expandIcon={<Icon>expand_more</Icon>}>
+							<Flex flexDirection="column">
+								<Typography>Condition {index + 1}</Typography>
+
+								<Typography color="textSecondary">
+									{summaryLabel ? summaryLabel : 'No condition configured yet'}
+								</Typography>
+							</Flex>
+						</ExpansionPanelSummary>
+
+						<ExpansionPanelDetails>
+							{formSpec.fieldsComponent({ fields, validation })}
+						</ExpansionPanelDetails>
+
+						<ExpansionPanelActions>
+							<Button
+								color="primary"
+								disabled={isOnlyCondition}
+								onClick={() => onConditionRemove(index)}
+								size="small"
+							>
+								Remove condition
+							</Button>
+						</ExpansionPanelActions>
+					</ExpansionPanel>
+				);
+			}}
+		</Form>
+	);
+};
 
 const StrategyFormConditions = ({
 	conditions,
@@ -36,32 +91,15 @@ const StrategyFormConditions = ({
 
 		<Flex flex="1" flexDirection="column" overflowY="auto" padding="1rem" spaceVertical="1rem">
 			{conditions.map((condition, index) => (
-				<ExpansionPanel key={index}>
-					<ExpansionPanelSummary expandIcon={<Icon>expand_more</Icon>}>
-						<Flex flexDirection="column">
-							<Typography>Condition {index + 1}</Typography>
-							<ConditionSummaryLabel condition={condition} />
-						</Flex>
-					</ExpansionPanelSummary>
-
-					<ExpansionPanelDetails>
-						<StrategyFormCondition
-							condition={condition}
-							validation={conditionsValidation[index]}
-							onChange={name => value => onChange(index, name, value)}
-						/>
-					</ExpansionPanelDetails>
-
-					<ExpansionPanelActions>
-						<Button
-							color="primary"
-							onClick={() => onConditionRemove(index)}
-							size="small"
-						>
-							Remove condition
-						</Button>
-					</ExpansionPanelActions>
-				</ExpansionPanel>
+				<StrategyFormConditionForm
+					key={index}
+					index={index}
+					isOnlyCondition={conditions.length === 1}
+					condition={condition}
+					conditionsValidation={conditionsValidation}
+					onChange={onChange}
+					onConditionRemove={onConditionRemove}
+				/>
 			))}
 		</Flex>
 	</Flex>

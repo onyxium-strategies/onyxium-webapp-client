@@ -1,73 +1,66 @@
 import React, { Component } from 'react';
-import { Button, Divider, Tab, Tabs } from 'material-ui';
+import { Button, Divider, Tabs, Tab } from 'material-ui';
 
 import { Flex } from '../../../components';
-
-import { currencies, defaultAction, defaultCondition, modifierByTimeframeUnit } from '../data';
-
-import traverseAndGetNode from '../../../utils/tree-operations/traverseAndGetNode';
-
-import validateAction from '../utils/validateAction';
-import validateConditions from '../utils/validateConditions';
+import { hasFormValidation, traverseAndGetNode, validateFormValues } from '../../../utils';
 
 import StrategyFormAction from './StrategyFormAction';
 import StrategyFormConditions from './StrategyFormConditions';
+import { actionSpec, conditionSpecByConditionType } from './fields';
 
-const allowedCurrencyValues = currencies.map(currency => currency.value);
+const defaultCondition = { conditionType: null };
 
-function determineUpdatedValue(name, value, condition) {
-	switch (name) {
-		case 'timeframeInMS':
-			return value * modifierByTimeframeUnit[condition.timeframeUnit];
-
-		default:
-			return value;
-	}
-}
-
-function determineInitialFormState({ strategy, selectedCardPath }) {
+function determineInitialState({ strategy, selectedCardPath }) {
 	const selectedNode = traverseAndGetNode(strategy, selectedCardPath);
 
 	if (!selectedNode) {
 		return {
-			action: defaultAction,
-			conditions: [defaultCondition]
+			action: {},
+			actionValidation: {},
+			conditions: [defaultCondition],
+			conditionsValidation: [null]
 		};
 	}
 
+	// Currently the implementation of this form assumes that the action and condition
+	// set initially are valid, return the initial state without validation.
+	// In the future when we decide to live update everything everywhere we will need to resee this.
 	return {
 		action: selectedNode.action,
-		conditions: selectedNode.conditions
+		actionValidation: {},
+		conditions: selectedNode.conditions,
+		conditionsValidation: selectedNode.conditions.map(() => null)
 	};
 }
 
 class StrategyForm extends Component {
 	state = {
-		actionValidation: null,
-		activeTabIndex: 0,
-		conditionsValidation: [],
-		...determineInitialFormState(this.props)
+		...determineInitialState(this.props),
+		activeTabIndex: 0
 	};
 
 	handleTabChange = (_event, activeTabIndex) => this.setState({ activeTabIndex });
 
-	handleConditionsFormChange = (conditionIndex, name, value) => {
-		const { conditions } = this.state;
-		const updatedValue = determineUpdatedValue(name, value, conditions[conditionIndex]);
-		const updatedConditions = [
-			...conditions.slice(0, conditionIndex),
-			{
-				...conditions[conditionIndex],
-				[name]: updatedValue
-			},
-			...conditions.slice(conditionIndex + 1)
-		];
-
-		this.setState({ conditions: updatedConditions });
+	handleConditionsFormChange = (conditionIndex, valueByName, validationByName) => {
+		this.setState(({ conditions, conditionsValidation }) => ({
+			conditions: [
+				...conditions.slice(0, conditionIndex),
+				{ ...valueByName },
+				...conditions.slice(conditionIndex + 1)
+			],
+			conditionsValidation: [
+				...conditionsValidation.slice(0, conditionIndex),
+				{ ...validationByName },
+				...conditionsValidation.slice(conditionIndex + 1)
+			]
+		}));
 	};
 
 	handleConditionAdd = () => {
-		this.setState({ conditions: [...this.state.conditions, defaultCondition] });
+		this.setState(({ conditions, conditionsValidation }) => ({
+			conditions: [...conditions, defaultCondition],
+			conditionsValidation: [...conditionsValidation, null]
+		}));
 	};
 
 	handleConditionRemove = conditionIndex => {
@@ -75,12 +68,19 @@ class StrategyForm extends Component {
 			conditions: [
 				...this.state.conditions.slice(0, conditionIndex),
 				...this.state.conditions.slice(conditionIndex + 1)
+			],
+			conditionsValidation: [
+				...this.state.conditions.slice(0, conditionIndex),
+				...this.state.conditions.slice(conditionIndex + 1)
 			]
 		});
 	};
 
-	handleActionsFormChange = (name, value) => {
-		this.setState({ action: { ...this.state.action, [name]: value } });
+	handleActionsFormChange = ({ valueByName, validationByName }) => {
+		this.setState({
+			action: valueByName,
+			actionValidation: validationByName
+		});
 	};
 
 	handleCancelButtonClick = () => {
@@ -88,18 +88,20 @@ class StrategyForm extends Component {
 		this.props.onCancel();
 	};
 
-	handleApplyButtonClick = () => {
-		const conditionsValidation = validateConditions(
-			this.state.conditions,
-			allowedCurrencyValues
+	handleSubmitButtonClick = () => {
+		const actionValidation = validateFormValues(this.state.action, actionSpec.schema);
+		const conditionsValidation = this.state.conditions.map(condition =>
+			validateFormValues(
+				condition,
+				conditionSpecByConditionType[condition.conditionType].schema
+			)
 		);
-		const actionValidation = validateAction(this.state.action, allowedCurrencyValues);
 
 		if (
-			conditionsValidation.some(validation => validation !== null) ||
-			actionValidation !== null
+			hasFormValidation(actionValidation) ||
+			conditionsValidation.some(validationByName => hasFormValidation(validationByName))
 		) {
-			this.setState({ conditionsValidation, actionValidation });
+			this.setState({ actionValidation, conditionsValidation });
 			return;
 		}
 
@@ -148,10 +150,10 @@ class StrategyForm extends Component {
 
 						<Button
 							color="primary"
-							onClick={this.handleApplyButtonClick}
+							onClick={this.handleSubmitButtonClick}
 							variant="raised"
 						>
-							Apply
+							Submit
 						</Button>
 					</Flex>
 				</Flex>

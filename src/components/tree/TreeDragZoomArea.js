@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import styled from 'react-emotion';
 
-import clearSelection from '../../utils/selection/clearSelection';
+import { clearSelection } from '../../utils';
 
 const OuterContainer = styled('div')`
 	align-items: center;

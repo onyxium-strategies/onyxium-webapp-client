@@ -6,7 +6,12 @@ export { default as Block } from './block/Block';
 
 export { default as Flex } from './flex/Flex';
 
+export { default as CurrencySelector } from './form/CurrencySelector';
+export { default as Form } from './form/Form';
+export { default as FormField } from './form/FormField';
+export { default as FormFields } from './form/FormFields';
 export { default as NumberInput } from './form/NumberInput';
+export { default as PercentageInput } from './form/PercentageInput';
 export { default as SelectField } from './form/SelectField';
 export { default as TextInput } from './form/TextInput';
 
