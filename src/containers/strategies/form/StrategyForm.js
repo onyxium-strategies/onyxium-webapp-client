@@ -1,8 +1,14 @@
 import React, { Component } from 'react';
-import { Button, Divider, Tab, Tabs } from '@material-ui/core';
+import { css } from 'react-emotion';
+import { Badge, Button, Divider, Tab, Tabs } from '@material-ui/core';
 
 import { Flex } from '../../../components';
-import { hasFormValidation, traverseAndGetNode, validateFormValues } from '../../../utils';
+import {
+	getValidationCount,
+	hasFormValidation,
+	traverseAndGetNode,
+	validateFormValues
+} from '../../../utils';
 
 import StrategyFormAction from './StrategyFormAction';
 import StrategyFormConditions from './StrategyFormConditions';
@@ -32,6 +38,8 @@ function determineInitialState({ strategy, selectedCardPath }) {
 		conditionsValidation: selectedNode.conditions.map(() => null)
 	};
 }
+
+const badgeStyles = css({ paddingRight: '1rem' });
 
 class StrategyForm extends Component {
 	state = {
@@ -108,6 +116,23 @@ class StrategyForm extends Component {
 		this.props.onSubmit(this.state.conditions, this.state.action);
 	};
 
+	renderTabLabel = (label, validations) => {
+		const totalValidationCount = validations.reduce(
+			(totalCount, validation) => (totalCount += getValidationCount(validation)),
+			0
+		);
+
+		if (totalValidationCount === 0) {
+			return label;
+		}
+
+		return (
+			<Badge className={badgeStyles} color="secondary" badgeContent={totalValidationCount}>
+				{label}
+			</Badge>
+		);
+	};
+
 	render() {
 		return (
 			<Flex flex="1" flexDirection="column">
@@ -118,8 +143,10 @@ class StrategyForm extends Component {
 					indicatorColor="primary"
 					textColor="primary"
 				>
-					<Tab label="Conditions" />
-					<Tab label="Actions" />
+					<Tab
+						label={this.renderTabLabel('Conditions', this.state.conditionsValidation)}
+					/>
+					<Tab label={this.renderTabLabel('Actions', [this.state.actionValidation])} />
 				</Tabs>
 
 				{this.state.activeTabIndex === 0 && (

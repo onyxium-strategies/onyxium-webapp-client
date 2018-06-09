@@ -1,4 +1,5 @@
 export { default as areArraysShallowlyEqual } from './compare/areArraysShallowlyEqual';
+export { default as getValidationCount } from './form/getValidationCount';
 export { default as hasFormValidation } from './form/hasFormValidation';
 export { default as mapFormFieldToValueByName } from './form/mapFormFieldToValueByName';
 export { default as useFirstAvailableFormValidation } from './form/useFirstAvailableFormValidation';
