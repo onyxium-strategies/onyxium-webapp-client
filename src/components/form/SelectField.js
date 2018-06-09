@@ -1,24 +1,23 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { css } from 'react-emotion';
-import { MenuItem, TextField } from 'material-ui';
+import { FormControl, InputLabel, MenuItem, Select } from '@material-ui/core';
 
-const determineStyles = ({ flex }) => css({ flex });
-
-const SelectField = ({ flex, items, label, onChange, value }) => (
-	<TextField
-		classes={{ root: determineStyles({ flex }) }}
-		select
-		label={label}
-		value={value === null ? '' : value}
-		onChange={event => onChange(event.target.value)}
-	>
-		{items.map(item => (
-			<MenuItem key={item.value} value={item.value}>
-				{item.label}
-			</MenuItem>
-		))}
-	</TextField>
+const SelectField = ({ items, label, onChange, value }) => (
+	<FormControl fullWidth>
+		<InputLabel>{label}</InputLabel>
+		<Select
+			autoWidth
+			label={label}
+			value={value === null ? '' : value}
+			onChange={event => onChange(event.target.value)}
+		>
+			{items.map(item => (
+				<MenuItem key={item.value} value={item.value}>
+					{item.label}
+				</MenuItem>
+			))}
+		</Select>
+	</FormControl>
 );
 
 SelectField.defaultProps = {

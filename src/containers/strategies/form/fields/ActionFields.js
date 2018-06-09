@@ -1,5 +1,5 @@
 import React from 'react';
-import { FormControlLabel, Radio, RadioGroup, Typography } from 'material-ui';
+import { FormControlLabel, Radio, RadioGroup, Typography } from '@material-ui/core';
 
 import { CurrencySelector, Flex, FormField, FormFields, NumberInput } from '../../../../components';
 import { useFirstAvailableFormValidation } from '../../../../utils';

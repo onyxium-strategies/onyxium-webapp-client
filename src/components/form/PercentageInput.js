@@ -1,5 +1,5 @@
 import React from 'react';
-import { Typography } from 'material-ui';
+import { Typography } from '@material-ui/core';
 
 import Flex from '../flex/Flex';
 import NumberInput from './NumberInput';

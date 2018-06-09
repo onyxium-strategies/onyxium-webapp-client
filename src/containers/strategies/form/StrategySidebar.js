@@ -1,6 +1,6 @@
 import React from 'react';
 import { css } from 'react-emotion';
-import { Drawer } from 'material-ui';
+import { Drawer } from '@material-ui/core';
 
 import StrategyForm from './StrategyForm';
 

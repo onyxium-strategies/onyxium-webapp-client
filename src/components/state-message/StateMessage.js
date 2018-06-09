@@ -1,7 +1,7 @@
 import React from 'react';
 import styled, { css } from 'react-emotion';
-import { Icon, Typography } from 'material-ui';
-import { withTheme } from 'material-ui/styles';
+import { Icon, Typography } from '@material-ui/core';
+import { withTheme } from '@material-ui/core/styles';
 
 import { spaceVertical } from '../../styles';
 

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Button, Divider, Tabs, Tab } from 'material-ui';
+import { Button, Divider, Tab, Tabs } from '@material-ui/core';
 
 import { Flex } from '../../../components';
 import { hasFormValidation, traverseAndGetNode, validateFormValues } from '../../../utils';

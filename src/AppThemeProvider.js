@@ -2,9 +2,9 @@ import React from 'react';
 import { injectGlobal } from 'react-emotion';
 import JssProvider from 'react-jss/lib/JssProvider';
 import { create } from 'jss';
-import { Reboot } from 'material-ui';
-import { blue } from 'material-ui/colors';
-import { createMuiTheme, jssPreset, MuiThemeProvider } from 'material-ui/styles';
+import { CssBaseline } from '@material-ui/core';
+import { blue } from '@material-ui/core/colors';
+import { createMuiTheme, jssPreset, MuiThemeProvider } from '@material-ui/core/styles';
 
 const jss = create(jssPreset());
 jss.setup({ insertionPoint: document.querySelector('head > meta[name="insertion-point-jss"]') });
@@ -31,7 +31,7 @@ injectGlobal(`
 const AppThemeProvider = ({ children }) => (
 	<JssProvider jss={jss}>
 		<MuiThemeProvider theme={theme}>
-			<Reboot />
+			<CssBaseline />
 			{children}
 		</MuiThemeProvider>
 	</JssProvider>

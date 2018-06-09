@@ -71,6 +71,10 @@ export const quoteCurrency = {
 export const timeframeInMS = {
 	label: 'Timeframe',
 	validate: value => {
+		if (value === undefined || value === null) {
+			return 'Timeframe is required';
+		}
+
 		if (value <= 0) {
 			return 'Timeframe should be greater than 0';
 		}

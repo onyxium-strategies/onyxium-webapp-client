@@ -8,7 +8,7 @@ import {
 	ExpansionPanelSummary,
 	Icon,
 	Typography
-} from 'material-ui';
+} from '@material-ui/core';
 
 import { Flex, Form } from '../../../components';
 

@@ -1,5 +1,5 @@
 import styled from 'react-emotion';
-import { withTheme } from 'material-ui/styles';
+import { withTheme } from '@material-ui/core/styles';
 
 import {
 	alignItems,

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link, withRouter } from 'react-router-dom';
-import { Button, Icon, List, ListItem, ListItemText } from 'material-ui';
+import { Button, Icon, List, ListItem, ListItemText } from '@material-ui/core';
 
 import { AppBody, Flex, StateMessage } from '../../components';
 
@@ -26,22 +26,24 @@ class Strategies extends Component {
 				)}
 
 				{this.props.strategies.length > 0 && (
-					<List component="nav">
-						{this.props.strategies.map((strategy, index) => (
-							<ListItem
-								key={index}
-								button
-								onClick={() => this.handleStrategyClick(strategy)}
-							>
-								<Icon color="action">dashboard</Icon>
-								<ListItemText
-									inset
-									primary={strategy.name}
-									secondary={strategy.date}
-								/>
-							</ListItem>
-						))}
-					</List>
+					<Flex flex="1" flexDirection="column" overflowY="auto">
+						<List component="nav">
+							{this.props.strategies.map((strategy, index) => (
+								<ListItem
+									key={index}
+									button
+									onClick={() => this.handleStrategyClick(strategy)}
+								>
+									<Icon color="action">dashboard</Icon>
+									<ListItemText
+										inset
+										primary={strategy.name}
+										secondary={strategy.date}
+									/>
+								</ListItem>
+							))}
+						</List>
+					</Flex>
 				)}
 
 				<Button component={Link} to="/strategies/create" variant="fab" color="primary">

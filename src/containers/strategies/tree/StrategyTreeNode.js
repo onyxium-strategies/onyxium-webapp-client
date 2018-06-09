@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Button, Card, CardActions, CardContent, Typography } from 'material-ui';
+import { Button, Card, CardActions, CardContent, Typography } from '@material-ui/core';
 
 import { TreeNode, Flex } from '../../../components';
 import { areArraysShallowlyEqual } from '../../../utils';

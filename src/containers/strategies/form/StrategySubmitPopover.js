@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Button, Icon, Popover } from 'material-ui';
+import { Button, Icon, Popover } from '@material-ui/core';
 
 import { Flex, TextInput } from '../../../components';
 

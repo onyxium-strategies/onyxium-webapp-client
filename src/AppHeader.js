@@ -1,7 +1,7 @@
 import React from 'react';
 import { css } from 'react-emotion';
 import { matchPath, withRouter } from 'react-router-dom';
-import { AppBar, Toolbar, Typography } from 'material-ui';
+import { AppBar, Toolbar, Typography } from '@material-ui/core';
 
 import { routes } from './AppRoutes';
 

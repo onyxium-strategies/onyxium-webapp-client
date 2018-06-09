@@ -41,6 +41,7 @@ export const percentageConditionSchema = {
 
 const PercentageConditionFields = ({ fields, validation }) => {
 	const timeframeModifierValue = modifierByTimeframeUnit[fields.timeframeUnit.value];
+
 	return (
 		<FormFields>
 			<FormField {...validation.conditionType}>

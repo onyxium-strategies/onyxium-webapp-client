@@ -1,5 +1,5 @@
 import React from 'react';
-import { Typography } from 'material-ui';
+import { Typography } from '@material-ui/core';
 
 import Flex from '../flex/Flex';
 import SelectField from './SelectField';
@@ -10,12 +10,12 @@ const CurrencySelector = ({
 	quoteCurrencyField,
 	quoteCurrencyItems
 }) => (
-	<Flex alignItems="flex-end" flex="none" spaceHorizontal="1rem">
-		<SelectField {...baseCurrencyField} flex={1} items={baseCurrencyItems} />
+	<Flex alignItems="flex-end" flex="none" spaceHorizontal="1rem" width="100%">
+		<SelectField {...baseCurrencyField} items={baseCurrencyItems} />
 
 		<Typography variant="title">/</Typography>
 
-		<SelectField {...quoteCurrencyField} flex={1} items={quoteCurrencyItems} />
+		<SelectField {...quoteCurrencyField} items={quoteCurrencyItems} />
 	</Flex>
 );
 

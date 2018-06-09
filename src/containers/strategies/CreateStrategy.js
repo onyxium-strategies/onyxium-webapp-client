@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link, withRouter } from 'react-router-dom';
-import { Button, Icon } from 'material-ui';
+import { Button, Icon } from '@material-ui/core';
 
 import { strategyAdd } from '../../actions';
 import { AppBody, Flex } from '../../components';
