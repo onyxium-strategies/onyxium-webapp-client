@@ -4,14 +4,16 @@ import { Form } from '../../../components';
 
 import { actionSpec } from './fields';
 
-const StrategyFormAction = ({ action, actionValidation, onChange }) => (
+const StrategyFormAction = ({ action, actionValidation, isReadOnly, onChange }) => (
 	<Form
 		schema={actionSpec.schema}
 		onChange={onChange}
 		valueByName={action}
 		validationByName={actionValidation}
 	>
-		{({ fields, validation }) => actionSpec.fieldsComponent({ action, fields, validation })}
+		{({ fields, validation }) =>
+			actionSpec.fieldsComponent({ action, isReadOnly, fields, validation })
+		}
 	</Form>
 );
 

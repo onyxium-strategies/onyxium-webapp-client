@@ -39,19 +39,24 @@ export const percentageConditionSchema = {
 	value
 };
 
-const PercentageConditionFields = ({ fields, validation }) => {
+const PercentageConditionFields = ({ fields, isReadOnly, validation }) => {
 	const timeframeModifierValue = modifierByTimeframeUnit[fields.timeframeUnit.value];
 
 	return (
 		<FormFields>
 			<FormField {...validation.conditionType}>
-				<SelectField {...fields.conditionType} items={conditionTypes} />
+				<SelectField
+					{...fields.conditionType}
+					disabled={isReadOnly}
+					items={conditionTypes}
+				/>
 			</FormField>
 
 			<FormField {...validation.timeframeInMS}>
 				<Flex spaceHorizontal="1rem">
 					<Flex flex="1">
 						<NumberInput
+							disabled={isReadOnly}
 							label={fields.timeframeInMS.label}
 							onChange={value => {
 								fields.timeframeInMS.onChange(value * timeframeModifierValue);
@@ -65,13 +70,17 @@ const PercentageConditionFields = ({ fields, validation }) => {
 					</Flex>
 
 					<Flex flex="none">
-						<SelectField {...fields.timeframeUnit} items={timeframeUnits} />
+						<SelectField
+							{...fields.timeframeUnit}
+							disabled={isReadOnly}
+							items={timeframeUnits}
+						/>
 					</Flex>
 				</Flex>
 			</FormField>
 
 			<FormField {...validation.baseMetric}>
-				<SelectField {...fields.baseMetric} items={metrics} />
+				<SelectField {...fields.baseMetric} disabled={isReadOnly} items={metrics} />
 			</FormField>
 
 			<FormField
@@ -83,13 +92,14 @@ const PercentageConditionFields = ({ fields, validation }) => {
 				<CurrencySelector
 					baseCurrencyField={fields.baseCurrency}
 					baseCurrencyItems={currencies}
+					disabled={isReadOnly}
 					quoteCurrencyField={fields.quoteCurrency}
 					quoteCurrencyItems={currencies}
 				/>
 			</FormField>
 
 			<FormField {...validation.value}>
-				<PercentageInput {...fields.value} />
+				<PercentageInput {...fields.value} disabled={isReadOnly} />
 			</FormField>
 		</FormFields>
 	);

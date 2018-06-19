@@ -2,11 +2,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { FormControl, InputLabel, MenuItem, Select } from '@material-ui/core';
 
-const SelectField = ({ items, label, onChange, value }) => (
+const SelectField = ({ disabled, items, label, onChange, value }) => (
 	<FormControl fullWidth>
 		<InputLabel>{label}</InputLabel>
 		<Select
 			autoWidth
+			disabled={disabled}
 			label={label}
 			value={value === null ? '' : value}
 			onChange={event => onChange(event.target.value)}

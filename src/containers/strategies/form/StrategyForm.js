@@ -21,6 +21,7 @@ function determineInitialState({ strategy, selectedCardPath }) {
 
 	if (!selectedNode) {
 		return {
+			activeTabIndex: 0,
 			action: {},
 			actionValidation: {},
 			conditions: [defaultCondition],
@@ -32,6 +33,7 @@ function determineInitialState({ strategy, selectedCardPath }) {
 	// set initially are valid, return the initial state without validation.
 	// In the future when we decide to live update everything everywhere we will need to resee this.
 	return {
+		activeTabIndex: 0,
 		action: selectedNode.action,
 		actionValidation: {},
 		conditions: selectedNode.conditions,
@@ -42,10 +44,13 @@ function determineInitialState({ strategy, selectedCardPath }) {
 const badgeStyles = css({ paddingRight: '1rem' });
 
 class StrategyForm extends Component {
-	state = {
-		...determineInitialState(this.props),
-		activeTabIndex: 0
-	};
+	state = determineInitialState(this.props);
+
+	componentWillReceiveProps(nextProps) {
+		if (nextProps.selectedCardPath !== this.props.selectedCardPath) {
+			this.setState(determineInitialState(nextProps));
+		}
+	}
 
 	handleTabChange = (_event, activeTabIndex) => this.setState({ activeTabIndex });
 
@@ -151,6 +156,7 @@ class StrategyForm extends Component {
 
 				{this.state.activeTabIndex === 0 && (
 					<StrategyFormConditions
+						isReadOnly={this.props.isReadOnly}
 						conditions={this.state.conditions}
 						conditionsValidation={this.state.conditionsValidation}
 						onChange={this.handleConditionsFormChange}
@@ -163,6 +169,7 @@ class StrategyForm extends Component {
 					<StrategyFormAction
 						action={this.state.action}
 						actionValidation={this.state.actionValidation}
+						isReadOnly={this.props.isReadOnly}
 						onChange={this.handleActionsFormChange}
 					/>
 				)}
@@ -175,13 +182,15 @@ class StrategyForm extends Component {
 							Cancel
 						</Button>
 
-						<Button
-							color="primary"
-							onClick={this.handleSubmitButtonClick}
-							variant="raised"
-						>
-							Submit
-						</Button>
+						{!!this.props.onSubmit && (
+							<Button
+								color="primary"
+								onClick={this.handleSubmitButtonClick}
+								variant="raised"
+							>
+								Submit
+							</Button>
+						)}
 					</Flex>
 				</Flex>
 			</Flex>

@@ -7,15 +7,16 @@ import SelectField from './SelectField';
 const CurrencySelector = ({
 	baseCurrencyField,
 	baseCurrencyItems,
+	disabled,
 	quoteCurrencyField,
 	quoteCurrencyItems
 }) => (
 	<Flex alignItems="flex-end" flex="none" spaceHorizontal="1rem" width="100%">
-		<SelectField {...baseCurrencyField} items={baseCurrencyItems} />
+		<SelectField {...baseCurrencyField} disabled={disabled} items={baseCurrencyItems} />
 
 		<Typography variant="title">/</Typography>
 
-		<SelectField {...quoteCurrencyField} items={quoteCurrencyItems} />
+		<SelectField {...quoteCurrencyField} disabled={disabled} items={quoteCurrencyItems} />
 	</Flex>
 );
 

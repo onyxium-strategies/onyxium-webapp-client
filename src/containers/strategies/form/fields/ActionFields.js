@@ -18,7 +18,7 @@ export const actionSchema = {
 	value
 };
 
-const ActionFields = ({ action, fields, validation }) => {
+const ActionFields = ({ action, fields, isReadOnly, validation }) => {
 	const summaryLabel = determineActionSummaryLabel(action);
 
 	return (
@@ -33,6 +33,7 @@ const ActionFields = ({ action, fields, validation }) => {
 					>
 						{orderTypes.map(orderType => (
 							<FormControlLabel
+								disabled={isReadOnly}
 								key={orderType.value}
 								value={orderType.value}
 								control={<Radio />}
@@ -51,17 +52,18 @@ const ActionFields = ({ action, fields, validation }) => {
 					<CurrencySelector
 						baseCurrencyField={fields.baseCurrency}
 						baseCurrencyItems={currencies}
+						disabled={isReadOnly}
 						quoteCurrencyField={fields.quoteCurrency}
 						quoteCurrencyItems={currencies}
 					/>
 				</FormField>
 
 				<FormField {...validation.quantity}>
-					<NumberInput {...fields.quantity} />
+					<NumberInput {...fields.quantity} disabled={isReadOnly} />
 				</FormField>
 
 				<FormField {...validation.value}>
-					<NumberInput {...fields.value} />
+					<NumberInput {...fields.value} disabled={isReadOnly} />
 				</FormField>
 			</FormFields>
 		</Flex>

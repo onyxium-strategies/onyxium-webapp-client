@@ -22,11 +22,14 @@ class StrategyTreeNode extends Component {
 
 	handleClick = event => {
 		event.stopPropagation();
-		this.props.onSelectCard(this.props.path);
+
+		if (this.props.onSelectCard) {
+			this.props.onSelectCard(this.props.path);
+		}
 	};
 
 	render() {
-		const { node, path, selectedCardPath } = this.props;
+		const { node, onAddNode, onRemoveNode, path, selectedCardPath } = this.props;
 		const isSelected =
 			this.props.selectedCardPath !== null && areArraysShallowlyEqual(selectedCardPath, path);
 
@@ -65,23 +68,30 @@ class StrategyTreeNode extends Component {
 						</Flex>
 					</CardContent>
 
-					<CardActions>
-						<Button
-							disabled={!!selectedCardPath}
-							onClick={this.handleAddNodeClick}
-							size="small"
-						>
-							Add
-						</Button>
+					{onAddNode !== null &&
+						onRemoveNode !== null && (
+							<CardActions>
+								{onAddNode !== null && (
+									<Button
+										disabled={!!selectedCardPath}
+										onClick={this.handleAddNodeClick}
+										size="small"
+									>
+										Add
+									</Button>
+								)}
 
-						<Button
-							disabled={!!selectedCardPath}
-							onClick={this.handleRemoveNodeClick}
-							size="small"
-						>
-							Remove
-						</Button>
-					</CardActions>
+								{onRemoveNode !== null && (
+									<Button
+										disabled={!!selectedCardPath}
+										onClick={this.handleRemoveNodeClick}
+										size="small"
+									>
+										Remove
+									</Button>
+								)}
+							</CardActions>
+						)}
 				</Card>
 			</TreeNode>
 		);

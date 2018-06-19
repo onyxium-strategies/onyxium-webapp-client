@@ -1,8 +1,9 @@
 import React from 'react';
 import { TextField } from '@material-ui/core';
 
-const NumberInput = ({ label, onChange, value }) => (
+const NumberInput = ({ disabled, label, onChange, value }) => (
 	<TextField
+		disabled={disabled}
 		fullWidth
 		label={label}
 		onChange={event => onChange(parseFloat(event.target.value))}

@@ -14,9 +14,16 @@ const drawerClassNames = css({
 	zIndex: 0
 });
 
-const StrategySidebar = ({ onCancelForm, onUpdateNode, selectedCardPath, strategy }) => (
+const StrategySidebar = ({
+	isReadOnly,
+	onCancelForm,
+	onUpdateNode,
+	selectedCardPath,
+	strategy
+}) => (
 	<Drawer anchor="right" classes={{ paper: drawerClassNames }} variant="permanent">
 		<StrategyForm
+			isReadOnly={isReadOnly}
 			onCancel={onCancelForm}
 			onSubmit={onUpdateNode}
 			selectedCardPath={selectedCardPath}

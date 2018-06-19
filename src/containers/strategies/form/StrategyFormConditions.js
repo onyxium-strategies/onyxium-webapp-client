@@ -19,6 +19,7 @@ const StrategyFormConditionForm = ({
 	conditionsValidation,
 	index,
 	isOnlyCondition,
+	isReadOnly,
 	onChange,
 	onConditionRemove
 }) => {
@@ -50,7 +51,7 @@ const StrategyFormConditionForm = ({
 						</ExpansionPanelSummary>
 
 						<ExpansionPanelDetails>
-							{formSpec.fieldsComponent({ fields, validation })}
+							{formSpec.fieldsComponent({ isReadOnly, fields, validation })}
 						</ExpansionPanelDetails>
 
 						<ExpansionPanelActions>
@@ -71,6 +72,7 @@ const StrategyFormConditionForm = ({
 };
 
 const StrategyFormConditions = ({
+	isReadOnly,
 	conditions,
 	conditionsValidation,
 	onChange,
@@ -78,16 +80,24 @@ const StrategyFormConditions = ({
 	onConditionRemove
 }) => (
 	<Flex flex="1" flexDirection="column">
-		<Flex flex="none" flexDirection="column">
-			<Flex padding="1rem">
-				<Button color="secondary" onClick={onConditionAdd} variant="raised" fullWidth>
-					<Icon>add_icon</Icon>
-					Add condition
-				</Button>
-			</Flex>
+		{!isReadOnly && (
+			<Flex flex="none" flexDirection="column">
+				<Flex padding="1rem">
+					<Button
+						color="secondary"
+						disabled={isReadOnly}
+						onClick={onConditionAdd}
+						variant="raised"
+						fullWidth
+					>
+						<Icon>add_icon</Icon>
+						Add condition
+					</Button>
+				</Flex>
 
-			<Divider />
-		</Flex>
+				<Divider />
+			</Flex>
+		)}
 
 		<Flex flex="1" flexDirection="column" overflowY="auto" padding="1rem" spaceVertical="1rem">
 			{conditions.map((condition, index) => (
@@ -95,6 +105,7 @@ const StrategyFormConditions = ({
 					key={index}
 					index={index}
 					isOnlyCondition={conditions.length === 1}
+					isReadOnly={isReadOnly}
 					condition={condition}
 					conditionsValidation={conditionsValidation}
 					onChange={onChange}

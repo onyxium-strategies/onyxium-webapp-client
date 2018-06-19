@@ -10,10 +10,10 @@ export const emptyConditionSchema = {
 	conditionType
 };
 
-const EmptyConditionFields = ({ fields, validation }) => (
+const EmptyConditionFields = ({ fields, isReadOnly, validation }) => (
 	<FormFields>
 		<FormField {...validation.conditionType}>
-			<SelectField {...fields.conditionType} items={conditionTypes} />
+			<SelectField {...fields.conditionType} disabled={isReadOnly} items={conditionTypes} />
 		</FormField>
 	</FormFields>
 );
