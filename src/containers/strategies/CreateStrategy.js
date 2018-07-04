@@ -124,11 +124,28 @@ class CreateStrategy extends Component {
 	render() {
 		return (
 			<AppBody flexDirection="row" padding="0">
+				<Flex applyCss={{ position: 'absolute', bottom: '1rem', left: '1rem', zIndex: 1 }}>
+					<Button
+						disabled={!!this.state.selectedCardPath}
+						onClick={this.onLoadTestStrategyClick}
+						size="small"
+						variant="raised"
+					>
+						Load test strategy
+					</Button>
+				</Flex>
+
 				<Flex
 					applyCss={{ position: 'absolute', top: '1rem', left: '1rem', zIndex: 1 }}
 					spaceHorizontal="1rem"
 				>
-					<Button component={Link} to="/strategies" variant="raised" size="small">
+					<Button
+						component={Link}
+						disabled={!!this.state.selectedCardPath}
+						to="/strategies"
+						variant="raised"
+						size="small"
+					>
 						<Icon>chevron_left</Icon>
 					</Button>
 
@@ -140,12 +157,15 @@ class CreateStrategy extends Component {
 					/>
 
 					<Button
+						key="button"
+						color="primary"
 						disabled={!!this.state.selectedCardPath}
-						onClick={this.onLoadTestStrategyClick}
+						onClick={this.handleSubmitButtonClick}
 						size="small"
 						variant="raised"
 					>
-						Load test strategy
+						<Icon>play_arrow</Icon>
+						{' Run strategy'}
 					</Button>
 				</Flex>
 
