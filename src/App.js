@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router } from 'react-router-dom';
+import { matchPath, BrowserRouter as Router, withRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { combineReducers, createStore } from 'redux';
 
@@ -13,18 +13,31 @@ import AppThemeProvider from './AppThemeProvider';
 import * as reducers from './reducers';
 const store = createStore(combineReducers(reducers));
 
+const AppContent = withRouter(({ location }) => {
+	const activeRoute = routes.find(route =>
+		matchPath(location.pathname, {
+			path: route.path,
+			exact: route.exact
+		})
+	);
+
+	return (
+		<AppContainer>
+			<AppSidebar activeRoute={activeRoute} isHidden={activeRoute.isSidebarHidden} />
+
+			<AppMainContainer>
+				<AppHeader activeRoute={activeRoute} />
+				<AppRoutes />
+			</AppMainContainer>
+		</AppContainer>
+	);
+});
+
 const App = () => (
 	<Router>
 		<Provider store={store}>
 			<AppThemeProvider>
-				<AppContainer>
-					<AppSidebar routes={routes.filter(route => route.showInSidebar !== false)} />
-
-					<AppMainContainer>
-						<AppHeader />
-						<AppRoutes />
-					</AppMainContainer>
-				</AppContainer>
+				<AppContent />
 			</AppThemeProvider>
 		</Provider>
 	</Router>

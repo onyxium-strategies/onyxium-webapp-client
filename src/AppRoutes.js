@@ -6,31 +6,29 @@ import CreateStrategy from './containers/strategies/CreateStrategy';
 import Strategies from './containers/strategies/Strategies';
 import ViewStrategy from './containers/strategies/ViewStrategy';
 
-import Settings from './containers/settings/Settings';
-
 export const routes = [
 	{
 		path: '/strategies',
 		component: Strategies,
 		exact: true,
 		label: 'Strategies',
-		icon: 'call_split'
+		icon: 'call_split',
+		showLinkInSidebar: true
 	},
 	{
 		path: '/strategies/create',
 		component: CreateStrategy,
 		exact: true,
 		label: 'Create strategy',
-		showInSidebar: false
+		isSidebarHidden: true
 	},
 	{
 		path: '/strategies/:id',
 		component: ViewStrategy,
 		exact: true,
 		label: 'View strategy',
-		showInSidebar: false
-	},
-	{ path: '/settings', component: Settings, exact: true, label: 'Settings', icon: 'settings' }
+		isSidebarHidden: true
+	}
 ];
 
 const AppRoutes = () => (
