@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Redirect, Route, Switch } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 
 import CreateStrategy from './containers/strategies/CreateStrategy';
 import Strategies from './containers/strategies/Strategies';
@@ -36,8 +36,6 @@ const AppRoutes = () => (
 		{routes.map(route => (
 			<Route key={route.path} path={route.path} exact={true} component={route.component} />
 		))}
-
-		<Redirect to="/strategies" />
 	</Switch>
 );
 

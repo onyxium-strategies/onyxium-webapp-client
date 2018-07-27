@@ -1,5 +1,5 @@
 import React from 'react';
-import { matchPath, BrowserRouter as Router, withRouter } from 'react-router-dom';
+import { matchPath, BrowserRouter as Router, Redirect, withRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { combineReducers, createStore } from 'redux';
 
@@ -21,9 +21,16 @@ const AppContent = withRouter(({ location }) => {
 		})
 	);
 
+	if (!activeRoute) {
+		return <Redirect to="/strategies" />;
+	}
+
 	return (
 		<AppContainer>
-			<AppSidebar activeRoute={activeRoute} isHidden={activeRoute.isSidebarHidden} />
+			<AppSidebar
+				activeRoute={activeRoute}
+				isHidden={activeRoute && activeRoute.isSidebarHidden}
+			/>
 
 			<AppMainContainer>
 				<AppHeader activeRoute={activeRoute} />
