@@ -18,12 +18,27 @@ class TreeBranchWithRef extends Component {
 }
 
 class StrategyTreeLevel extends Component {
+	static defaultProps = {
+		path: []
+	};
+
 	renderBranch = (node, index, onUpdatedNodes, registerBranchNode) => {
+		const path = [...this.props.path, index];
+		const isActivePath = path.every(
+			(pathItem, pathIndex) => pathItem === this.props.activeCardPath[pathIndex]
+		);
+		const activeIndex =
+			isActivePath && path.length < this.props.activeCardPath.length
+				? this.props.activeCardPath[path.length]
+				: null;
+
 		const props = {
+			activeCardPath: this.props.activeCardPath,
+			activeIndex: activeIndex,
 			onAddNode: this.props.onAddNode,
 			onRemoveNode: this.props.onRemoveNode,
 			onSelectCard: this.props.onSelectCard,
-			path: [...this.props.path, index],
+			path,
 			selectedCardPath: this.props.selectedCardPath
 		};
 
@@ -55,6 +70,9 @@ class StrategyTreeLevel extends Component {
 
 	render() {
 		if (this.props.isRootLevel) {
+			const activeIndex =
+				this.props.activeCardPath.length > 0 ? this.props.activeCardPath[0] : null;
+
 			return (
 				<TreeLevel isRootLevel>
 					<TreeBranch>
@@ -65,6 +83,8 @@ class StrategyTreeLevel extends Component {
 
 						{this.props.nodes.length > 0 && (
 							<StrategyTreeLevel
+								activeIndex={activeIndex}
+								activeCardPath={this.props.activeCardPath}
 								onAddNode={this.props.onAddNode}
 								onRemoveNode={this.props.onRemoveNode}
 								onSelectCard={this.props.onSelectCard}
@@ -78,7 +98,7 @@ class StrategyTreeLevel extends Component {
 			);
 		}
 
-		return <TreeLevel>{this.renderBranches}</TreeLevel>;
+		return <TreeLevel activeIndex={this.props.activeIndex}>{this.renderBranches}</TreeLevel>;
 	}
 
 	componentDidUpdate(prevProps) {

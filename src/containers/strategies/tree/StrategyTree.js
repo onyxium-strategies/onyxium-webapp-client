@@ -7,6 +7,7 @@ import StrategyTreeLevel from './StrategyTreeLevel';
 
 class StrategyTree extends Component {
 	static propTypes = {
+		activeCardPath: PropTypes.array,
 		strategy: PropTypes.array.isRequired,
 		onAddNode: PropTypes.func,
 		onRemoveNode: PropTypes.func,
@@ -15,6 +16,7 @@ class StrategyTree extends Component {
 	};
 
 	static defaultProps = {
+		activeCardPath: [],
 		onAddNode: null,
 		onRemoveNode: null,
 		onSelectCard: null,
@@ -26,6 +28,7 @@ class StrategyTree extends Component {
 			<TreeDragZoomArea>
 				<Tree>
 					<StrategyTreeLevel
+						activeCardPath={this.props.activeCardPath}
 						isRootLevel
 						nodes={this.props.strategy}
 						onAddNode={this.props.onAddNode}

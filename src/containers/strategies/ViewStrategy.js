@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link, Redirect, withRouter } from 'react-router-dom';
+import traverse from 'traverse';
 import { Button, Icon } from '@material-ui/core';
 
 import { AppBody, Flex } from '../../components';
@@ -18,10 +19,35 @@ const mapStateToProps = ({ strategies }, { match }) => {
 	};
 };
 
-class ViewStrategy extends Component {
-	state = {
+const determineInitialState = ({ strategy }) => {
+	// I know, fucking ugly but for the prototype it's fine.
+	var activeCardPath = traverse(strategy.strategy).reduce(function(result, node) {
+		if (result !== null) {
+			return result;
+		}
+
+		// TODO: replace with an actual id coming from the backend.
+		// This id currently references to the strategy.json from test-data.
+		if (node.id === 'cfe5b529-52e9-4c37-bd74-5e469d99f380') {
+			return this.path.reduce((path, pathItem) => {
+				if (pathItem !== 'then') {
+					path.push(parseInt(pathItem, 10));
+				}
+				return path;
+			}, []);
+		}
+
+		return null;
+	}, null);
+
+	return {
+		activeCardPath: activeCardPath,
 		selectedCardPath: null
 	};
+};
+
+class ViewStrategy extends Component {
+	state = determineInitialState(this.props);
 
 	handleSelectCard = selectedCardPath => {
 		this.setState({ selectedCardPath });
@@ -56,6 +82,7 @@ class ViewStrategy extends Component {
 				</Flex>
 
 				<StrategyTree
+					activeCardPath={this.state.activeCardPath}
 					onSelectCard={this.handleSelectCard}
 					selectedCardPath={this.state.selectedCardPath}
 					strategy={strategy.strategy}

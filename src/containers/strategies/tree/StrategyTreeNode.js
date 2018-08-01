@@ -30,8 +30,9 @@ class StrategyTreeNode extends Component {
 
 	render() {
 		const { node, onAddNode, onRemoveNode, path, selectedCardPath } = this.props;
+
 		const isSelected =
-			this.props.selectedCardPath !== null && areArraysShallowlyEqual(selectedCardPath, path);
+			selectedCardPath !== null && areArraysShallowlyEqual(selectedCardPath, path);
 
 		const actionSummaryLabel = node && determineActionSummaryLabel(node.action);
 

@@ -1,4 +1,13 @@
-const initialState = [];
+import testStrategy from '../test-data/strategy.json';
+
+const initialState = [
+	{
+		date: new Date().toLocaleString(),
+		id: 'test',
+		name: 'Test',
+		strategy: testStrategy
+	}
+];
 
 const strategies = (state = initialState, action) => {
 	switch (action.type) {

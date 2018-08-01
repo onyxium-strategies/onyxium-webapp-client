@@ -45,7 +45,10 @@ class TreeLevel extends Component {
 		return (
 			<TreeLevelContainer>
 				{!this.props.isRootLevel && (
-					<TreeLevelBranchConnectors branchNodeByIndex={this.state.branchNodeByIndex} />
+					<TreeLevelBranchConnectors
+						activeIndex={this.props.activeIndex}
+						branchNodeByIndex={this.state.branchNodeByIndex}
+					/>
 				)}
 
 				<TreeLevelBranchContainer spaceHorizontal="4rem">
