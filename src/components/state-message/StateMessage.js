@@ -19,7 +19,7 @@ const iconStyles = css({
 
 const StateMessage = ({ icon, subTitle, title }) => (
 	<StateMessageContainer spaceVertical=".5rem">
-		<Icon classes={{ root: iconStyles }}>{icon}</Icon>
+		{typeof icon === 'string' ? <Icon classes={{ root: iconStyles }}>{icon}</Icon> : icon}
 
 		<Typography variant="title">{title}</Typography>
 

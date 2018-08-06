@@ -10,7 +10,7 @@ import StrategySidebar from './form/StrategySidebar';
 import StrategyTree from './tree/StrategyTree';
 
 const mapStateToProps = ({ strategies }, { match }) => {
-	const matchingStrategy = strategies.find(
+	const matchingStrategy = strategies.data.find(
 		strategy => strategy.id.toString() === match.params.id
 	);
 
@@ -28,7 +28,7 @@ const determineInitialState = ({ strategy }) => {
 
 		// TODO: replace with an actual id coming from the backend.
 		// This id currently references to the strategy.json from test-data.
-		if (node.id === 'cfe5b529-52e9-4c37-bd74-5e469d99f380') {
+		if (node.id === strategy.state) {
 			return this.path.reduce((path, pathItem) => {
 				if (pathItem !== 'then') {
 					path.push(parseInt(pathItem, 10));

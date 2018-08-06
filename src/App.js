@@ -1,7 +1,8 @@
 import React from 'react';
 import { matchPath, BrowserRouter as Router, Redirect, withRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
-import { combineReducers, createStore } from 'redux';
+import { applyMiddleware, combineReducers, createStore } from 'redux';
+import { middleware as reduxPackMiddleware } from 'redux-pack';
 
 import { AppContainer, AppMainContainer } from './components';
 
@@ -11,7 +12,7 @@ import AppSidebar from './AppSidebar';
 import AppThemeProvider from './AppThemeProvider';
 
 import * as reducers from './reducers';
-const store = createStore(combineReducers(reducers));
+const store = createStore(combineReducers(reducers), applyMiddleware(reduxPackMiddleware));
 
 const AppContent = withRouter(({ location }) => {
 	const activeRoute = routes.find(route =>
