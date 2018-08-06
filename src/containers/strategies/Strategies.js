@@ -1,11 +1,27 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link, withRouter } from 'react-router-dom';
-import { Button, Icon, List, ListItem, ListItemText } from '@material-ui/core';
+import {
+	Button,
+	Chip,
+	Icon,
+	IconButton,
+	List,
+	ListItem,
+	ListItemSecondaryAction,
+	ListItemText
+} from '@material-ui/core';
 
 import { AppBody, Flex, StateMessage } from '../../components';
 
 const mapStateToProps = ({ strategies }) => ({ strategies });
+
+const labelByStatus = {
+	executing: 'Running',
+	paused: 'Paused',
+	running: 'Running',
+	stopped: 'Stopped'
+};
 
 class Strategies extends Component {
 	handleStrategyClick = strategy => {
@@ -35,11 +51,42 @@ class Strategies extends Component {
 									onClick={() => this.handleStrategyClick(strategy)}
 								>
 									<Icon color="action">dashboard</Icon>
+
 									<ListItemText
 										inset
 										primary={strategy.name}
 										secondary={strategy.date}
 									/>
+
+									<ListItemSecondaryAction>
+										<Flex alignItems="center" spaceHorizontal="1rem">
+											<Chip
+												color="primary"
+												label={labelByStatus[strategy.status]}
+											/>
+
+											<Flex>
+												<IconButton
+													disabled={
+														strategy.status === 'stopped' ||
+														strategy.status === 'paused'
+													}
+												>
+													<Icon>stop</Icon>
+												</IconButton>
+
+												<IconButton
+													color="primary"
+													disabled={
+														strategy.status === 'executing' ||
+														strategy.status === 'running'
+													}
+												>
+													<Icon>play_arrow</Icon>
+												</IconButton>
+											</Flex>
+										</Flex>
+									</ListItemSecondaryAction>
 								</ListItem>
 							))}
 						</List>

@@ -5,6 +5,7 @@ const initialState = [
 		date: new Date().toLocaleString(),
 		id: 'test',
 		name: 'Test',
+		status: 'running',
 		strategy: testStrategy
 	}
 ];
@@ -18,6 +19,7 @@ const strategies = (state = initialState, action) => {
 					date: action.date,
 					id: action.id,
 					name: action.name,
+					status: action.status,
 					strategy: action.strategy
 				}
 			];

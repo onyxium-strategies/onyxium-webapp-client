@@ -21,6 +21,7 @@ export default function strategyAdd(name, strategy) {
 		id: id++,
 		date: new Date().toLocaleString(dateLocalizationOptions),
 		name,
+		status: 'stopped',
 		strategy
 	};
 }
