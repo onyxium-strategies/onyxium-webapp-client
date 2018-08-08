@@ -26,6 +26,7 @@ export const conditionTypesWithTimeframe = ['percentage-increase', 'percentage-d
 export const currencies = [
 	{ label: 'Bitcoin (BTC)', value: 'BTC' },
 	{ label: 'Ethereum (ETH)', value: 'ETH' },
+	{ label: 'Litecoin (LTC)', value: 'LTC' },
 	{ label: 'NEO (NEO)', value: 'NEO' },
 	{ label: 'OmiseGO (OMG)', value: 'OMG' }
 ];

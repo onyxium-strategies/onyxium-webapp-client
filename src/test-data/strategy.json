@@ -1,107 +1,121 @@
 [
 	{
-		"id": "6fcc0e13-99c2-4f0c-8603-56aa1524e84f",
 		"conditions": [
 			{
 				"conditionType": "greater-than-or-equal-to",
 				"baseCurrency": "BTC",
-				"quoteCurrency": "ETH",
+				"quoteCurrency": "LTC",
 				"baseMetric": "price-last",
-				"value": 0.01990991
+				"value": 0.005
 			}
 		],
 		"action": {
 			"orderType": "limit-buy",
-			"orderValueType": "absolute",
+			"valueType": "absolute",
 			"baseCurrency": "BTC",
-			"quoteCurrency": "ETH",
+			"quoteCurrency": "LTC",
 			"quantity": 100,
-			"value": 0.02
+			"value": 0.03
 		},
 		"then": [
 			{
-				"id": "3ade598d-c248-4a09-85ae-fe82249beb9a",
 				"conditions": [
 					{
 						"conditionType": "greater-than-or-equal-to",
 						"baseCurrency": "BTC",
-						"quoteCurrency": "ETH",
+						"quoteCurrency": "LTC",
 						"baseMetric": "price-last",
 						"value": 0.02
 					}
 				],
 				"action": {
-					"orderType": "limit-buy",
-					"orderValueType": "absolute",
+					"orderType": "limit-sell",
+					"valueType": "absolute",
 					"baseCurrency": "BTC",
-					"quoteCurrency": "ETH",
+					"quoteCurrency": "LTC",
 					"quantity": 10,
 					"value": 0.02
 				}
 			},
 			{
-				"id": "035e66fd-1050-4175-b26c-00070741d882",
 				"conditions": [
 					{
-						"conditionType": "greater-than-or-equal-to",
+						"conditionType": "less-than-or-equal-to",
 						"baseCurrency": "BTC",
-						"quoteCurrency": "ETH",
+						"quoteCurrency": "LTC",
 						"baseMetric": "price-last",
-						"value": 0.01990991
+						"value": 0.03
 					}
 				],
 				"action": {
-					"orderType": "limit-buy",
-					"orderValueType": "absolute",
+					"orderType": "limit-sell",
+					"valueType": "absolute",
 					"baseCurrency": "BTC",
-					"quoteCurrency": "ETH",
+					"quoteCurrency": "LTC",
 					"quantity": 200,
-					"value": 0.02
+					"value": 0.005
 				},
 				"then": [
 					{
-						"id": "cfe5b529-52e9-4c37-bd74-5e469d99f380",
 						"conditions": [
 							{
 								"conditionType": "greater-than-or-equal-to",
 								"baseCurrency": "BTC",
-								"quoteCurrency": "ETH",
+								"quoteCurrency": "LTC",
 								"baseMetric": "price-last",
-								"value": 0.01990991
+								"value": 0.005
 							},
 							{
 								"conditionType": "less-than-or-equal-to",
 								"baseCurrency": "BTC",
-								"quoteCurrency": "ETH",
+								"quoteCurrency": "LTC",
 								"baseMetric": "price-last",
-								"value": 0.02
+								"value": 0.04
 							}
 						],
 						"action": {
-							"orderType": "limit-buy",
-							"orderValueType": "absolute",
+							"orderType": "limit-sell",
+							"valueType": "absolute",
 							"baseCurrency": "BTC",
-							"quoteCurrency": "ETH",
+							"quoteCurrency": "LTC",
 							"quantity": 300,
-							"value": 0.02
+							"value": 0.005
 						},
 						"then": [
 							{
-								"id": "137ffb47-fd16-4c2b-bd38-721b8850012b",
 								"conditions": [
 									{
 										"conditionType": "greater-than-or-equal-to",
 										"baseCurrency": "BTC",
 										"quoteCurrency": "ETH",
 										"baseMetric": "price-last",
-										"value": 1
+										"value": 0.04
 									}
 								],
 								"action": {
 									"orderType": "limit-buy",
-									"orderValueType": "absolute",
+									"valueType": "absolute",
 									"baseCurrency": "BTC",
 									"quoteCurrency": "ETH",
+									"quantity": 20,
+									"value": 0.07
+								}
+							},
+							{
+								"conditions": [
+									{
+										"conditionType": "greater-than-or-equal-to",
+										"baseCurrency": "BTC",
+										"quoteCurrency": "LTC",
+										"baseMetric": "price-last",
+										"value": 0.1
+									}
+								],
+								"action": {
+									"orderType": "limit-sell",
+									"valueType": "absolute",
+									"baseCurrency": "BTC",
+									"quoteCurrency": "LTC",
 									"quantity": 10,
 									"value": 0.02
 								}
@@ -111,36 +125,16 @@
 									{
 										"conditionType": "greater-than-or-equal-to",
 										"baseCurrency": "BTC",
-										"quoteCurrency": "ETH",
+										"quoteCurrency": "LTC",
 										"baseMetric": "price-last",
 										"value": 0.1
 									}
 								],
 								"action": {
 									"orderType": "limit-buy",
-									"orderValueType": "absolute",
+									"valueType": "absolute",
 									"baseCurrency": "BTC",
-									"quoteCurrency": "ETH",
-									"quantity": 10,
-									"value": 0.02
-								}
-							},
-							{
-								"id": "19eeec10-901d-4e54-92fc-d1f2c08b16c1",
-								"conditions": [
-									{
-										"conditionType": "greater-than-or-equal-to",
-										"baseCurrency": "BTC",
-										"quoteCurrency": "ETH",
-										"baseMetric": "price-last",
-										"value": 0.1
-									}
-								],
-								"action": {
-									"orderType": "limit-buy",
-									"orderValueType": "absolute",
-									"baseCurrency": "BTC",
-									"quoteCurrency": "ETH",
+									"quoteCurrency": "LTC",
 									"quantity": 10,
 									"value": 0.02
 								}
@@ -152,43 +146,41 @@
 		]
 	},
 	{
-		"id": "32a27d9d-c828-4087-bdcb-8b1af6c626c8",
-		"conditions": [
-			{
-				"conditionType": "greater-than-or-equal-to",
-				"baseCurrency": "BTC",
-				"quoteCurrency": "ETH",
-				"timeframeInMS": 7200000,
-				"baseMetric": "price-last",
-				"value": 0.01
-			}
-		],
-		"action": {
-			"orderType": "limit-buy",
-			"orderValueType": "absolute",
-			"baseCurrency": "BTC",
-			"quoteCurrency": "ETH",
-			"quantity": 10,
-			"value": 0.02
-		}
-	},
-	{
-		"id": "c2e2834d-13ea-42e4-89b5-737cd7783fd5",
 		"conditions": [
 			{
 				"conditionType": "less-than-or-equal-to",
 				"baseCurrency": "BTC",
-				"quoteCurrency": "ETH",
+				"quoteCurrency": "LTC",
+				"baseMetric": "price-last",
+				"value": 0.02
+			}
+		],
+		"action": {
+			"orderType": "limit-sell",
+			"valueType": "absolute",
+			"baseCurrency": "BTC",
+			"quoteCurrency": "LTC",
+			"quantity": 10,
+			"value": 0.01
+		}
+	},
+	{
+		"conditions": [
+			{
+				"conditionType": "percentage-decrease",
+				"baseCurrency": "BTC",
+				"quoteCurrency": "LTC",
 				"timeframeInMS": 7200000,
 				"baseMetric": "price-last",
-				"value": 0.01
+				"value": 0.09
 			}
 		],
 		"action": {
 			"orderType": "limit-buy",
-			"orderValueType": "absolute",
+			"valueType": "percentage-above",
+			"valueQuoteMetric": "price-ask",
 			"baseCurrency": "BTC",
-			"quoteCurrency": "ETH",
+			"quoteCurrency": "LTC",
 			"quantity": 10,
 			"value": 0.02
 		}

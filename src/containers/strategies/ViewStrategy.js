@@ -21,14 +21,14 @@ const mapStateToProps = ({ strategies }, { match }) => {
 
 const determineInitialState = ({ strategy }) => {
 	// I know, fucking ugly but for the prototype it's fine.
-	var activeCardPath = traverse(strategy.strategy).reduce(function(result, node) {
+	var activeCardPath = traverse(strategy.tree).reduce(function(result, node) {
 		if (result !== null) {
 			return result;
 		}
 
 		// TODO: replace with an actual id coming from the backend.
 		// This id currently references to the strategy.json from test-data.
-		if (node.id === strategy.state) {
+		if (node && node.id === strategy.state) {
 			return this.path.reduce((path, pathItem) => {
 				if (pathItem !== 'then') {
 					path.push(parseInt(pathItem, 10));
@@ -85,7 +85,7 @@ class ViewStrategy extends Component {
 					activeCardPath={this.state.activeCardPath}
 					onSelectCard={this.handleSelectCard}
 					selectedCardPath={this.state.selectedCardPath}
-					strategy={strategy.strategy}
+					strategy={strategy.tree}
 				/>
 
 				{this.state.selectedCardPath && (
@@ -93,7 +93,7 @@ class ViewStrategy extends Component {
 						isReadOnly
 						onCancelForm={this.handleCancelForm}
 						selectedCardPath={this.state.selectedCardPath}
-						strategy={strategy.strategy}
+						strategy={strategy.tree}
 					/>
 				)}
 			</AppBody>

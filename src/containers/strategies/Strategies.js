@@ -26,9 +26,10 @@ const mapDispatchToProps = { strategiesLoad };
 
 const labelByStatus = {
 	executing: 'Running',
+	idle: 'Running',
 	paused: 'Paused',
 	running: 'Running',
-	stopped: 'Stopped'
+	finished: 'Finished'
 };
 
 class Strategies extends Component {
@@ -89,7 +90,7 @@ class Strategies extends Component {
 										<ListItemText
 											inset
 											primary={strategy.name}
-											secondary={strategy.date}
+											secondary={strategy.createdAt}
 										/>
 
 										<ListItemSecondaryAction>
@@ -102,7 +103,7 @@ class Strategies extends Component {
 												<Flex>
 													<IconButton
 														disabled={
-															strategy.status === 'stopped' ||
+															strategy.status === 'finished' ||
 															strategy.status === 'paused'
 														}
 													>
@@ -112,7 +113,9 @@ class Strategies extends Component {
 													<IconButton
 														color="primary"
 														disabled={
+															strategy.status === 'finished' ||
 															strategy.status === 'executing' ||
+															strategy.status === 'idle' ||
 															strategy.status === 'running'
 														}
 													>

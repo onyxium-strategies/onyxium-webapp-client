@@ -102,17 +102,6 @@ class CreateStrategy extends Component {
 	};
 
 	handleStrategySubmit = strategyName => {
-		// TODO: turn this stuff back on, currently we've disabled this for demo purposes
-		// const data = {
-		// 	method: 'POST',
-		// 	headers: {
-		// 		Accept: 'application/json',
-		// 		'Content-Type': 'application/json'
-		// 	},
-		// 	body: JSON.stringify(this.state.strategy)
-		// };
-		// fetch('/api/work', data);
-
 		this.props.strategyAdd(strategyName, this.state.strategy);
 		this.props.history.push('/strategies');
 	};
@@ -155,18 +144,6 @@ class CreateStrategy extends Component {
 						}
 						onSubmit={this.handleStrategySubmit}
 					/>
-
-					<Button
-						key="button"
-						color="primary"
-						disabled={!!this.state.selectedCardPath}
-						onClick={this.handleSubmitButtonClick}
-						size="small"
-						variant="raised"
-					>
-						<Icon>play_arrow</Icon>
-						{' Run strategy'}
-					</Button>
 				</Flex>
 
 				<StrategyTree
