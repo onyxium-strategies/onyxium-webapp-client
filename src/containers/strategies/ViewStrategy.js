@@ -20,6 +20,13 @@ const mapStateToProps = ({ strategies }, { match }) => {
 };
 
 const determineInitialState = ({ strategy }) => {
+	if (!strategy) {
+		return {
+			activeCardPath: null,
+			selectedCardPath: null
+		};
+	}
+
 	// I know, fucking ugly but for the prototype it's fine.
 	var activeCardPath = traverse(strategy.tree).reduce(function(result, node) {
 		if (result !== null) {
