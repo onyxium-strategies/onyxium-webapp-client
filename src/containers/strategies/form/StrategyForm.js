@@ -14,6 +14,7 @@ import StrategyFormAction from './StrategyFormAction';
 import StrategyFormConditions from './StrategyFormConditions';
 import { actionSpec, conditionSpecByConditionType } from './fields';
 
+const defaultAction = { valueType: 'absolute' };
 const defaultCondition = { conditionType: null };
 
 function determineInitialState({ strategy, selectedCardPath }) {
@@ -22,7 +23,7 @@ function determineInitialState({ strategy, selectedCardPath }) {
 	if (!selectedNode) {
 		return {
 			activeTabIndex: 0,
-			action: {},
+			action: defaultAction,
 			actionValidation: {},
 			conditions: [defaultCondition],
 			conditionsValidation: [null]
@@ -34,7 +35,7 @@ function determineInitialState({ strategy, selectedCardPath }) {
 	// In the future when we decide to live update everything everywhere we will need to resee this.
 	return {
 		activeTabIndex: 0,
-		action: selectedNode.action,
+		action: { ...defaultAction, ...selectedNode.action },
 		actionValidation: {},
 		conditions: selectedNode.conditions,
 		conditionsValidation: selectedNode.conditions.map(() => null)
