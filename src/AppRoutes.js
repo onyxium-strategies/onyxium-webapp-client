@@ -2,12 +2,28 @@ import React from 'react';
 
 import { Route, Switch } from 'react-router-dom';
 
+import Login from './containers/auth/Login';
+import Register from './containers/auth/Register';
 import Funds from './containers/funds/Funds';
 import CreateStrategy from './containers/strategies/CreateStrategy';
 import Strategies from './containers/strategies/Strategies';
 import ViewStrategy from './containers/strategies/ViewStrategy';
 
 export const routes = [
+	{
+		path: '/login',
+		component: Login,
+		exact: true,
+		label: 'Login',
+		isSidebarHidden: true
+	},
+	{
+		path: '/register',
+		component: Register,
+		exact: true,
+		label: 'Register',
+		isSidebarHidden: true
+	},
 	{
 		path: '/funds',
 		component: Funds,

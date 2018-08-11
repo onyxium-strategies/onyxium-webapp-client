@@ -1,6 +1,6 @@
 import React from 'react';
 import { matchPath, BrowserRouter as Router, Redirect, withRouter } from 'react-router-dom';
-import { Provider } from 'react-redux';
+import { connect, Provider } from 'react-redux';
 import { applyMiddleware, combineReducers, createStore } from 'redux';
 import { middleware as reduxPackMiddleware } from 'redux-pack';
 
@@ -14,13 +14,21 @@ import AppThemeProvider from './AppThemeProvider';
 import * as reducers from './reducers';
 const store = createStore(combineReducers(reducers), applyMiddleware(reduxPackMiddleware));
 
-const AppContent = withRouter(({ location }) => {
+const mapStateToProps = ({ user }) => ({ user });
+
+let AppContent = ({ location, user }) => {
 	const activeRoute = routes.find(route =>
 		matchPath(location.pathname, {
 			path: route.path,
 			exact: route.exact
 		})
 	);
+
+	console.log('location.pathname', location.pathname);
+
+	if (!user.data && location.pathname !== '/login' && location.pathname !== '/register') {
+		return <Redirect to="/login" />;
+	}
 
 	if (!activeRoute) {
 		return <Redirect to="/funds" />;
@@ -39,7 +47,10 @@ const AppContent = withRouter(({ location }) => {
 			</AppMainContainer>
 		</AppContainer>
 	);
-});
+};
+
+AppContent = connect(mapStateToProps, null)(AppContent);
+AppContent = withRouter(AppContent);
 
 const App = () => (
 	<Router>

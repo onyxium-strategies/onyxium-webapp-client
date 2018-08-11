@@ -1,11 +1,21 @@
 import styled from 'react-emotion';
 import { withTheme } from '@material-ui/core/styles';
 
-import { flexDirection, padding, spaceVertical } from '../../styles';
+import {
+	alignItems,
+	flexDirection,
+	justifyContent,
+	padding,
+	spaceHorizontal,
+	spaceVertical
+} from '../../styles';
 
 let AppBody = styled('div')`
+	${alignItems};
 	${flexDirection};
+	${justifyContent};
 	${padding};
+	${spaceHorizontal};
 	${spaceVertical};
 	display: flex;
 	flex: 1;
