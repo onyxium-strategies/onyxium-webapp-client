@@ -23,7 +23,7 @@ const AppContent = withRouter(({ location }) => {
 	);
 
 	if (!activeRoute) {
-		return <Redirect to="/strategies" />;
+		return <Redirect to="/funds" />;
 	}
 
 	return (

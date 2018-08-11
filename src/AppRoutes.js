@@ -2,11 +2,20 @@ import React from 'react';
 
 import { Route, Switch } from 'react-router-dom';
 
+import Funds from './containers/funds/Funds';
 import CreateStrategy from './containers/strategies/CreateStrategy';
 import Strategies from './containers/strategies/Strategies';
 import ViewStrategy from './containers/strategies/ViewStrategy';
 
 export const routes = [
+	{
+		path: '/funds',
+		component: Funds,
+		exact: true,
+		label: 'Funds',
+		icon: 'account_balance_wallet',
+		showLinkInSidebar: true
+	},
 	{
 		path: '/strategies',
 		component: Strategies,
