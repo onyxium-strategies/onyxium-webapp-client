@@ -15,7 +15,7 @@ const mapDispatchToProps = { userLogin };
 
 class Login extends Component {
 	handleSubmit = values => {
-		this.props.userLogin(values);
+		this.props.userLogin(values.email, values.password);
 	};
 
 	render() {

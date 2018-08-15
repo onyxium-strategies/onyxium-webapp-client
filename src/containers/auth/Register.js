@@ -13,7 +13,7 @@ const mapDispatchToProps = { userRegister };
 
 class Register extends Component {
 	handleSubmit = values => {
-		this.props.userRegister(values);
+		this.props.userRegister(values.email, values.password);
 	};
 
 	render() {

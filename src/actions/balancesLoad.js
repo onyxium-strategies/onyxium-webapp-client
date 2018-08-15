@@ -5,10 +5,10 @@ const data = {
 	}
 };
 
-export default function strategiesLoad(user) {
+export default function balancesLoad(user) {
 	return {
-		type: 'STRATEGIES_LOAD',
-		promise: fetch(`/api/strategy?userId=${user.id}`, data).then(response => {
+		type: 'BALANCES_LOAD',
+		promise: fetch(`/api/balances/${user.id}`, data).then(response => {
 			if (!response.ok) {
 				throw Error(response.statusText);
 			}

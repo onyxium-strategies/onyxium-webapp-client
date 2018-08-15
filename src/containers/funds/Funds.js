@@ -1,15 +1,26 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import { Line as LineChart } from 'react-chartjs';
-import { Paper, Table, TableBody, TableCell, TableHead, TableRow } from '@material-ui/core';
+import {
+	CircularProgress,
+	Paper,
+	Table,
+	TableBody,
+	TableCell,
+	TableHead,
+	TableRow
+} from '@material-ui/core';
 
-import { AppBody, Block, Flex } from '../../components';
+import { balancesLoad } from '../../actions';
+import { AppBody, Block, Flex, StateMessage } from '../../components';
 
-const funds = [
-	{ currency: 'BTC', value: 2000 },
-	{ currency: 'LTC', value: 1000 },
-	{ currency: 'ETH', value: 1250 },
-	{ currency: 'OMG', value: 1500 }
-];
+const mapStateToProps = ({ balances, user }) => ({
+	balances: balances.data,
+	isErrored: balances.isErrored,
+	isLoading: balances.isLoading,
+	user: user.data
+});
+const mapDispatchToProps = { balancesLoad };
 
 var lineChartData = {
 	labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
@@ -49,49 +60,108 @@ class Funds extends Component {
 	};
 
 	render() {
+		const { balances, isErrored, isLoading } = this.props;
+
+		const isLoaded = !isErrored && !isLoading;
+
 		return (
 			<AppBody>
-				<Flex spaceHorizontal="2rem">
-					<Block flex="1" innerRef={this.handleTableRef}>
-						<Paper>
-							<Table>
-								<TableHead>
-									<TableRow>
-										<TableCell>Currency</TableCell>
-										<TableCell numeric>Value</TableCell>
-									</TableRow>
-								</TableHead>
+				{isErrored && (
+					<Flex alignItems="center" flex="1" justifyContent="center">
+						<StateMessage
+							icon="error"
+							title="Error loading funds"
+							subTitle="An error occurred while loading your funds"
+						/>
+					</Flex>
+				)}
 
-								<TableBody>
-									{funds.map(fund => (
-										<TableRow key={fund.currency}>
-											<TableCell scope="row">{fund.currency}</TableCell>
-
-											<TableCell numeric>{fund.value}</TableCell>
-										</TableRow>
-									))}
-								</TableBody>
-							</Table>
-						</Paper>
-					</Block>
-
-					<Block flex="2">
-						{this.state.height !== null && (
-							<LineChart
-								data={lineChartData}
-								height={this.state.height}
-								options={{ maintainAspectRatio: false, responsive: true }}
+				{isLoading &&
+					!isErrored && (
+						<Flex alignItems="center" flex="1" justifyContent="center">
+							<StateMessage
+								icon={<CircularProgress size={80} />}
+								title="Loading funds"
 							/>
-						)}
-					</Block>
-				</Flex>
+						</Flex>
+					)}
+
+				{isLoaded &&
+					balances.length === 0 && (
+						<Flex alignItems="center" flex="1" justifyContent="center">
+							<StateMessage
+								icon="sentiment_very_dissatisfied"
+								title="No funds available yet"
+							/>
+						</Flex>
+					)}
+
+				{isLoaded &&
+					balances.length > 0 && (
+						<Flex spaceHorizontal="2rem">
+							<Block flex="1" innerRef={this.handleTableRef}>
+								<Paper>
+									<Table>
+										<TableHead>
+											<TableRow>
+												<TableCell>Currency</TableCell>
+												<TableCell numeric>Value</TableCell>
+											</TableRow>
+										</TableHead>
+
+										<TableBody>
+											{balances.map(balance => (
+												<TableRow key={balance.Id}>
+													<TableCell scope="row">
+														{balance.Symbol}
+													</TableCell>
+
+													<TableCell numeric>
+														{(
+															balance.Amount / balance.SubunitToUnit
+														).toFixed(8)}
+													</TableCell>
+												</TableRow>
+											))}
+										</TableBody>
+									</Table>
+								</Paper>
+							</Block>
+
+							<Block flex="2">
+								{this.state.height !== null && (
+									<LineChart
+										data={lineChartData}
+										height={this.state.height}
+										options={{ maintainAspectRatio: false, responsive: true }}
+									/>
+								)}
+							</Block>
+						</Flex>
+					)}
 			</AppBody>
 		);
 	}
 
-	componentDidMount() {
+	updateTableHeight() {
 		this.setState({ height: Math.max(this.tableDomNode.offsetHeight, 200) });
 	}
+
+	componentDidUpdate(prevProps) {
+		if (this.props.balances.length !== prevProps.balances.length) {
+			this.updateTableHeight();
+		}
+	}
+
+	componentDidMount() {
+		this.props.balancesLoad(this.props.user);
+
+		if (this.tableDomNode) {
+			this.updateTableHeight();
+		}
+	}
 }
+
+Funds = connect(mapStateToProps, mapDispatchToProps)(Funds);
 
 export default Funds;

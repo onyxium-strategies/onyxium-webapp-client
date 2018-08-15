@@ -1,9 +1,24 @@
 import { handle } from 'redux-pack';
 
+function getAuthenticatedUser() {
+	if (!window.localStorage) {
+		return null;
+	}
+
+	const userString = window.localStorage.getItem('user');
+	if (!userString) {
+		return null;
+	}
+
+	// Test if this is an actual user we can use.
+	const user = JSON.parse(userString);
+	return user.id ? user : null;
+}
+
 const initialState = {
 	isErrored: false,
 	isLoading: false,
-	data: null
+	data: getAuthenticatedUser()
 };
 
 const user = (state = initialState, action) => {
@@ -32,6 +47,13 @@ const user = (state = initialState, action) => {
 					data: action.payload || null
 				})
 			});
+
+		case 'USER_LOGOUT':
+			return {
+				isLoading: false,
+				isErrored: false,
+				data: null
+			};
 
 		default:
 			return state;

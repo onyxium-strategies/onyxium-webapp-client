@@ -24,8 +24,6 @@ let AppContent = ({ location, user }) => {
 		})
 	);
 
-	console.log('location.pathname', location.pathname);
-
 	if (!user.data && location.pathname !== '/login' && location.pathname !== '/register') {
 		return <Redirect to="/login" />;
 	}

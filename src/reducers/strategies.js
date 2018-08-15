@@ -54,6 +54,38 @@ const strategies = (state = initialState, action) => {
 				})
 			});
 
+		case 'STRATEGY_UPDATE':
+			return handle(state, action, {
+				start: prevState => ({
+					...prevState,
+					isLoading: true
+				}),
+				finish: prevState => ({
+					...prevState,
+					isLoading: false
+				}),
+				failure: prevState => ({
+					...prevState,
+					isLoading: false,
+					isErrored: true
+				}),
+				success: prevState => {
+					const index = prevState.data.findIndex(
+						strategy => strategy.id === action.payload.id
+					);
+
+					return {
+						...prevState,
+						isLoading: false,
+						data: [
+							...state.data.slice(0, index),
+							action.payload,
+							...state.data.slice(index + 1)
+						]
+					};
+				}
+			});
+
 		default:
 			return state;
 	}

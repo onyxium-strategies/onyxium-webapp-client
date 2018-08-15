@@ -13,6 +13,7 @@ import StrategyTree from './tree/StrategyTree';
 
 import testStrategy from '../../test-data/strategy.json';
 
+const mapStateToProps = ({ user }) => ({ user });
 const mapDispatchToProps = { strategyAdd };
 
 class CreateStrategy extends Component {
@@ -102,7 +103,7 @@ class CreateStrategy extends Component {
 	};
 
 	handleStrategySubmit = strategyName => {
-		this.props.strategyAdd(strategyName, this.state.strategy);
+		this.props.strategyAdd(strategyName, this.state.strategy, this.props.user.data);
 		this.props.history.push('/strategies');
 	};
 
@@ -168,6 +169,6 @@ class CreateStrategy extends Component {
 }
 
 CreateStrategy = withRouter(CreateStrategy);
-CreateStrategy = connect(null, mapDispatchToProps)(CreateStrategy);
+CreateStrategy = connect(mapStateToProps, mapDispatchToProps)(CreateStrategy);
 
 export default CreateStrategy;

@@ -1,4 +1,4 @@
-export default function strategyAdd(name, strategy) {
+export default function strategyAdd(name, strategy, user) {
 	const data = {
 		method: 'POST',
 		headers: {
@@ -7,7 +7,7 @@ export default function strategyAdd(name, strategy) {
 		},
 		body: JSON.stringify({
 			name,
-			userId: '5b6b390b8907ae05f0897510',
+			userId: user.id,
 			tree: strategy
 		})
 	};

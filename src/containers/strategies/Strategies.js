@@ -13,16 +13,17 @@ import {
 	ListItemText
 } from '@material-ui/core';
 
-import { strategiesLoad } from '../../actions';
+import { strategiesLoad, strategyUpdate } from '../../actions';
 import { AppBody, Flex, StateMessage } from '../../components';
 
-const mapStateToProps = ({ strategies }) => ({
+const mapStateToProps = ({ strategies, user }) => ({
 	isErrored: strategies.isErrored,
 	isLoading: strategies.isLoading,
-	strategies: strategies.data
+	strategies: strategies.data,
+	user: user.data
 });
 
-const mapDispatchToProps = { strategiesLoad };
+const mapDispatchToProps = { strategiesLoad, strategyUpdate };
 
 const labelByStatus = {
 	executing: 'Running',
@@ -35,6 +36,14 @@ const labelByStatus = {
 class Strategies extends Component {
 	handleStrategyClick = strategy => {
 		this.props.history.push(`/strategies/${strategy.id}`);
+	};
+
+	handleStartClick = strategy => {
+		this.props.strategyUpdate(strategy, { status: 'idle' });
+	};
+
+	handlePauseClick = strategy => {
+		this.props.strategyUpdate(strategy, { status: 'paused' });
 	};
 
 	render() {
@@ -106,8 +115,11 @@ class Strategies extends Component {
 															strategy.status === 'finished' ||
 															strategy.status === 'paused'
 														}
+														onClick={() =>
+															this.handlePauseClick(strategy)
+														}
 													>
-														<Icon>stop</Icon>
+														<Icon>pause</Icon>
 													</IconButton>
 
 													<IconButton
@@ -117,6 +129,9 @@ class Strategies extends Component {
 															strategy.status === 'executing' ||
 															strategy.status === 'idle' ||
 															strategy.status === 'running'
+														}
+														onClick={() =>
+															this.handleStartClick(strategy)
 														}
 													>
 														<Icon>play_arrow</Icon>
@@ -140,7 +155,7 @@ class Strategies extends Component {
 	}
 
 	componentDidMount() {
-		this.props.strategiesLoad();
+		this.props.strategiesLoad(this.props.user);
 	}
 }
 
