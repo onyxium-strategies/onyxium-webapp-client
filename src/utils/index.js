@@ -8,6 +8,8 @@ export { default as validateFormValues } from './form/validateFormValues';
 
 export { default as clearSelection } from './selection/clearSelection';
 
+export { default as aggregateTransactions } from './transactions/aggregateTransactions';
+
 export { default as traverseAndGetNode } from './tree-operations/traverseAndGetNode';
 export { default as traverseAndRemoveNode } from './tree-operations/traverseAndRemoveNode';
 export { default as traverseAndUpdateNode } from './tree-operations/traverseAndUpdateNode';

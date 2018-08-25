@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Line as LineChart } from 'react-chartjs';
+import { Line as LineChart } from 'react-chartjs-2';
 import {
 	CircularProgress,
 	Paper,
@@ -11,46 +11,34 @@ import {
 	TableRow
 } from '@material-ui/core';
 
-import { balancesLoad } from '../../actions';
+import { balancesLoad, transactionsLoad } from '../../actions';
 import { AppBody, Block, Flex, StateMessage } from '../../components';
 
-const mapStateToProps = ({ balances, user }) => ({
+const mapStateToProps = ({ balances, transactions, user }) => ({
 	balances: balances.data,
-	isErrored: balances.isErrored,
-	isLoading: balances.isLoading,
+	isBalancesErrored: balances.isErrored,
+	isBalancesLoading: balances.isLoading,
+	transactions: transactions.data,
+	isTransactionsErrored: transactions.isErrored,
+	isTransactionsLoading: transactions.isLoading,
 	user: user.data
 });
-const mapDispatchToProps = { balancesLoad };
+const mapDispatchToProps = { balancesLoad, transactionsLoad };
 
-var lineChartData = {
-	labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
-	datasets: [
-		{
-			label: 'My First dataset',
-			fillColor: 'rgba(220,220,220,0.2)',
-			strokeColor: 'rgba(220,220,220,1)',
-			pointColor: 'rgba(220,220,220,1)',
-			pointStrokeColor: '#fff',
-			pointHighlightFill: '#fff',
-			pointHighlightStroke: 'rgba(220,220,220,1)',
-			data: [65, 59, 80, 81, 56, 55, 40]
-		},
-		{
-			label: 'My Second dataset',
-			fillColor: 'rgba(151,187,205,0.2)',
-			strokeColor: 'rgba(151,187,205,1)',
-			pointColor: 'rgba(151,187,205,1)',
-			pointStrokeColor: '#fff',
-			pointHighlightFill: '#fff',
-			pointHighlightStroke: 'rgba(151,187,205,1)',
-			data: [28, 48, 40, 19, 86, 27, 90]
-		}
-	]
+const determineChartContainerStyles = isVisible => ({
+	opacity: isVisible ? 1 : 0,
+	transition: 'opacity .3s ease-in-out'
+});
+
+const chartOptions = {
+	maintainAspectRatio: false,
+	responsive: true
 };
 
 class Funds extends Component {
 	state = {
-		height: null
+		height: null,
+		selectedCurrency: null
 	};
 
 	tableDomNode = null;
@@ -59,14 +47,20 @@ class Funds extends Component {
 		this.tableDomNode = domNode;
 	};
 
-	render() {
-		const { balances, isErrored, isLoading } = this.props;
+	handleTableRowClick = balance => this.setState({ selectedCurrency: balance.Symbol });
+	handleTableRowMouseEnter = balance => this.setState({ hoveredCurrency: balance.Symbol });
+	handleTableRowMouseLeave = () => this.setState({ hoveredCurrency: null });
 
-		const isLoaded = !isErrored && !isLoading;
+	render() {
+		const { balances, isBalancesErrored, isBalancesLoading, transactions } = this.props;
+
+		const isLoaded = !isBalancesErrored && !isBalancesLoading;
+
+		const data = transactions && transactions[this.state.selectedCurrency];
 
 		return (
 			<AppBody>
-				{isErrored && (
+				{isBalancesErrored && (
 					<Flex alignItems="center" flex="1" justifyContent="center">
 						<StateMessage
 							icon="error"
@@ -76,8 +70,8 @@ class Funds extends Component {
 					</Flex>
 				)}
 
-				{isLoading &&
-					!isErrored && (
+				{isBalancesLoading &&
+					!isBalancesErrored && (
 						<Flex alignItems="center" flex="1" justifyContent="center">
 							<StateMessage
 								icon={<CircularProgress size={80} />}
@@ -111,7 +105,26 @@ class Funds extends Component {
 
 										<TableBody>
 											{balances.map(balance => (
-												<TableRow key={balance.Id}>
+												<TableRow
+													key={balance.Id}
+													onClick={() =>
+														this.handleTableRowClick(balance)
+													}
+													onMouseEnter={() =>
+														this.handleTableRowMouseEnter(balance)
+													}
+													onMouseLeave={() =>
+														this.handleTableRowMouseLeave()
+													}
+													hover={
+														this.state.hoveredCurrency ===
+														balance.Symbol
+													}
+													selected={
+														this.state.selectedCurrency ===
+														balance.Symbol
+													}
+												>
 													<TableCell scope="row">
 														{balance.Symbol}
 													</TableCell>
@@ -128,15 +141,33 @@ class Funds extends Component {
 								</Paper>
 							</Block>
 
-							<Block flex="2">
-								{this.state.height !== null && (
-									<LineChart
-										data={lineChartData}
-										height={this.state.height}
-										options={{ maintainAspectRatio: false, responsive: true }}
-									/>
-								)}
-							</Block>
+							<Flex flex="2" flexDirection="column">
+								<Block applyCss={determineChartContainerStyles(!!data)}>
+									{!!data && (
+										<LineChart
+											key={this.state.selectedCurrency}
+											data={data}
+											height={this.state.height}
+											options={chartOptions}
+										/>
+									)}
+								</Block>
+
+								{this.state.selectedCurrency &&
+									!data && (
+										<Flex alignItems="center" flex="1" justifyContent="center">
+											<StateMessage
+												icon="show_chart"
+												title={
+													'No transactions for "' +
+													this.state.selectedCurrency +
+													'"'
+												}
+												subTitle="You haven't made any transactions using this currency, select another currency from the list."
+											/>
+										</Flex>
+									)}
+							</Flex>
 						</Flex>
 					)}
 			</AppBody>
@@ -144,21 +175,37 @@ class Funds extends Component {
 	}
 
 	updateTableHeight() {
-		this.setState({ height: Math.max(this.tableDomNode.offsetHeight, 200) });
+		if (!this.tableDomNode) {
+			return;
+		}
+
+		setTimeout(() => {
+			this.setState({ height: Math.max(this.tableDomNode.offsetHeight, 200) }, () => {
+				window.dispatchEvent(new Event('resize'));
+			});
+		}, 400);
+	}
+
+	componentWillReceiveProps(nextProps) {
+		if (nextProps.balances.length > 0 && this.state.selectedCurrency === null) {
+			this.setState({ selectedCurrency: nextProps.balances[0].Symbol });
+		}
 	}
 
 	componentDidUpdate(prevProps) {
-		if (this.props.balances.length !== prevProps.balances.length) {
+		if (
+			(!this.state.height && this.tableDomNode) ||
+			(this.props.balances.length > 0 && this.props.transactions !== prevProps.transactions)
+		) {
 			this.updateTableHeight();
 		}
 	}
 
 	componentDidMount() {
 		this.props.balancesLoad(this.props.user);
+		this.props.transactionsLoad(this.props.user);
 
-		if (this.tableDomNode) {
-			this.updateTableHeight();
-		}
+		this.updateTableHeight();
 	}
 }
 
