@@ -1,4 +1,4 @@
-FROM ubuntu:latest
+FROM ubuntu:latest as app-build-dep
 
 RUN apt-get update && \
 	apt-get upgrade -y && \
@@ -14,8 +14,10 @@ COPY . /opt/app
 WORKDIR /opt/app
 
 RUN npm install && npm run build
-RUN mv -f ./build/* /var/www/html
 
-ADD nginx.default.conf /etc/nginx/sites-available/default
-EXPOSE 80
-CMD nginx -g "daemon off;"
+
+FROM nginx
+
+COPY --from=app-build-dep /opt/app/build /usr/share/nginx/html
+COPY nginx.default.conf /etc/nginx/conf.d/default.conf
+CMD sed -i -e 's/$PORT/'"$PORT"'/g' /etc/nginx/conf.d/default.conf && nginx -g 'daemon off;'
